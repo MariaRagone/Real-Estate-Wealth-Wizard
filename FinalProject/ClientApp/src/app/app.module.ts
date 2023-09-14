@@ -11,6 +11,8 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PropertyListingsComponent } from './Components/property-listings/property-listings.component';
 import { PropertyDetailsComponent } from './Components/property-details/property-details.component';
+import { MortgageFormComponent } from './Components/mortgage-form/mortgage-form.component';
+import { UserComponent } from './Components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { PropertyDetailsComponent } from './Components/property-details/property
     CounterComponent,
     FetchDataComponent,
     PropertyListingsComponent,
-    PropertyDetailsComponent
+    PropertyDetailsComponent,
+    MortgageFormComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -8,7 +8,8 @@ const PROXY_CONFIG = [
     context: [
       "/api/PropertiesByPostal",
       "/api/PropertyDetails",
-      "/api/MortgageCalculator"
+      "/api/MortgageCalculator",
+      "/api/User"
 
    ],
     target: target,
