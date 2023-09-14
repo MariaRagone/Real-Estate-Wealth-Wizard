@@ -4,10 +4,10 @@
     public class PropertiesByPostalModel
     {
         public int status { get; set; }
-        public Data data { get; set; }
+        public PostalData data { get; set; }
     }
 
-    public class Data
+    public class PostalData
     {
         public Home_Search home_search { get; set; }
         public Geo geo { get; set; }
@@ -37,24 +37,24 @@
         public int list_price { get; set; }
         public bool matterport { get; set; }
         public string property_id { get; set; }
-        public Flags flags { get; set; }
-        public Lead_Attributes lead_attributes { get; set; }
+        public PostalFlags flags { get; set; }
+        public Postal_Lead_Attributes lead_attributes { get; set; }
         public object community { get; set; }
         public Products products { get; set; }
-        public Virtual_Tours[] virtual_tours { get; set; }
-        public Description description { get; set; }
+        public Postal_Virtual_Tours[] virtual_tours { get; set; }
+        public PostalDescription description { get; set; }
         public string listing_id { get; set; }
         public int? price_reduced_amount { get; set; }
-        public Location location { get; set; }
+        public PostalLocation location { get; set; }
         public Other_Listings other_listings { get; set; }
     }
 
-    public class Primary_Photo
+    public class PostalPrimary_Photo
     {
         public string href { get; set; }
     }
 
-    public class Source
+    public class PostalSource
     {
         public Agent[] agents { get; set; }
         public string id { get; set; }
@@ -63,7 +63,7 @@
         public string type { get; set; }
     }
 
-    public class Agent
+    public class PostalAgent
     {
         public string office_name { get; set; }
     }
@@ -73,7 +73,7 @@
         public string public_record_id { get; set; }
     }
 
-    public class Flags
+    public class PostalFlags
     {
         public bool? is_new_construction { get; set; }
         public object is_subdivision { get; set; }
@@ -86,26 +86,26 @@
         public bool? is_contingent { get; set; }
     }
 
-    public class Lead_Attributes
+    public class Postal_Lead_Attributes
     {
         public bool show_contact_an_agent { get; set; }
-        public Opcity_Lead_Attributes opcity_lead_attributes { get; set; }
+        public Postal_Opcity_Lead_Attributes opcity_lead_attributes { get; set; }
         public string lead_type { get; set; }
     }
 
-    public class Opcity_Lead_Attributes
+    public class Postal_Opcity_Lead_Attributes
     {
         public bool flip_the_market_enabled { get; set; }
         public bool cashback_enabled { get; set; }
     }
 
-    public class Products
-    {
-        public string[] products { get; set; }
-        public string brand_name { get; set; }
-    }
+    //public class Products
+    //{
+    //    public string[] products { get; set; }
+    //    public string brand_name { get; set; }
+    //}
 
-    public class Description
+    public class PostalDescription
     {
         public int? year_built { get; set; }
         public object baths_3qtr { get; set; }
@@ -125,14 +125,14 @@
         public string type { get; set; }
     }
 
-    public class Location
+    public class PostalLocation
     {
-        public Address address { get; set; }
+        public PostalAddress address { get; set; }
         public string street_view_url { get; set; }
-        public County county { get; set; }
+        public PostalCounty county { get; set; }
     }
 
-    public class Address
+    public class PostalAddress
     {
         public string postal_code { get; set; }
         public string state { get; set; }
@@ -142,24 +142,24 @@
         public string line { get; set; }
     }
 
-    public class Coordinate
-    {
-        public float lon { get; set; }
-        public float lat { get; set; }
-    }
+    //public class Coordinate
+    //{
+    //    public float lon { get; set; }
+    //    public float lat { get; set; }
+    //}
 
-    public class County
+    public class PostalCounty
     {
         public string fips_code { get; set; }
         public string name { get; set; }
     }
 
-    public class Other_Listings
-    {
-        public Rdc[] rdc { get; set; }
-    }
+    //public class Other_Listings
+    //{
+    //    public Rdc[] rdc { get; set; }
+    //}
 
-    public class Rdc
+    public class Postal_Rdc
     {
         public string listing_id { get; set; }
         public object listing_key { get; set; }
@@ -174,12 +174,12 @@
         public string type { get; set; }
     }
 
-    public class Photo
+    public class Postal_Photo
     {
         public string href { get; set; }
     }
 
-    public class Virtual_Tours
+    public class Postal_Virtual_Tours
     {
         public object type { get; set; }
         public string href { get; set; }
@@ -208,12 +208,12 @@
         public Geo_Statistics geo_statistics { get; set; }
     }
 
-    public class Geo_Statistics
-    {
-        public Housing_Market housing_market { get; set; }
-    }
+    //public class Geo_Statistics
+    //{
+    //    public Housing_Market housing_market { get; set; }
+    //}
 
-    public class Housing_Market
+    public class Postal_Housing_Market
     {
         public By_Prop_Type[] by_prop_type { get; set; }
         public int median_listing_price { get; set; }
