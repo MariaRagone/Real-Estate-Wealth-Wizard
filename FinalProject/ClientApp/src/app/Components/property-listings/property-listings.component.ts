@@ -4,6 +4,8 @@ import { PropertiesByPostal } from 'src/app/Models/properties-by-postal';
 import { PropertyDetails } from 'src/app/Models/property-details';
 import { FavoriteService } from 'src/app/Services/favorite.service';
 import { PropertiesService } from 'src/app/Services/properties.service';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+
 
 @Component({
   selector: 'app-property-listings',
@@ -13,17 +15,26 @@ import { PropertiesService } from 'src/app/Services/properties.service';
 export class PropertyListingsComponent {
   PropertyListResult: PropertiesByPostal = {} as PropertiesByPostal;
   postal_code:string = "";
+  user: SocialUser = {} as SocialUser;
+  loggedIn: boolean = false;
+
+ 
 
 
   FavoriteListResult: Favorite[] = [];
 
-  constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService) {}
+  constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService) {}
 
+
+  //Run the method location based on the IP Run the method location based on the IP address
   ngOnInit():void{
-    this._propertiesService.GetAllByPostalCode("48420").subscribe((response:PropertiesByPostal)=> {
-      console.log(response);
-      this.PropertyListResult = response;
-  });
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+    });
+    this.GetProperties("48420");
+
+
 }
 
 
@@ -37,6 +48,13 @@ AddFavorites(googleId:string, propertyId:string):void{
     this.FavoriteListResult.push(response);
   });
 }
-
-
+GetProperties(ZipCode:string):void{
+  this._propertiesService.GetAllByPostalCode(ZipCode).subscribe((response:PropertiesByPostal)=> {
+    console.log(response);
+    this.PropertyListResult = response
+  });
 }
+}
+
+
+
