@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { Favorite } from 'src/app/Models/favorite';
 import { PropertiesByPostal } from 'src/app/Models/properties-by-postal';
+import { PropertyDetails } from 'src/app/Models/property-details';
+import { FavoriteService } from 'src/app/Services/favorite.service';
 import { PropertiesService } from 'src/app/Services/properties.service';
 
 @Component({
@@ -11,7 +14,12 @@ export class PropertyListingsComponent {
   PropertyListResult: PropertiesByPostal = {} as PropertiesByPostal;
   postal_code:string = "";
 
-  constructor(private _propertiesService: PropertiesService) {}
+  currentGoogleId: string = "";
+  selectedPropertyId: string = "";
+
+  FavoriteListResult: Favorite[] = [];
+
+  constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService) {}
 
   ngOnInit():void{
     this._propertiesService.GetAllByPostalCode("48420").subscribe((response:PropertiesByPostal)=> {
@@ -19,4 +27,16 @@ export class PropertyListingsComponent {
       this.PropertyListResult = response;
   });
 }
+
+AddFavorites():void{
+  let favorite:Favorite = {} as Favorite;
+  // this._eventService.AddFavorite();
+  favorite.googleId = this.currentGoogleId;
+  favorite.propertyId = this.selectedPropertyId;
+  this._favoriteService.AddFavorite(favorite).subscribe((response:Favorite) =>{
+    console.log(response)
+    this.FavoriteListResult.push(response);
+  });
+}
+
 }

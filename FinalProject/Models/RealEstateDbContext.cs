@@ -15,6 +15,8 @@ public partial class RealEstateDbContext : DbContext
     {
     }
 
+    public virtual DbSet<Favorite> Favorites { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -23,6 +25,19 @@ public partial class RealEstateDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Favorite>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Favorite__3213E83FF821BBF4");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.GoogleId)
+                .HasMaxLength(255)
+                .HasColumnName("googleID");
+            entity.Property(e => e.PropertyId)
+                .HasMaxLength(255)
+                .HasColumnName("propertyID");
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Users__3213E83F2552E60C");

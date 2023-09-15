@@ -13,6 +13,7 @@ import { PropertyListingsComponent } from './Components/property-listings/proper
 import { PropertyDetailsComponent } from './Components/property-details/property-details.component';
 import { MortgageFormComponent } from './Components/mortgage-form/mortgage-form.component';
 import { UserComponent } from './Components/user/user.component';
+import { FavoriteListComponent } from './Component/favorite-list/favorite-list.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserComponent } from './Components/user/user.component';
     PropertyListingsComponent,
     PropertyDetailsComponent,
     MortgageFormComponent,
-    UserComponent
+    UserComponent,
+    FavoriteListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
