@@ -1,1 +1,30 @@
-<p>mortgage-form works!</p>
+<h1>Let's find your best option!</h1>
+<h2>Enter your information to the form below:</h2>
+<div>
+<form (ngSubmit)="submitMortgage()">
+    <table>
+        <tr>
+   <td><p>Down Payment</p></td>
+    <td><input type="number" placeholder="Down Payment" [(ngModel)]="newMortgage.downPayment" name="downPayment"/></td>
+</tr>
+<tr>
+    <td><p>Loan Term</p></td>
+    <td><input type="number" placeholder="Loan Term" [(ngModel)]="newMortgage.loanTerm" name="loanTerm" /></td>
+</tr>
+<tr>
+    <td><p>Interest Rate</p>
+    <td><input type="number" placeholder="Interest Rate" [(ngModel)]="newMortgage.interestRate" name="interestRate" /></td>
+</tr>
+<tr>
+    <td><p>Will you need a loan? &nbsp; <input type="checkbox" [(ngModel)]="newMortgage.loan" /></p></td>
+</tr>
+<tr>
+    <td><p>Zip code:</p></td>
+<td><input type="text" [(ngModel)]="newMortgage.zipCode" name="zipCode" /></td>
+</tr>
+<tr>
+   <td> <button type="submit">See results!</button> </td>
+    </tr>
+</table>
+</form>
+</div>
