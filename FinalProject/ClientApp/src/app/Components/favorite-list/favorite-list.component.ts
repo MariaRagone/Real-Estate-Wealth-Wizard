@@ -12,11 +12,11 @@ export class FavoriteListComponent {
 
   
 
-name:string = "";
-@Input() DisplayFavorite:User = {} as User;
-FavoriteListResult:Favorite[] = [];
-UserListResult:User[] = [];
-
+  @Input() DisplayFavorite:User = {} as User;
+  FavoriteListResult:Favorite[] = [];
+  UserListResult:User[] = [];
+  name:string = "";
+  
 constructor(private _favoriteService:FavoriteService) { }
 
    ngOnInit(): void {

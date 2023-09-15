@@ -13,7 +13,12 @@ import { PropertyListingsComponent } from './Components/property-listings/proper
 import { PropertyDetailsComponent } from './Components/property-details/property-details.component';
 import { MortgageFormComponent } from './Components/mortgage-form/mortgage-form.component';
 import { UserComponent } from './Components/user/user.component';
-import { FavoriteListComponent } from './Component/favorite-list/favorite-list.component';
+import { FavoriteListComponent } from './Components/favorite-list/favorite-list.component';
+import {
+  GoogleLoginProvider,
+  SocialAuthServiceConfig,
+  SocialLoginModule,
+} from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -26,11 +31,13 @@ import { FavoriteListComponent } from './Component/favorite-list/favorite-list.c
     PropertyDetailsComponent,
     MortgageFormComponent,
     UserComponent,
-    FavoriteListComponent
+    FavoriteListComponent,
+    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    SocialLoginModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -38,7 +45,24 @@ import { FavoriteListComponent } from './Component/favorite-list/favorite-list.c
       { path: 'fetch-data', component: FetchDataComponent },
     ])
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+    providers: [
+      {
+
+
+    provide: 'SocialAuthServiceConfig',
+  	useValue: {
+    	autoLogin: false,
+    	providers: [
+      	{
+        	id: GoogleLoginProvider.PROVIDER_ID,
+        	provider: new GoogleLoginProvider(
+          	'591233259108-7r5kjrjo59uhpoak4qukqgqb0uvs29q8'
+        	)
+      	}
+    	]
+  	} as SocialAuthServiceConfig,
+	} 
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

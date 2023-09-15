@@ -1,3 +1,4 @@
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component } from '@angular/core';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
@@ -8,12 +9,20 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent {
-  constructor(private _userService: UserService) {}
+  constructor(
+    private _userService: UserService,
+    private authService: SocialAuthService
+  ) {}
   newUser: User = {} as User; //variable that connects your inputs
-
+  user: SocialUser = {} as SocialUser;
+  loggedIn: boolean = false;
   id: number = 1;
-  ngOnInit() {
-    this.getUser();
+  ngOnInit(): void {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = user != null;
+      this.getUser();
+    });
   }
 
   getUser() {

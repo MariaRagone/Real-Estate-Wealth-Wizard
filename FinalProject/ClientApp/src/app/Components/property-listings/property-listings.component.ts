@@ -14,8 +14,6 @@ export class PropertyListingsComponent {
   PropertyListResult: PropertiesByPostal = {} as PropertiesByPostal;
   postal_code:string = "";
 
-  currentGoogleId: string = "";
-  selectedPropertyId: string = "";
 
   FavoriteListResult: Favorite[] = [];
 
@@ -28,15 +26,17 @@ export class PropertyListingsComponent {
   });
 }
 
-AddFavorites():void{
+
+AddFavorites(googleId:string, propertyId:string):void{
   let favorite:Favorite = {} as Favorite;
   // this._eventService.AddFavorite();
-  favorite.googleId = this.currentGoogleId;
-  favorite.propertyId = this.selectedPropertyId;
+  favorite.googleId = googleId;
+  favorite.propertyId = propertyId;
   this._favoriteService.AddFavorite(favorite).subscribe((response:Favorite) =>{
     console.log(response)
     this.FavoriteListResult.push(response);
   });
 }
+
 
 }
