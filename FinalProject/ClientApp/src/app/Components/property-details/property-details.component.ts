@@ -24,7 +24,7 @@ export class PropertyDetailsComponent {
 
   ngOnInit():void{
     this._propertyDetailsService.GetPropertyDetails("4390128585").subscribe((response:PropertyDetails)=> {
-      console.log(response);
+      // console.log(response);
       this.PropertyDetailsResult = response;
   });
 }

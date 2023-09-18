@@ -6,6 +6,7 @@ import { FavoriteService } from 'src/app/Services/favorite.service';
 import { PropertiesService } from 'src/app/Services/properties.service';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { MortgageFormService } from 'src/app/Services/mortgage-form.service';
+import { User } from 'src/app/Models/user';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class PropertyListingsComponent {
   user: SocialUser = {} as SocialUser;
   loggedIn: boolean = false;
   FavoriteListResult: Favorite[] = [];
+  appUser: User = {} as User;
 
   constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService, private _mortgageFormService: MortgageFormService) {}
 
@@ -29,11 +31,16 @@ export class PropertyListingsComponent {
       this.user = user;
       this.loggedIn = (user != null);
     });
-    this.GetProperties("48420");
+    // this.GetProperties("48420");
 
 
 }
 
+//this method runs when form is submitted
+NewMortgage(newUser:User){
+  this.appUser = newUser;
+  this.GetProperties(this.appUser.zipCode);
+}
 
 AddFavorites(googleId:string, propertyId:string):void{
   let favorite:Favorite = {} as Favorite;
@@ -41,13 +48,13 @@ AddFavorites(googleId:string, propertyId:string):void{
   favorite.googleId = googleId;
   favorite.propertyId = propertyId;
   this._favoriteService.AddFavorite(favorite).subscribe((response:Favorite) =>{
-    console.log(response)
+    // console.log(response)
     this.FavoriteListResult.push(response);
   });
 }
 GetProperties(ZipCode:string):void{
   this._propertiesService.GetAllByPostalCode(ZipCode).subscribe((response:PropertiesByPostal)=> {
-    console.log(response);
+    // console.log(response);
     this.PropertyListResult = response
   });
 }
@@ -58,7 +65,7 @@ RemoveFavorite(googleId: string, propertyId:string):void{
   favorite.googleId = googleId;
   favorite.propertyId = propertyId;
   this._favoriteService.RemoveFavorite(googleId, propertyId).subscribe((response:Favorite) =>{
-    console.log(response)
+    // console.log(response)
     this.FavoriteListResult.push(response);
   });
 }

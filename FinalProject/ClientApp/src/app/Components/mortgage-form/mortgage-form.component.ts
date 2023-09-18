@@ -36,15 +36,15 @@ export class MortgageFormComponent {
 }
 
   submitMortgage():void{
-    this.newMortgage.downPayment = 0;
-    this.newMortgage.loanTerm = 0;
-    this.newMortgage.interestRate = 0;
-    if(this.newMortgage.loan == null){
-      this.newMortgage.loan = false;
-    }
-    this.newMortgage.zipCode = "";
+    // this.newMortgage.downPayment = 0;
+    // this.newMortgage.loanTerm = 0;
+    // this.newMortgage.interestRate = 0;
+    // if(this.newMortgage.loan == null){
+    //   this.newMortgage.loan = false;
+    // }
+    // this.newMortgage.zipCode = "";
     this.MortgageCreated.emit(this.newMortgage);
-    this.newMortgage={} as User
+    this.newMortgage={} as User;
     
   }
 

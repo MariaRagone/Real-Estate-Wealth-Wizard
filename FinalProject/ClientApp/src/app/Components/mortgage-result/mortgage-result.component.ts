@@ -10,23 +10,29 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./mortgage-result.component.css']
 })
 export class MortgageResultComponent {
-  @Input() DisplayResult:PropertiesByPostal = {} as PropertiesByPostal;
+  @Input() DisplayResult:number = {} as number;
+  @Input() downPament:number = {} as number;
+  loneAmont:number=0;
+  user:User = {} as User;
   constructor(private _userService:UserService) {}
-
+ 
   ngOnInit():void {
-    // this._userService.
+    this.loneAmont = this.calculateLoanAmount();
   }
 
-  NewMortgage(newUser:User){
-    // this._userService.SubmitMortgage(newUser).subscribe((response: User) =>{
-    //   console.log(response);
-    //   this.MortgageCalcResult.push(response);
-    // });
-  }
+  // NewMortgage(newUser:User){
+  //   this.user = newUser;
+  //   this.downPament = this.user.downPayment;
+  //   this.loneAmont=this.calculateLoanAmount(this.DisplayResult,this.downPament)
+  //   // this._userService.SubmitMortgage(newUser).subscribe((response: User) =>{
+  //   //   console.log(response);
+  //   //   this.MortgageCalcResult.push(response);
+  //   // });
+  // }
 
-  calculateLoanAmount(purchaseprice:number, downPayment:number):number{
+  calculateLoanAmount():number{
     let result:number = 0;
-    result = purchaseprice - downPayment;
+    result = this.DisplayResult - this.downPament;
     return result;
   }
 }
