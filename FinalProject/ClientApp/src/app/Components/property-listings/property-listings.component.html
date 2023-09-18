@@ -12,20 +12,18 @@
 </body>
 </html>
 
-
-
-
 <div *ngFor="let p of PropertyListResult.data.home_search.results">
    
-    <img src="{{p.primary_photo}}"/>
-    <p>{{p.list_price}}</p>
-    <p>{{p.location.address}}</p>
-    <p>{{p.description.beds}}</p>
-    <P>{{p.description.baths}}</P>
-    <p>{{p.description.sqft}}</p>
-    <button id="heart" (click)="AddFavorites(user.id,p.property_id)">
+    <img style="width: 300px;" *ngIf="p.primary_photo?.href != null" src="{{p.primary_photo?.href}}"/>
+    <p *ngIf="p.primary_photo?.href == null"><img src = "https://en.pimg.jp/072/139/682/1/72139682.jpg"></p>
+    <p>Price: {{p.list_price}}</p>
+    <p>Address: {{p.location.address.line}}, {{p.location.address.city}}, {{p.location.address.postal_code}} {{p.location.address.state_code}}</p>
+    <p>#Beds: {{p.description.beds}}</p>
+    <P># Baths: {{p.description.baths}}</P>
+    <p>Square Feet: {{p.description.sqft}}</p>
+    <button *ngIf="" id="heart" (click)="AddFavorites(user.id,p.property_id)">
         <i class="fas fa-heart">
-
         </i></button>
+        <td><button (click)="RemoveFavorite(user.id, p.property_id)">Delete</button> </td>
 </div>
 <!-- <button id="heart" (click)="AddFavorites("4200",p.property_id)"i class="fas fa-heart"></i>hi </button> -->

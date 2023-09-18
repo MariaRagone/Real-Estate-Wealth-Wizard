@@ -44,10 +44,10 @@ namespace FinalProject.Controllers
 
 
         // api/Favorite/3
-        [HttpDelete("{id}")]
-        public Favorite DeleteById(int id)
+        [HttpDelete("{googleId}/{propertyId}")]
+        public Favorite DeleteById(string googleId, string propertyId)
         {
-            Favorite deleted = dbContext.Favorites.Find(id);
+            Favorite deleted = dbContext.Favorites.FirstOrDefault(f => f.GoogleId == googleId && f.PropertyId == propertyId);
             dbContext.Favorites.Remove(deleted);
             dbContext.SaveChanges();
 

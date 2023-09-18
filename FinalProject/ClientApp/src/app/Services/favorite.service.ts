@@ -18,7 +18,11 @@ export class FavoriteService {
     return this.http.post<Favorite>(`${this.baseUrl}api/Favorite`, newFavorite);
   }
 
-  DeleteFavorite(id:number):Observable<Favorite>{
-    return this.http.delete<Favorite>(`${this.baseUrl}api/Favorite/${id}`);
+  RemoveFavorite(googleId:string, propertyId: string):Observable<Favorite>{
+    return this.http.delete<Favorite>(`${this.baseUrl}api/Favorite/${googleId}/${propertyId}` );
   }
+
+  // DeleteFavorite(id:number):Observable<Favorite>{
+  //   return this.http.delete<Favorite>(`${this.baseUrl}api/Favorite/${id}`);
+  // }
 }

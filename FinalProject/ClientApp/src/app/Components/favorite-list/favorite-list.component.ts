@@ -32,7 +32,17 @@ constructor(private _favoriteService:FavoriteService) { }
      });
 
    }
-
+   RemoveFavorite(googleId: string, propertyId:string):void{
+    let favorite:Favorite = {} as Favorite;
+    // this._eventService.AddFavorite();
+    favorite.googleId = googleId;
+    favorite.propertyId = propertyId;
+    this._favoriteService.RemoveFavorite(googleId, propertyId).subscribe((response:Favorite) =>{
+      console.log(response)
+      this.FavoriteListResult.push(response);
+    });
+  }
+  
   //  DisplayEvents(): void {
   //   this._favoriteService.GetEvents().subscribe((response:Event[]) => {
   //     console.log(response);
@@ -40,13 +50,13 @@ constructor(private _favoriteService:FavoriteService) { }
   //   });
   // }
 
-  DeleteFavorite(id:number):void{
-    //feedback for user
-    let target:number = this.FavoriteListResult.findIndex(e => e.id ==id);
-    this.FavoriteListResult.splice(target,1);
+  // DeleteFavorite(id:number):void{
+  //   //feedback for user
+  //   let target:number = this.FavoriteListResult.findIndex(e => e.id ==id);
+  //   this.FavoriteListResult.splice(target,1);
 
-    this._favoriteService.DeleteFavorite(id).subscribe((response:Favorite) => {
-      console.log(response);
-    });
-  }
+  //   this._favoriteService.RemoveFavorite(id).subscribe((response:Favorite) => {
+  //     console.log(response);
+  //   });
+  // }
 }

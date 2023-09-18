@@ -17,10 +17,6 @@ export class PropertyListingsComponent {
   postal_code:string = "";
   user: SocialUser = {} as SocialUser;
   loggedIn: boolean = false;
-
- 
-
-
   FavoriteListResult: Favorite[] = [];
 
   constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService) {}
@@ -54,7 +50,27 @@ GetProperties(ZipCode:string):void{
     this.PropertyListResult = response
   });
 }
-}
 
+RemoveFavorite(googleId: string, propertyId:string):void{
+  let favorite:Favorite = {} as Favorite;
+  // this._eventService.AddFavorite();
+  favorite.googleId = googleId;
+  favorite.propertyId = propertyId;
+  this._favoriteService.RemoveFavorite(googleId, propertyId).subscribe((response:Favorite) =>{
+    console.log(response)
+    this.FavoriteListResult.push(response);
+  });
+}
+// RemoveFavorite(id: number): void {
+//   //feedback for user
+//   let target: number = this.FavoriteListResult.findIndex((e) => e.id == id);
+//   this.FavoriteListResult.splice(target, 1);
+
+//   this._favoriteService.DeleteFavorite(id).subscribe((response: Favorite) => {
+//     console.log(response);
+//   });
+// }
+
+}
 
 
