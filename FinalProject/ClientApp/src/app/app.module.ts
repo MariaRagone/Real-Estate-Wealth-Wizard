@@ -19,6 +19,7 @@ import {
   SocialAuthServiceConfig,
   SocialLoginModule,
 } from '@abacritt/angularx-social-login';
+import { MortgageResultComponent } from './Components/mortgage-result/mortgage-result.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {
     MortgageFormComponent,
     UserComponent,
     FavoriteListComponent,
+    MortgageResultComponent,
     
   ],
   imports: [
