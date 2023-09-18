@@ -5,6 +5,7 @@ import { PropertyDetails } from 'src/app/Models/property-details';
 import { FavoriteService } from 'src/app/Services/favorite.service';
 import { PropertiesService } from 'src/app/Services/properties.service';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { MortgageFormService } from 'src/app/Services/mortgage-form.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class PropertyListingsComponent {
   loggedIn: boolean = false;
   FavoriteListResult: Favorite[] = [];
 
-  constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService) {}
+  constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService, private _mortgageFormService: MortgageFormService) {}
 
 
   //Run the method location based on the IP Run the method location based on the IP address
@@ -61,6 +62,13 @@ RemoveFavorite(googleId: string, propertyId:string):void{
     this.FavoriteListResult.push(response);
   });
 }
+
+calculateLoanAmount(list_price:number, downPayment:number):number{
+  let result:number = 0;
+  result = list_price - downPayment;
+  return result;
+}
+
 // RemoveFavorite(id: number): void {
 //   //feedback for user
 //   let target: number = this.FavoriteListResult.findIndex((e) => e.id == id);

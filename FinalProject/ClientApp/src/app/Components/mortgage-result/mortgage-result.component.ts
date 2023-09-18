@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { PropertiesByPostal } from 'src/app/Models/properties-by-postal';
+import { PropertyDetails } from 'src/app/Models/property-details';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
 
@@ -8,7 +10,7 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./mortgage-result.component.css']
 })
 export class MortgageResultComponent {
-  
+  @Input() DisplayResult:PropertiesByPostal = {} as PropertiesByPostal;
   constructor(private _userService:UserService) {}
 
   ngOnInit():void {
@@ -20,5 +22,11 @@ export class MortgageResultComponent {
     //   console.log(response);
     //   this.MortgageCalcResult.push(response);
     // });
+  }
+
+  calculateLoanAmount(purchaseprice:number, downPayment:number):number{
+    let result:number = 0;
+    result = purchaseprice - downPayment;
+    return result;
   }
 }
