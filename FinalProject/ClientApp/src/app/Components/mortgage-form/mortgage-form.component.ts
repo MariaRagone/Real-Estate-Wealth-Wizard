@@ -7,35 +7,38 @@ import { PropertiesService } from 'src/app/Services/properties.service';
 @Component({
   selector: 'app-mortgage-form',
   templateUrl: './mortgage-form.component.html',
-  styleUrls: ['./mortgage-form.component.css']
+  styleUrls: ['./mortgage-form.component.css'],
 })
 export class MortgageFormComponent {
-
   MortgageCalcResult: MortgageCalculatorModel = {} as MortgageCalculatorModel;
-  propertyId:string = "";
+  propertyId: string = '';
   @Output() MortgageCreated = new EventEmitter<User>();
 
-  showAmortization:boolean=true;
-  hoaFees:number=0;
-  percentTaxRate:number=.511;
-  yearTerm:number=30;
-  percentRate:number=3.08;
-  downPayment:number=239800;
-  monthlyHomeInsurance:number=416;
-  price:number=1300000;
+  // showAmortization: boolean = true;
+  // hoaFees: number = 0;
+  // percentTaxRate: number = 0.511;
+  // yearTerm: number = 30;
+  // percentRate: number = 3.08;
+  // downPayment: number = 239800;
+  // monthlyHomeInsurance: number = 416;
+  // price: number = 1300000;
+  newMortgage: User = {} as User;
 
-  constructor(private _mortgageCalculatorService: MortgageFormService, private _propertiesService: PropertiesService) {}
+  constructor(
+    private _mortgageCalculatorService: MortgageFormService,
+    private _propertiesService: PropertiesService
+  ) {}
 
-  newMortgage:User = {} as User;
+  
 
-  ngOnInit():void{
-    this._mortgageCalculatorService.GetMortgageDetails(this.showAmortization, this.hoaFees, this.percentTaxRate, this.yearTerm, this.percentRate, this.downPayment, this.monthlyHomeInsurance, this.price).subscribe((response:MortgageCalculatorModel)=> {
-      console.log(response);
-      this.MortgageCalcResult = response;
-  })
-}
+  // ngOnInit():void{
+  //   this._mortgageCalculatorService.GetMortgageDetails(this.showAmortization, this.hoaFees, this.percentTaxRate, this.yearTerm, this.percentRate, this.downPayment, this.monthlyHomeInsurance, this.price).subscribe((response:MortgageCalculatorModel)=> {
+  //     console.log(response);
+  //     this.MortgageCalcResult = response;
+  // })
+  //}
 
-  submitMortgage():void{
+  submitMortgage(): void {
     // this.newMortgage.downPayment = 0;
     // this.newMortgage.loanTerm = 0;
     // this.newMortgage.interestRate = 0;
@@ -43,12 +46,8 @@ export class MortgageFormComponent {
     //   this.newMortgage.loan = false;
     // }
     // this.newMortgage.zipCode = "";
+    console.log(this.newMortgage);
     this.MortgageCreated.emit(this.newMortgage);
-    this.newMortgage={} as User;
-    
+    //this.newMortgage={} as User;
   }
-
- 
-  
 }
-

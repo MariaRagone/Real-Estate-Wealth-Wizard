@@ -12,6 +12,7 @@
 </body>
 </html>
 <app-mortgage-form (MortgageCreated)="NewMortgage($event)"></app-mortgage-form>
+<div *ngIf="PropertyListResult.data.home_search.results != null">
 <div *ngFor="let p of PropertyListResult.data.home_search.results">
    
     <img style="width: 300px;" *ngIf="p.primary_photo?.href != null" src="{{p.primary_photo?.href}}"/>
@@ -21,10 +22,12 @@
     <p>#Beds: {{p.description.beds}}</p>
     <P># Baths: {{p.description.baths}}</P>
     <p>Square Feet: {{p.description.sqft}}</p>
-    <button *ngIf="" id="heart" (click)="AddFavorites(user.id,p.property_id)">
+    <button id="heart" (click)="AddFavorites(user.id,p.property_id)">
         <i class="fas fa-heart">
         </i></button>
         <td><button (click)="RemoveFavorite(user.id, p.property_id)">Delete</button> </td>
     <p><app-mortgage-result [DisplayResult]="p.list_price" [downPament]="appUser.downPayment" ></app-mortgage-result></p>
 </div>
+</div>
+
 <!-- <button id="heart" (click)="AddFavorites("4200",p.property_id)"i class="fas fa-heart"></i>hi </button> -->

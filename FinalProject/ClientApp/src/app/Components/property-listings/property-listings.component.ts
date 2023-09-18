@@ -20,7 +20,8 @@ export class PropertyListingsComponent {
   user: SocialUser = {} as SocialUser;
   loggedIn: boolean = false;
   FavoriteListResult: Favorite[] = [];
-  appUser: User = {} as User;
+  appUser:User = {} as User;
+  //appUser: User = {} as User;
 
   constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService, private _mortgageFormService: MortgageFormService) {}
 
@@ -39,6 +40,8 @@ export class PropertyListingsComponent {
 //this method runs when form is submitted
 NewMortgage(newUser:User){
   this.appUser = newUser;
+  console.log(newUser.zipCode);
+  console.log("newMortgageMethod")
   this.GetProperties(this.appUser.zipCode);
 }
 
@@ -54,7 +57,7 @@ AddFavorites(googleId:string, propertyId:string):void{
 }
 GetProperties(ZipCode:string):void{
   this._propertiesService.GetAllByPostalCode(ZipCode).subscribe((response:PropertiesByPostal)=> {
-    // console.log(response);
+    console.log(response);
     this.PropertyListResult = response
   });
 }
@@ -75,6 +78,8 @@ calculateLoanAmount(list_price:number, downPayment:number):number{
   result = list_price - downPayment;
   return result;
 }
+
+
 
 // RemoveFavorite(id: number): void {
 //   //feedback for user
