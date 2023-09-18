@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Favorite } from 'src/app/Models/favorite';
+import { PropertyDetails } from 'src/app/Models/property-details';
 import { User } from 'src/app/Models/user';
 import { FavoriteService } from 'src/app/Services/favorite.service';
+import { PropertyDetailsService } from 'src/app/Services/property-details.service';
 
 @Component({
   selector: 'app-favorite-list',
@@ -15,24 +17,36 @@ export class FavoriteListComponent {
   @Input() DisplayFavorite:User = {} as User;
   FavoriteListResult:Favorite[] = [];
   UserListResult:User[] = [];
-  name:string = "";
+  name:string = "4200";
+  favoriteProperties:PropertyDetails[] = [];
   
-constructor(private _favoriteService:FavoriteService) { }
 
-   ngOnInit(): void {
+  
+constructor(private _favoriteService:FavoriteService, private _propertyDetailsService: PropertyDetailsService) { }
+
+  ngOnInit(): void {
     this.DisplayFavorites(this.name);
     // this.DisplayEvents();
     }
 
-   DisplayFavorites(googleId:string):void{
-     
-     this._favoriteService.GetFavorites(googleId).subscribe((response:Favorite[]) =>{
-       console.log(response);
+  DisplayFavorites(googleId:string):void{
+  
+    this._favoriteService.GetFavorites(googleId).subscribe((response:Favorite[]) =>{
+      console.log(response);
       this.FavoriteListResult = response;
-     });
+    });
 
-   }
-   RemoveFavorite(googleId: string, propertyId:string):void{
+  }
+
+  GetPropDetails():void{
+    this.FavoriteListResult.forEach((f:Favorite) => {
+    this._propertyDetailsService.GetPropertyDetails(f.propertyId).subscribe((response:PropertyDetails) => {
+      this.favoriteProperties.push(response);
+    });
+    });
+  }
+
+  RemoveFavorite(googleId: string, propertyId:string):void{
     let favorite:Favorite = {} as Favorite;
     // this._eventService.AddFavorite();
     favorite.googleId = googleId;

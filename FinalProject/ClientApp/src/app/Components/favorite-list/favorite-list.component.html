@@ -1,1 +1,15 @@
 <p>favorite-list works!</p>
+<br>
+
+<div *ngFor="let p of favoriteProperties">
+
+    <img style="width: 300px;" *ngIf="p.data.primary_photo?.href != null" src="{{ p.data.primary_photo?.href }}"/>
+    <p *ngIf="p.data.primary_photo?.href == null"><img src = "https://en.pimg.jp/072/139/682/1/72139682.jpg"></p>
+    <p>Price: {{ p.data.list_price | currency }}</p>
+    <p>Address: {{ p.data.location.address.line }}, {{ p.data.location.address.city }}, {{ p.data.location.address.postal_code }} {{ p.data.location.address.state_code }}</p>
+    <p>#Beds: {{ p.data.description.beds }}</p>
+    <P># Baths: {{ p.data.description.baths }}</P>
+    <p>Square Feet: {{ p.data.description.sqft }}</p>
+        <!-- <td><button (click)="RemoveFavorite(user.id, p.property_id)">Delete</button> </td>
+    <p><app-mortgage-result [DisplayResult]="p.list_price" [downPament]="appUser.downPayment" ></app-mortgage-result></p> -->
+</div>
