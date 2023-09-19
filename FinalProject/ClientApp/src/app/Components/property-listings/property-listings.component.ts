@@ -21,6 +21,7 @@ export class PropertyListingsComponent {
   loggedIn: boolean = false;
   FavoriteListResult: Favorite[] = [];
   appUser:User = {} as User;
+  vacancyRate:number = 0;
   //appUser: User = {} as User;
 
   constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService, private _mortgageFormService: MortgageFormService) {}
@@ -71,6 +72,11 @@ RemoveFavorite(googleId: string, propertyId:string):void{
     // console.log(response)
     this.FavoriteListResult.push(response);
   });
+}
+
+VacancyRate(vacancyRate:number){
+  this.vacancyRate = vacancyRate;
+
 }
 
 // calculateLoanAmount(list_price:number, downPayment:number):number{

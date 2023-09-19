@@ -14,16 +14,21 @@ export class MortgageResultComponent {
   @Input() downPayment:number = {} as number;
   @Input() closingCost:number = {} as number;
   @Input() User:User = {} as User;
+  @Input() appUser:User = {} as User;
   loanAmount:number=0;
   user:User = {} as User;
   constructor(private _userService:UserService) {}
   monthlyMortgagePayment:number = 0;
+  insuranceCost:number = 0;
+  monthlyIncome:number = 0;
+  vacancyRate:number = 0;
   //closingCostPercent:number = 0;
  
   ngOnInit():void {
     this.loanAmount = this.calculateLoanAmount();
     this.closingCost = this.calculateClosingCost();
     this.monthlyMortgagePayment = this.calculateMonthlyMortgagePaymnet();
+    this.insuranceCost = this.calculateInsurance();
   }
 
   // NewMortgage(newUser:User){
@@ -51,13 +56,30 @@ export class MortgageResultComponent {
   }
 
   calculateMonthlyMortgagePaymnet():number{
-    let mortgagePayment: number = 0;
-    let monthlyInterestRate:number = this.User.interestRate / 12;
-    let n:number = this.User.loanTerm * 12;
-    mortgagePayment = this.loanAmount * (monthlyInterestRate * (1+monthlyInterestRate))/((Math.pow(1+monthlyInterestRate, n) - 1));
-    return mortgagePayment;
+      let mortgagePayment: number = 0;
+      let monthlyInterestRate: number = this.User.interestRate / 12 / 100; // Convert annual rate to monthly decimal
+      let n: number = this.User.loanTerm * 12;
+      mortgagePayment = this.loanAmount * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, n)) /
+                       (Math.pow(1 + monthlyInterestRate, n) - 1);
+      
+      return mortgagePayment;
   }
+
+  calculateInsurance():number{
+    let insuranceCost:number = 0;
+    insuranceCost = (this.DisplayResult.list_price * 0.005) / 12;
+    return insuranceCost;
+  }
+
+  //we need to calculate monthly income in order for this method to work
+  calculateVacancy():number{
+    let vacancy:number = this.monthlyIncome * this.vacancyRate;
+    //vacancy = this.monthlyIncome * this.vacancyRate;
+    return vacancy;
+  }
+
+ }
   
 
 
-}
+
