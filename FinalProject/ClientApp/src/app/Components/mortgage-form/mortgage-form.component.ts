@@ -23,6 +23,7 @@ export class MortgageFormComponent {
   // monthlyHomeInsurance: number = 416;
   // price: number = 1300000;
   newMortgage: User = {} as User;
+  
 
   constructor(
     private _mortgageCalculatorService: MortgageFormService,

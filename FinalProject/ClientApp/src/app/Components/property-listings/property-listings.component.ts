@@ -73,11 +73,11 @@ RemoveFavorite(googleId: string, propertyId:string):void{
   });
 }
 
-calculateLoanAmount(list_price:number, downPayment:number):number{
-  let result:number = 0;
-  result = list_price - downPayment;
-  return result;
-}
+// calculateLoanAmount(list_price:number, downPayment:number):number{
+//   let result:number = 0;
+//   result = list_price - downPayment;
+//   return result;
+// }
 
 
 

@@ -4,8 +4,8 @@
 <form>
     <table>
         <tr>
-   <td><p>Down Payment</p></td>
-    <td><input type="number" placeholder="Down Payment" [(ngModel)]="newMortgage.downPayment" name="downPayment"/></td>
+   <td><p>Percent Down Payment</p></td>
+    <td><input type="number" placeholder="Percent down payment" [(ngModel)]="newMortgage.downPayment" name="downPayment"/></td>
 </tr>
 <tr>
     <td><p>Loan Term</p></td>
@@ -20,7 +20,11 @@
 </tr>
 <tr>
     <td><p>Zip code:</p></td>
-<td><input type="text" [(ngModel)]="newMortgage.zipCode" name="zipCode" /></td>
+<td><input type="text" placeholder = "zip code" [(ngModel)]="newMortgage.zipCode" name="zipCode" /></td>
+</tr>
+<tr>
+    <td><p>Closing Cost Percent:</p></td>
+<td><input type="number" placeholder = "closing cost percent" [(ngModel)]="newMortgage.closingCost" name="closingCost" /></td>
 </tr>
 <tr>
    <td> <button type="submit" (click)="submitMortgage()">See results!</button> </td>

@@ -21,7 +21,7 @@ public partial class RealEstateDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer(Secret.optionsBuilder);
+       => optionsBuilder.UseSqlServer(Secret.optionsBuilder);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -43,6 +43,7 @@ public partial class RealEstateDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Users__3213E83F2552E60C");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ClosingCost).HasColumnName("closingCost");
             entity.Property(e => e.DownPayment).HasColumnName("downPayment");
             entity.Property(e => e.FirstName)
                 .HasMaxLength(255)

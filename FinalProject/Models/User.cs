@@ -22,4 +22,6 @@ public partial class User
     public double? InterestRate { get; set; }
 
     public bool? Loan { get; set; }
+
+    public double? ClosingCost { get; set; }
 }
