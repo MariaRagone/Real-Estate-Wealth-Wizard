@@ -26,22 +26,26 @@ constructor(private _favoriteService:FavoriteService, private _propertyDetailsSe
 
   ngOnInit(): void {
     this.DisplayFavorites(this.name);
+    
     // this.DisplayEvents();
     }
 
   DisplayFavorites(googleId:string):void{
   
     this._favoriteService.GetFavorites(googleId).subscribe((response:Favorite[]) =>{
-      console.log(response);
+      // console.log(response);
       this.FavoriteListResult = response;
+      this.GetPropDetails();
     });
 
   }
 
+  
   GetPropDetails():void{
     this.FavoriteListResult.forEach((f:Favorite) => {
     this._propertyDetailsService.GetPropertyDetails(f.propertyId).subscribe((response:PropertyDetails) => {
       this.favoriteProperties.push(response);
+      console.log(response);
     });
     });
   }
