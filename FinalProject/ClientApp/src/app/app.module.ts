@@ -45,7 +45,8 @@ import { MortgageResultComponent } from './Components/mortgage-result/mortgage-r
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'favorite-list', component: FavoriteListComponent}
+      { path: 'favorite-list', component: FavoriteListComponent},
+      { path: 'property-details', component: PropertyDetailsComponent}
     ])
   ],
     providers: [

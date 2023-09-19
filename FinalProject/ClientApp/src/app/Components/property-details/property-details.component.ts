@@ -1,3 +1,4 @@
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component } from '@angular/core';
 import { Favorite } from 'src/app/Models/favorite';
 import { PropertyDetails } from 'src/app/Models/property-details';
@@ -8,37 +9,46 @@ import { PropertyDetailsService } from 'src/app/Services/property-details.servic
 @Component({
   selector: 'app-property-details',
   templateUrl: './property-details.component.html',
-  styleUrls: ['./property-details.component.css']
+  styleUrls: ['./property-details.component.css'],
 })
 export class PropertyDetailsComponent {
-
   PropertyDetailsResult: PropertyDetails = {} as PropertyDetails;
-  propertyId:string = "";
+  propertyId: string = '';
   FavoriteListResult: Favorite[] = [];
-  currentGoogleId: string = "test dummy";
-  selectedPropertyId: string = "1";
+  currentGoogleId: string = 'test dummy';
+  selectedPropertyId: string = '1';
+  user: SocialUser = {} as SocialUser;
+
+  constructor(
+    private _propertyDetailsService: PropertyDetailsService,
+    private _favoriteService: FavoriteService,
+    private _authService: SocialAuthService
+  ) {}
 
 
-
-  constructor(private _propertyDetailsService: PropertyDetailsService, private _favoriteService: FavoriteService) {}
-
-  ngOnInit():void{
-    this._propertyDetailsService.GetPropertyDetails("4390128585").subscribe((response:PropertyDetails)=> {
-      // console.log(response);
-      this.PropertyDetailsResult = response;
+  ngOnInit(): void {
+    this._authService.authState.subscribe((user: SocialUser) => {
+      this.user = user;
+      // this.loggedIn = this.user != null;
+      this._propertyDetailsService
+      .GetPropertyDetails(this.selectedPropertyId)
+      .subscribe((response: PropertyDetails) => {
+        // console.log(response);
+        this.PropertyDetailsResult = response;
+    });
   });
 }
 
-AddFavorites():void{
-  let favorite:Favorite = {} as Favorite;
-  // this._eventService.AddFavorite();
-  favorite.googleId = this.currentGoogleId;
-  favorite.propertyId = this.selectedPropertyId;
-  this._favoriteService.AddFavorite(favorite).subscribe((response:Favorite) =>{
-    console.log(response)
-    this.FavoriteListResult.push(response);
-  });
-}
-
-
+  AddFavorites(): void {
+    let favorite: Favorite = {} as Favorite;
+    // this._eventService.AddFavorite();
+    favorite.googleId = this.currentGoogleId;
+    favorite.propertyId = this.selectedPropertyId;
+    this._favoriteService
+      .AddFavorite(favorite)
+      .subscribe((response: Favorite) => {
+        console.log(response);
+        this.FavoriteListResult.push(response);
+      });
+  }
 }
