@@ -1,1 +1,13 @@
-<p>property-details works!</p>
+<p><img style="width: 500px;" *ngIf="PropertyDetailsResult.data.primary_photo?.href != null" src="{{ PropertyDetailsResult.data.primary_photo?.href }}"/></p>
+<p><strong>Price:</strong> {{ PropertyDetailsResult.data.list_price | currency }}</p>
+<p><strong>Address:</strong> {{ PropertyDetailsResult.data.location.address.line }}, {{ PropertyDetailsResult.data.location.address.city }}, {{ PropertyDetailsResult.data.location.address.postal_code }} {{ PropertyDetailsResult.data.location.address.state_code }}</p>
+<p><strong># Beds:</strong> {{ PropertyDetailsResult.data.description.beds }}</p>
+<P><strong># Baths:</strong> {{ PropertyDetailsResult.data.description.baths }}</P>
+<p><strong>Square Feet:</strong> {{ PropertyDetailsResult.data.description.sqft }}</p>
+<p><strong>Garage:</strong> {{ PropertyDetailsResult.data.description.garage }} Car</p>
+<p><strong>Year Built:</strong> {{ PropertyDetailsResult.data.description.year_built }}</p>
+<p><strong>Type:</strong> {{ PropertyDetailsResult.data.description.styles }}</p>
+
+<div *ngFor="let p of PropertyDetailsResult.data.photos">
+    <p><img style="width: 500px;" *ngIf="p.href != null" src="{{ p?.href }}"/></p>
+</div>
