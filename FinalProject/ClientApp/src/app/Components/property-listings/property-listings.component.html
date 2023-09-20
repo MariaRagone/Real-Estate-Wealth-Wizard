@@ -11,7 +11,7 @@
     
 </body>
 </html>
-<app-mortgage-form (MortgageCreated)="NewMortgage($event)", (VacancyRate)="VacancyRate($event)"></app-mortgage-form>
+<app-mortgage-form (MortgageCreated)="NewMortgage($event)" (VacancyRate)="VacancyRate($event)"></app-mortgage-form>
 <div *ngIf="PropertyListResult.data != null">
 <div *ngFor="let p of PropertyListResult.data.home_search.results">
    
@@ -22,11 +22,12 @@
     <p>#Beds: {{p.description.beds}}</p>
     <P># Baths: {{p.description.baths}}</P>
     <p>Square Feet: {{p.description.sqft}}</p>
-    <button id="heart" (click)="AddFavorites(user.id,p.property_id)">
+    <p>Median Rental Rate: {{PropertyListResult.data.geo.geo_statistics.housing_market.median_rent_price}}</p>
+    <button id="heart" (click)="AddFavorites(user.id, p.property_id)">
         <i class="fas fa-heart">
         </i></button>
         <td><button (click)="RemoveFavorite(user.id, p.property_id)">Delete</button> </td>
-    <p><app-mortgage-result [DisplayResult]="p" [downPayment]="appUser.downPayment" [closingCost]="appUser.closingCost" [User]="appUser"></app-mortgage-result></p>
+    <p><app-mortgage-result [DisplayResult]="p" [User]="appUser"></app-mortgage-result></p>
 </div>
 </div>
 

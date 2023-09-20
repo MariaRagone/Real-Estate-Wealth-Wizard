@@ -11,12 +11,12 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class MortgageResultComponent {
   @Input() DisplayResult:Result = {} as Result;
-  @Input() downPayment:number = {} as number;
-  @Input() closingCost:number = {} as number;
+  // @Input() downPayment:number = {} as number; don't need this
+  // @Input() closingCost:number = {} as number; don't need this
   @Input() User:User = {} as User;
-  @Input() appUser:User = {} as User;
+  // @Input() appUser:User = {} as User; don't need this
   loanAmount:number=0;
-  user:User = {} as User;
+  // user:User = {} as User; don't need this
   constructor(private _userService:UserService) {}
   monthlyMortgagePayment:number = 0;
   insuranceCost:number = 0;
@@ -26,7 +26,7 @@ export class MortgageResultComponent {
  
   ngOnInit():void {
     this.loanAmount = this.calculateLoanAmount();
-    this.closingCost = this.calculateClosingCost();
+    this.User.closingCost = this.calculateClosingCost();
     this.monthlyMortgagePayment = this.calculateMonthlyMortgagePaymnet();
     this.insuranceCost = this.calculateInsurance();
   }
@@ -43,14 +43,14 @@ export class MortgageResultComponent {
 
   calculateLoanAmount():number{
     let result:number = 0;
-    result = this.DisplayResult.list_price * (this.downPayment * .01);
+    result = this.DisplayResult.list_price * (this.User.downPayment * .01);
     let amount:number = this.DisplayResult.list_price - result;
     return amount;
   }
 
   calculateClosingCost():number{
     let closing:number = 0;
-    closing = this.DisplayResult.list_price * (this.closingCost * 0.01);
+    closing = this.DisplayResult.list_price * (this.User.closingCost * 0.01);
     return closing;
 
   }
