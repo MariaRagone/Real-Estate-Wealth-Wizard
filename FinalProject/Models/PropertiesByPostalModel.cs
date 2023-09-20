@@ -40,7 +40,7 @@
         public PostalFlags flags { get; set; }
         public Postal_Lead_Attributes lead_attributes { get; set; }
         public object community { get; set; }
-        public Products products { get; set; }
+        //public Products products { get; set; }
         public Postal_Virtual_Tours[] virtual_tours { get; set; }
         public PostalDescription description { get; set; }
         public string listing_id { get; set; }
