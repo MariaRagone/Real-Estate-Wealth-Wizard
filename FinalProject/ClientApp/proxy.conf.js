@@ -10,7 +10,8 @@ const PROXY_CONFIG = [
       "/api/PropertyDetails",
       "/api/MortgageCalculator",
       "/api/User",
-      "/api/Favorite"
+      "/api/Favorite",
+      "/api/Rent"
 
    ],
     target: target,

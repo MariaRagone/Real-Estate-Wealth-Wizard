@@ -22,6 +22,7 @@ export class PropertyListingsComponent {
   FavoriteListResult: Favorite[] = [];
   appUser:User = {} as User;
   vacancyRate:number = 0;
+  numBeds:number = 0;
   //appUser: User = {} as User;
 
   constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService, private _mortgageFormService: MortgageFormService) {}
@@ -41,8 +42,8 @@ export class PropertyListingsComponent {
 //this method runs when form is submitted
 NewMortgage(newUser:User){
   this.appUser = newUser;
-  console.log(newUser.zipCode);
-  console.log("newMortgageMethod")
+  // console.log(newUser.zipCode);
+  // console.log("newMortgageMethod")
   this.GetProperties(this.appUser.zipCode);
 }
 
@@ -78,6 +79,10 @@ VacancyRate(vacancyRate:number){
   this.vacancyRate = vacancyRate;
 
 }
+NumBeds(numBeds:number){
+  this.numBeds = numBeds;
+}
+
 
 // calculateLoanAmount(list_price:number, downPayment:number):number{
 //   let result:number = 0;

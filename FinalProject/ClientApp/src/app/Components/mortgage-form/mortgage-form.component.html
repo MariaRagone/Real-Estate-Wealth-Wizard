@@ -1,7 +1,6 @@
 <h1>Let's find your best option!</h1>
 <h2>Enter your information to the form below:</h2>
 <div>
-<form>
     <table>
         <tr>
    <td><p>Percent Down Payment</p></td>
@@ -34,8 +33,17 @@
 <td><input type="number" placeholder = "closing cost percent" [(ngModel)]="newMortgage.closingCost" name="closingCost" /></td>
 </tr>
 <tr>
+    <td><p>Max Price:</p></td>
+<td><input type="number" placeholder = "Maximum Price" [(ngModel)]="newMortgage.maxPrice" name="maxPrice" /></td>
+</tr>
+
+<tr>
+        <td><p>Number of Bedrooms</p>
+            <td><input type="number" placeholder="Number of Bedrooms" [(ngModel)]="numBeds" name="numBeds" /></td>
+        </tr>
+    <tr>
+            
    <td> <button type="submit" (click)="submitMortgage()">See results!</button> </td>
     </tr>
 </table>
-</form>
 </div>

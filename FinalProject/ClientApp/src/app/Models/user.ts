@@ -9,4 +9,5 @@ export interface User {
     interestRate: number;
     loan: boolean;
     closingCost: number;
+    maxPrice: number;
 }

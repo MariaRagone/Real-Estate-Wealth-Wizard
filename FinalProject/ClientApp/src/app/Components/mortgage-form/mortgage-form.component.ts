@@ -14,7 +14,10 @@ export class MortgageFormComponent {
   propertyId: string = '';
   @Output() MortgageCreated = new EventEmitter<User>();
   vacancyRate:number = 0;
+  numBeds:number = 0;
+
   @Output() VacancyRate = new EventEmitter<number>();
+  @Output() NumBeds = new EventEmitter<number>();
 
   // showAmortization: boolean = true;
   // hoaFees: number = 0;
@@ -49,7 +52,7 @@ export class MortgageFormComponent {
     //   this.newMortgage.loan = false;
     // }
     // this.newMortgage.zipCode = "";
-    console.log(this.newMortgage);
+    // console.log(this.newMortgage);
     this.MortgageCreated.emit(this.newMortgage);
     this.newMortgage={} as User;
     this.VacancyRate.emit(this.vacancyRate);

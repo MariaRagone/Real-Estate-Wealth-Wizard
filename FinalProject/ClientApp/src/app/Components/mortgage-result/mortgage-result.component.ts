@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { PropertiesByPostal, Result } from 'src/app/Models/properties-by-postal';
 import { PropertyDetails } from 'src/app/Models/property-details';
+import { Rent } from 'src/app/Models/rent';
 import { User } from 'src/app/Models/user';
+import { RentService } from 'src/app/Services/rent.service';
 import { UserService } from 'src/app/Services/user.service';
 
 @Component({
@@ -17,11 +19,15 @@ export class MortgageResultComponent {
   // @Input() appUser:User = {} as User; don't need this
   loanAmount:number=0;
   // user:User = {} as User; don't need this
-  constructor(private _userService:UserService) {}
+  constructor(private _userService:UserService, private _rentService:RentService) {}
   monthlyMortgagePayment:number = 0;
   insuranceCost:number = 0;
   monthlyIncome:number = 0;
   vacancyRate:number = 0;
+  numBeds:number = 0;
+  RentListResult: Rent = {} as Rent;
+
+
   //closingCostPercent:number = 0;
  
   ngOnInit():void {
@@ -29,18 +35,17 @@ export class MortgageResultComponent {
     this.User.closingCost = this.calculateClosingCost();
     this.monthlyMortgagePayment = this.calculateMonthlyMortgagePaymnet();
     this.insuranceCost = this.calculateInsurance();
+    this.GetRentals("49684");
   }
 
-  // NewMortgage(newUser:User){
-  //   this.user = newUser;
-  //   this.downPament = this.user.downPayment;
-  //   this.loneAmont=this.calculateLoanAmount(this.DisplayResult,this.downPament)
-  //   // this._userService.SubmitMortgage(newUser).subscribe((response: User) =>{
-  //   //   console.log(response);
-  //   //   this.MortgageCalcResult.push(response);
-  //   // });
-  // }
-
+  GetRentals(ZipCode:string):void{
+    this._rentService.GetRentByPostal("49684").subscribe((response:Rent)=> {
+      console.log(response);
+      this.RentListResult = response
+    });
+  }
+  // calculateRentIncome():number
+  
   calculateLoanAmount():number{
     let result:number = 0;
     result = this.DisplayResult.list_price * (this.User.downPayment * .01);

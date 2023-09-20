@@ -11,7 +11,7 @@
     
 </body>
 </html>
-<app-mortgage-form (MortgageCreated)="NewMortgage($event)" (VacancyRate)="VacancyRate($event)"></app-mortgage-form>
+<app-mortgage-form (MortgageCreated)="NewMortgage($event)" (VacancyRate)="VacancyRate($event)" (NumBeds)="NumBeds($event)"></app-mortgage-form>
 <div *ngIf="PropertyListResult.data != null">
 <div *ngFor="let p of PropertyListResult.data.home_search.results">
    
