@@ -19,31 +19,36 @@ export class MortgageResultComponent {
   // @Input() appUser:User = {} as User; don't need this
   loanAmount:number=0;
   // user:User = {} as User; don't need this
-  constructor(private _userService:UserService, private _rentService:RentService) {}
+  @Input() Rent:number = {} as number;
+  constructor() {}
+
   monthlyMortgagePayment:number = 0;
   insuranceCost:number = 0;
   monthlyIncome:number = 0;
   vacancyRate:number = 0;
   numBeds:number = 0;
-  RentListResult: Rent = {} as Rent;
-
-
-  //closingCostPercent:number = 0;
+  closing:number = 0;
+  cashFlow:number = 0;
+  // RentListResult: Rent = {} as Rent;
+//closingCostPercent:number = 0;
  
   ngOnInit():void {
     this.loanAmount = this.calculateLoanAmount();
-    this.User.closingCost = this.calculateClosingCost();
+    this.closing = this.calculateClosingCost();
     this.monthlyMortgagePayment = this.calculateMonthlyMortgagePaymnet();
     this.insuranceCost = this.calculateInsurance();
-    this.GetRentals("49684");
+    this.vacancyRate = this.calculateVacancy();
+    this.cashFlow = this.calculateCashFlow();
+    
+    //this.GetRentals(this.User.zipCode, this.numBeds);
   }
 
-  GetRentals(ZipCode:string):void{
-    this._rentService.GetRentByPostal("49684").subscribe((response:Rent)=> {
-      console.log(response);
-      this.RentListResult = response
-    });
-  }
+  // GetRentals(ZipCode:string, BedsMin:number):void{
+  //   this._rentService.GetRentByPostal(ZipCode, BedsMin).subscribe((response:Rent)=> {
+  //     console.log(response);
+  //     this.RentListResult = response
+  //   });
+  // }
   // calculateRentIncome():number
   
   calculateLoanAmount():number{
@@ -55,7 +60,7 @@ export class MortgageResultComponent {
 
   calculateClosingCost():number{
     let closing:number = 0;
-    closing = this.DisplayResult.list_price * (this.User.closingCost * 0.01);
+    closing = this.DisplayResult.list_price * (this.User.closingCost * .01);
     return closing;
 
   }
@@ -81,6 +86,12 @@ export class MortgageResultComponent {
     let vacancy:number = this.monthlyIncome * this.vacancyRate;
     //vacancy = this.monthlyIncome * this.vacancyRate;
     return vacancy;
+  }
+
+  calculateCashFlow():number{
+    let monthlyCosts = this.monthlyMortgagePayment + this.closing + this.insuranceCost + this.vacancyRate;
+    let cashFlow = this.Rent - monthlyCosts;
+    return cashFlow;
   }
 
  }

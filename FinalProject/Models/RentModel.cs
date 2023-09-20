@@ -17,7 +17,7 @@
     {
         public int total { get; set; }
         public int count { get; set; }
-        public RentResult[] results { get; set; }
+        public List<RentResult> results { get; set; }
     }
 
     public class RentResult

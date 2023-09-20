@@ -14,7 +14,7 @@ export class PropertiesService {
 
 
   /// Postal
-  GetAllByPostalCode(postal_code:string):Observable<PropertiesByPostal>{
-    return this.http.get<PropertiesByPostal>(`${this.baseUrl}api/PropertiesByPostal/${postal_code}`); //postal_code???
+  GetAllByPostalCode(postal_code:string, price_Max:number, min_beds:number):Observable<PropertiesByPostal>{
+    return this.http.get<PropertiesByPostal>(`${this.baseUrl}api/PropertiesByPostal/${postal_code}?price_Max=${price_Max}&min_Beds=${min_beds}`); //postal_code???
   }
 }

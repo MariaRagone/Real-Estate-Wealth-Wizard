@@ -27,7 +27,7 @@
         <i class="fas fa-heart">
         </i></button>
         <td><button (click)="RemoveFavorite(user.id, p.property_id)">Delete</button> </td>
-    <p><app-mortgage-result [DisplayResult]="p" [User]="appUser"></app-mortgage-result></p>
+    <app-mortgage-result [DisplayResult]="p" [User]="appUser" [Rent]="averageRent"></app-mortgage-result>
 </div>
 </div>
 

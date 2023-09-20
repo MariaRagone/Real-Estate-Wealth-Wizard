@@ -12,9 +12,9 @@ namespace FinalProject.Controllers
 
         //api/PropertiesByPostal/12133
         [HttpGet("{postal_code}")]
-        public PropertiesByPostalModel GetAllByPostalCode(string postal_code)
+        public PropertiesByPostalModel GetAllByPostalCode(string postal_code, int price_Max, int min_Beds)
         {
-            return PropertiesByPostalDAL.GetByPostalCode(postal_code);
+            return PropertiesByPostalDAL.GetByPostalCode(postal_code, price_Max, min_Beds);
         }
     }
 }

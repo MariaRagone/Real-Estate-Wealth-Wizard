@@ -7,13 +7,13 @@ namespace FinalProject.Models
     {
         //public static object PropertiesByPostalDAL { get; internal set; }
 
-        public static RentModel GetForRentByPostal(string postal_code)//Adjust here
+        public static RentModel GetForRentByPostal(string postal_code, int beds_Min)//Adjust here
         {
             //adjust
             //setup
             string apiKey = Secret.apiKey;
             string Host = Secret.Host;
-            string url = $"https://us-real-estate.p.rapidapi.com/v2/for-rent-by-zipcode?zipcode={postal_code}&limit=10&offset=0&sort=lowest_price";
+            string url = $"https://us-real-estate.p.rapidapi.com/v2/for-rent-by-zipcode?zipcode={postal_code}&limit=10&offset=0&sort=lowest_price&beds_min={beds_Min}";
 
             //request
             HttpWebRequest request = WebRequest.CreateHttp(url);

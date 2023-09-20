@@ -2,8 +2,11 @@
 
 
 <p>Loan Amount {{loanAmount | currency}}</p>
-<p>Closing Cost {{User.closingCost | currency}}</p>
+<p>Closing Cost {{calculateClosingCost() | currency}}</p>
 <p>Monthly Mortgage Payment {{monthlyMortgagePayment | currency}}</p>
 <p>Monthly Insurace Cost {{insuranceCost | currency}}</p>
+
+<p *ngIf="cashFlow > 0">Good investment!</p>
+<p *ngIf="cashFlow < 0">Bad Investment</p>
 
 

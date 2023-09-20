@@ -10,8 +10,8 @@ export class RentService {
 
   constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-  GetRentByPostal(postal_code:string):Observable<Rent>{
-    return this.http.get<Rent>(`${this.baseUrl}api/Rent/${postal_code}`); //postal_code???
+  GetRentByPostal(postal_code:string, beds:number):Observable<Rent>{
+    return this.http.get<Rent>(`${this.baseUrl}api/Rent/${postal_code}?beds=${beds}`); //postal_code???
   }
 
 }
