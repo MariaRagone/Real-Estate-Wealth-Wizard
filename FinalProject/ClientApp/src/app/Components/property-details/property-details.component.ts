@@ -1,5 +1,6 @@
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Favorite } from 'src/app/Models/favorite';
 import { PropertyDetails } from 'src/app/Models/property-details';
 import { FavoriteService } from 'src/app/Services/favorite.service';
@@ -22,20 +23,47 @@ export class PropertyDetailsComponent {
   constructor(
     private _propertyDetailsService: PropertyDetailsService,
     private _favoriteService: FavoriteService,
-    private _authService: SocialAuthService
+    private _authService: SocialAuthService,
+    private route: ActivatedRoute // Inject ActivatedRoute
   ) {}
 
 
-  ngOnInit(): void {
-    this._authService.authState.subscribe((user: SocialUser) => {
-      this.user = user;
-      // this.loggedIn = this.user != null;
-      this._propertyDetailsService
-      .GetPropertyDetails(this.selectedPropertyId)
+//   ngOnInit(): void {
+//     this._authService.authState.subscribe((user: SocialUser) => {
+//       this.user = user;
+//       // this.loggedIn = this.user != null;
+//       this._propertyDetailsService
+//       .GetPropertyDetails(this.selectedPropertyId)
+//       .subscribe((response: PropertyDetails) => {
+//         // console.log(response);
+//         this.PropertyDetailsResult = response;
+//     });
+//   });
+// }
+
+ngOnInit(): void {
+
+  this.route.params.subscribe((params) => {
+    this.propertyId = params['propertyId'];
+
+
+
+    this._propertyDetailsService
+      .GetPropertyDetails(this.propertyId)
       .subscribe((response: PropertyDetails) => {
         // console.log(response);
         this.PropertyDetailsResult = response;
-    });
+        this.GetUser();
+      });
+  });
+}
+
+
+
+GetUser(): void {
+  this._authService.authState.subscribe((user: SocialUser) => {
+    this.user = user;
+    // this.loggedIn = this.user != null;
   });
 }
 

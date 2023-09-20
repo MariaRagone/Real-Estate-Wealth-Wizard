@@ -44,7 +44,7 @@
         public string? property_id { get; set; }
         public Detail[]? details { get; set; }
         public Flags? flags { get; set; }
-        public Products? products { get; set; }
+        //public Products? products { get; set; }
         public object? community { get; set; }
         public Primary_Photo? primary_photo { get; set; }
         public Hoa? hoa { get; set; }
@@ -248,7 +248,7 @@
 
     public class Raw
     {
-        public int? tax_amount { get; set; }
+        public decimal? tax_amount { get; set; }/// 
         public string? status { get; set; }
         public string? style { get; set; }
     }
@@ -331,11 +331,11 @@
         public object? is_short_sale { get; set; }
     }
 
-    public class Products
-    {
-        public string? brand_name { get; set; }
-        public string[]? products { get; set; }
-    }
+    //public class Products
+    //{
+    //    public string? brand_name { get; set; }
+    //    public string[]? products { get; set; }
+    //}
     public class Primary_Photo
     {
         public string? href { get; set; }
