@@ -11,3 +11,17 @@
 <div *ngFor="let p of PropertyDetailsResult.data.photos">
     <p><img style="width: 500px;" *ngIf="p.href != null" src="{{ p?.href }}"/></p>
 </div>
+
+
+
+<google-map height="500px"
+            width="900px"
+            [center]="center"
+            [zoom]="zoom"
+            (mapClick)="moveMap($event)"
+            (mapMousemove)="move($event)">
+<map-marker [position]="{lat:Lat, lng:Lon}" [label]="'bob'" (mapClick)="Click()"></map-marker>
+
+
+
+</google-map>

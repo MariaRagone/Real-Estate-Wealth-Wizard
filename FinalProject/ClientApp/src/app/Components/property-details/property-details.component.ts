@@ -19,6 +19,8 @@ export class PropertyDetailsComponent {
   currentGoogleId: string = 'test dummy';
   selectedPropertyId: string = '1';
   user: SocialUser = {} as SocialUser;
+  Lat:number=0;
+  Lon:number=0;
 
   constructor(
     private _propertyDetailsService: PropertyDetailsService,
@@ -28,18 +30,7 @@ export class PropertyDetailsComponent {
   ) {}
 
 
-//   ngOnInit(): void {
-//     this._authService.authState.subscribe((user: SocialUser) => {
-//       this.user = user;
-//       // this.loggedIn = this.user != null;
-//       this._propertyDetailsService
-//       .GetPropertyDetails(this.selectedPropertyId)
-//       .subscribe((response: PropertyDetails) => {
-//         // console.log(response);
-//         this.PropertyDetailsResult = response;
-//     });
-//   });
-// }
+
 
 ngOnInit(): void {
 
@@ -53,6 +44,7 @@ ngOnInit(): void {
       .subscribe((response: PropertyDetails) => {
         // console.log(response);
         this.PropertyDetailsResult = response;
+        this.setupMap();
         this.GetUser();
       });
   });
@@ -79,4 +71,52 @@ GetUser(): void {
         this.FavoriteListResult.push(response);
       });
   }
+
+
+
+////////////
+Click(){
+  console.log("mapClicked")
 }
+
+
+display: any;
+  center: google.maps.LatLngLiteral = {} as google.maps.LatLngLiteral;
+zoom = 10;
+
+setupMap():void {
+  this.Lat=Number(this.PropertyDetailsResult.data.location.address.coordinate.lat);
+  this.Lon=Number(this.PropertyDetailsResult.data.location.address.coordinate.lon);
+
+this.center = {
+  lat: this.Lat,
+  lng: this.Lon
+};
+}
+
+/*------------------------------------------
+--------------------------------------------
+moveMap()
+--------------------------------------------
+--------------------------------------------*/
+moveMap(event: google.maps.MapMouseEvent) {
+    if (event.latLng != null) this.center = (event.latLng.toJSON());
+}
+
+/*------------------------------------------
+--------------------------------------------
+move()
+--------------------------------------------
+--------------------------------------------*/
+move(event: google.maps.MapMouseEvent) {
+    if (event.latLng != null) this.display = event.latLng.toJSON();
+}
+
+
+
+}
+
+
+
+
+

@@ -20,6 +20,7 @@ import {
   SocialLoginModule,
 } from '@abacritt/angularx-social-login';
 import { MortgageResultComponent } from './Components/mortgage-result/mortgage-result.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MortgageResultComponent } from './Components/mortgage-result/mortgage-r
     HttpClientModule,
     SocialLoginModule,
     FormsModule,
+    GoogleMapsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
