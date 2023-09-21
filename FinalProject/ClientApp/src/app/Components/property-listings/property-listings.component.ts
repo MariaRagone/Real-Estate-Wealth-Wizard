@@ -53,8 +53,8 @@ NewMortgage(newUser:User){
   this.GetRentals(this.appUser.zipCode,this.numBeds);
 }
 
-GetRentals(ZipCode:string, BedsMin:number):void{
-  this._rentService.GetRentByPostal(ZipCode, BedsMin).subscribe((response:Rent)=> {
+GetRentals(ZipCode:string, Beds:number):void{
+  this._rentService.GetRentByPostal(ZipCode, Beds).subscribe((response:Rent)=> {
     console.log(response);
     console.log("Rentals work");
     this.RentListResult = response;
