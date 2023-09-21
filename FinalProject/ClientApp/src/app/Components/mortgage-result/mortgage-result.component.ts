@@ -20,6 +20,7 @@ export class MortgageResultComponent {
   loanAmount:number=0;
   // user:User = {} as User; don't need this
   @Input() Rent:number = {} as number;
+  @Input() searchResult:boolean = {} as boolean;
   constructor() {}
 
   monthlyMortgagePayment:number = 0;
@@ -89,8 +90,11 @@ export class MortgageResultComponent {
   }
 
   calculateCashFlow():number{
-    let monthlyCosts = this.monthlyMortgagePayment + this.closing + this.insuranceCost + this.vacancyRate;
+    // let monthlyCosts = this.monthlyMortgagePayment + this.closing + this.insuranceCost + this.vacancyRate;
+    let monthlyCosts = this.calculateMonthlyMortgagePaymnet() + (this.insuranceCost + this.vacancyRate);
     let cashFlow = this.Rent - monthlyCosts;
+    console.log(cashFlow);
+    console.log(`${this.Rent} - ${monthlyCosts}`);
     return cashFlow;
   }
 

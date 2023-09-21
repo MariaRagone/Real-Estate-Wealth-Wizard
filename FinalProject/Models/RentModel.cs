@@ -144,24 +144,24 @@
         public int? sqft_min { get; set; }
         public object baths_partial_calc { get; set; }
         public object baths_1qtr { get; set; }
-        public int? beds_max { get; set; }
+        public float? beds_max { get; set; }
         public object lot_sqft { get; set; }
         public string sub_type { get; set; }
         public object garage { get; set; }
         public object baths_3qtr { get; set; }
         public object garage_min { get; set; }
-        public int? beds_min { get; set; }
-        public int? baths_min { get; set; }
+        public float? beds_min { get; set; }
+        public float? baths_min { get; set; }
         public string name { get; set; }
         public object baths_half { get; set; }
         public object sqft { get; set; }
         public int? year_built { get; set; }
-        public int? baths { get; set; }
-        public int? baths_full { get; set; }
+        public float? baths { get; set; }
+        public float? baths_full { get; set; }
         public int? sqft_max { get; set; }
-        public int? baths_max { get; set; }
-        public int? baths_full_calc { get; set; }
-        public int? beds { get; set; }
+        public float? baths_max { get; set; }
+        public float? baths_full_calc { get; set; }
+        public float? beds { get; set; }
         public string type { get; set; }
     }
 

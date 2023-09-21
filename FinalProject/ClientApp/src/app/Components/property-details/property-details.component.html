@@ -1,4 +1,4 @@
-<p><img style="width: 500px;" *ngIf="PropertyDetailsResult.data.primary_photo?.href != null" src="{{ PropertyDetailsResult.data.primary_photo?.href }}"/></p>
+<p><img style="width: 800px;" *ngIf="PropertyDetailsResult.data.photos[0] != null" src="{{ PropertyDetailsResult.data.photos[0].href }}"/></p>
 <p><strong>Price:</strong> {{ PropertyDetailsResult.data.list_price | currency }}</p>
 <p><strong>Address:</strong> {{ PropertyDetailsResult.data.location.address.line }}, {{ PropertyDetailsResult.data.location.address.city }}, {{ PropertyDetailsResult.data.location.address.postal_code }} {{ PropertyDetailsResult.data.location.address.state_code }}</p>
 <p><strong># Beds:</strong> {{ PropertyDetailsResult.data.description.beds }}</p>

@@ -4,8 +4,8 @@
 <div *ngFor="let p of favoriteProperties">
 
     <a [routerLink]="['/property-details', p.data.property_id]">
-    <img style="width: 300px;" *ngIf="p.data.primary_photo?.href != null" src="{{ p.data.primary_photo?.href }}"/></a>
-    <p *ngIf="p.data.primary_photo?.href == null"><img src = "https://en.pimg.jp/072/139/682/1/72139682.jpg"></p>
+    <img style="width: 300px;"*ngIf="p.data.photos[0].href != null" src="{{ p.data.photos[0]?.href }}"/></a>
+    <p *ngIf="p.data.photos[0]?.href == null"><img src = "https://en.pimg.jp/072/139/682/1/72139682.jpg"></p>
     <p>Price: {{ p.data.list_price | currency }}</p>
     <p>Address: {{ p.data.location.address.line }}, {{ p.data.location.address.city }}, {{ p.data.location.address.postal_code }} {{ p.data.location.address.state_code }}</p>
     <p>#Beds: {{ p.data.description.beds }}</p>

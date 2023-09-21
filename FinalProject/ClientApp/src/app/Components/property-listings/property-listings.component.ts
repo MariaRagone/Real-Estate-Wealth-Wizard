@@ -28,6 +28,7 @@ export class PropertyListingsComponent {
   RentListResult: Rent = {} as Rent;
   rent_prices:number[] = [];
   averageRent:number = 0;
+  displaySearchResult: boolean = false; 
   //appUser: User = {} as User;
 
   constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService, private _mortgageFormService: MortgageFormService,  private _rentService:RentService) {}
@@ -40,21 +41,23 @@ export class PropertyListingsComponent {
       this.loggedIn = (user != null);
     });
     // this.GetProperties("48420");
-
-
 }
 
 //this method runs when form is submitted
-NewMortgage(newUser:User){
+  NewMortgage(newUser:User){
   this.appUser = newUser;
   // console.log(newUser.zipCode);
   // console.log("newMortgageMethod")
-  this.GetProperties(this.appUser.zipCode, this.appUser.maxPrice, this.numBeds);
-  this.GetRentals(this.appUser.zipCode,this.numBeds);
+  // this.GetRentals(this.appUser.zipCode,this.numBeds);
+  // this.GetProperties(this.appUser.zipCode, this.appUser.maxPrice, this.numBeds);
+
+  //temporary method - fix later!
+  this.callAPIs(this.appUser.zipCode, this.numBeds, this.appUser.maxPrice, this.numBeds);
+  this.displaySearchResult = true;
 }
 
-GetRentals(ZipCode:string, Beds:number):void{
-  this._rentService.GetRentByPostal(ZipCode, Beds).subscribe((response:Rent)=> {
+async GetRentals(ZipCode:string, Beds:number):Promise<void>{
+  await this._rentService.GetRentByPostal(ZipCode, Beds).subscribe((response:Rent)=> {
     console.log(response);
     console.log("Rentals work");
     this.RentListResult = response;
@@ -67,7 +70,27 @@ GetRentals(ZipCode:string, Beds:number):void{
     this.rent_prices = []; 
     });
 }
+//temporary method - fix later!
+callAPIs (ZipCode:string, Beds:number, PriceMax:number, MinBeds:number):void{
+  this._rentService.GetRentByPostal(ZipCode, Beds).subscribe((response:Rent)=> {
+    console.log(response);
+    console.log("Rentals work");
+    this.RentListResult = response;
+    response.data.home_search.results.forEach( p => {
+      if(p.list_price != null){
+      this.rent_prices.push(p.list_price);
+      }
+    })
+    this.calculateRentIncome(this.rent_prices);
+    this.rent_prices = []; 
+    this._propertiesService.GetAllByPostalCode(ZipCode, PriceMax, MinBeds).subscribe((response:PropertiesByPostal)=> {
+      console.log(response);
+      this.PropertyListResult = response
+    });
+  
+    });
 
+}
   calculateRentIncome(list_price: number[]): void {
     // Initialize a variable to keep track of the sum of rent prices.
     let sum = 0;
@@ -76,24 +99,17 @@ GetRentals(ZipCode:string, Beds:number):void{
     for (const price of list_price) {
         sum += price;
     }
-
     // Calculate the average rent price by dividing the sum by the number of rentals.
     if (list_price.length > 0) {
-       
         averageRent = sum / list_price.length;
         console.log(averageRent);
         this.averageRent = averageRent;
-        
     } else {
         // Handle the case where the array is empty to avoid division by zero.
         this.averageRent = 0;
     };
     
 }
-    
-
-
-
 AddFavorites(googleId:string, propertyId:string):void{
   let favorite:Favorite = {} as Favorite;
   // this._eventService.AddFavorite();
@@ -104,8 +120,8 @@ AddFavorites(googleId:string, propertyId:string):void{
     this.FavoriteListResult.push(response);
   });
 }
-GetProperties(ZipCode:string, PriceMax:number, MinBeds:number):void{
-  this._propertiesService.GetAllByPostalCode(ZipCode, PriceMax, MinBeds).subscribe((response:PropertiesByPostal)=> {
+async GetProperties(ZipCode:string, PriceMax:number, MinBeds:number):Promise<void>{
+  await this._propertiesService.GetAllByPostalCode(ZipCode, PriceMax, MinBeds).subscribe((response:PropertiesByPostal)=> {
     console.log(response);
     this.PropertyListResult = response
   });
@@ -124,11 +140,12 @@ RemoveFavorite(googleId: string, propertyId:string):void{
 
 VacancyRate(vacancyRate:number){
   this.vacancyRate = vacancyRate;
-
 }
+
 NumBeds(numBeds:number){
   this.numBeds = numBeds;
 }
+
 
 
 // calculateLoanAmount(list_price:number, downPayment:number):number{
@@ -136,8 +153,6 @@ NumBeds(numBeds:number){
 //   result = list_price - downPayment;
 //   return result;
 // }
-
-
 
 // RemoveFavorite(id: number): void {
 //   //feedback for user

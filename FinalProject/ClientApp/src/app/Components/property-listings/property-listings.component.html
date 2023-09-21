@@ -12,22 +12,23 @@
 </body>
 </html>
 <app-mortgage-form (MortgageCreated)="NewMortgage($event)" (VacancyRate)="VacancyRate($event)" (NumBeds)="NumBeds($event)"></app-mortgage-form>
-<div *ngIf="PropertyListResult.data != null">
+<div *ngIf="displaySearchResult && PropertyListResult.data != null">
 <div *ngFor="let p of PropertyListResult.data.home_search.results">
    
     <img style="width: 300px;" *ngIf="p.primary_photo?.href != null" src="{{p.primary_photo?.href}}"/>
+    <br>
+    <button id="heart" (click)="AddFavorites(user.id, p.property_id)">
+        <i class="fas fa-heart">
+        </i></button>
+        <td><button (click)="RemoveFavorite(user.id, p.property_id)">Delete</button> </td>
     <p *ngIf="p.primary_photo?.href == null"><img src = "https://en.pimg.jp/072/139/682/1/72139682.jpg"></p>
     <p>Price: {{p.list_price}}</p>
     <p>Address: {{p.location.address.line}}, {{p.location.address.city}}, {{p.location.address.postal_code}} {{p.location.address.state_code}}</p>
     <p>#Beds: {{p.description.beds}}</p>
     <P># Baths: {{p.description.baths}}</P>
     <p>Square Feet: {{p.description.sqft}}</p>
-    <p>Median Rental Rate: {{PropertyListResult.data.geo.geo_statistics.housing_market.median_rent_price}}</p>
-    <button id="heart" (click)="AddFavorites(user.id, p.property_id)">
-        <i class="fas fa-heart">
-        </i></button>
-        <td><button (click)="RemoveFavorite(user.id, p.property_id)">Delete</button> </td>
-    <app-mortgage-result [DisplayResult]="p" [User]="appUser" [Rent]="averageRent"></app-mortgage-result>
+    <!-- <p>Median Rental Rate: {{PropertyListResult.data.geo.geo_statistics.housing_market.median_rent_price}}</p> -->
+            <app-mortgage-result [DisplayResult]="p" [User]="appUser" [Rent]="averageRent"></app-mortgage-result>
 </div>
 </div>
 

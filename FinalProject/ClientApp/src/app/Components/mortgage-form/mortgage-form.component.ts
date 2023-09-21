@@ -15,7 +15,6 @@ export class MortgageFormComponent {
   @Output() MortgageCreated = new EventEmitter<User>();
   vacancyRate:number = 0;
   numBeds:number = 0;
-
   @Output() VacancyRate = new EventEmitter<number>();
   @Output() NumBeds = new EventEmitter<number>();
 
