@@ -29,7 +29,7 @@ export class PropertyListingsComponent {
   rent_prices:number[] = [];
   averageRent:number = 0;
   displaySearchResult: boolean = false; 
-  maintenanceCost = 0;
+  managementFee = 0;
   //appUser: User = {} as User;
 
   constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService, private _mortgageFormService: MortgageFormService,  private _rentService:RentService) {}
@@ -143,8 +143,8 @@ VacancyRate(vacancyRate:number){
   this.vacancyRate = vacancyRate;
 }
 
-MaintenanceCost(maintenanceCost:number){
-  this.maintenanceCost = maintenanceCost;
+ManagementFee(managementFee:number){
+  this.managementFee = managementFee;
 }
 
 NumBeds(numBeds:number){
