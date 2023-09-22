@@ -9,6 +9,9 @@ import { MortgageFormService } from 'src/app/Services/mortgage-form.service';
 import { User } from 'src/app/Models/user';
 import { RentService } from 'src/app/Services/rent.service';
 import { Rent } from 'src/app/Models/rent';
+import { AverageRateService } from 'src/app/Services/average-rate.service';
+import { Observable } from 'rxjs';
+import { AverageRate, AverageRateModel } from 'src/app/Models/average-rate';
 
 
 @Component({
@@ -30,9 +33,10 @@ export class PropertyListingsComponent {
   averageRent:number = 0;
   displaySearchResult: boolean = false; 
   managementFee = 0;
+  averageRates:AverageRateModel = {} as AverageRateModel;
   //appUser: User = {} as User;
 
-  constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService, private _mortgageFormService: MortgageFormService,  private _rentService:RentService) {}
+  constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService, private _mortgageFormService: MortgageFormService,  private _rentService:RentService, private _averageRateService:AverageRateService) {}
 
 
   //Run the method location based on the IP Run the method location based on the IP address
@@ -54,8 +58,10 @@ export class PropertyListingsComponent {
 
   //temporary method - fix later!
   this.callAPIs(this.appUser.zipCode, this.numBeds, this.appUser.maxPrice, this.numBeds);
+  this.GetAverageRates(this.appUser.zipCode);
   this.displaySearchResult = true;
 }
+
 
 async GetRentals(ZipCode:string, Beds:number):Promise<void>{
   await this._rentService.GetRentByPostal(ZipCode, Beds).subscribe((response:Rent)=> {
@@ -149,6 +155,13 @@ ManagementFee(managementFee:number){
 
 NumBeds(numBeds:number){
   this.numBeds = numBeds;
+}
+
+GetAverageRates(postal_code:string){
+  this._averageRateService.GetAverageRatesByPostal(postal_code).subscribe((response) => {
+    console.log(response);
+    this.averageRates = response;
+  })
 }
 
 

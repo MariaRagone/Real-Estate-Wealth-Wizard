@@ -1,4 +1,3 @@
-
         export interface AverageRateModel {
             status: number;
             data: AverageRateData;

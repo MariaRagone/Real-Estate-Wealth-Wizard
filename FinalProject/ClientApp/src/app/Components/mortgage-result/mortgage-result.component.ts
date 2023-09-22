@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { AverageRate, AverageRateModel } from 'src/app/Models/average-rate';
 import { PropertiesByPostal, Result } from 'src/app/Models/properties-by-postal';
 import { PropertyDetails } from 'src/app/Models/property-details';
 import { Rent } from 'src/app/Models/rent';
@@ -24,6 +25,7 @@ export class MortgageResultComponent {
   @Input() vacancyRate:number = {} as number;
   @Input() managementFee:number = {} as number;
   @Input() propertyDetails:PropertyDetails = {} as PropertyDetails;
+  @Input() AverageRates:AverageRateModel = {} as AverageRateModel;
   // @Input() maintenanceCosts: number = {} as number;
   constructor() {}
 
@@ -37,6 +39,7 @@ export class MortgageResultComponent {
   cashFlow:number = 0;
   maintenanceCosts:number = 0;
   monthlyTaxes:number = 0;
+  hoaFeesMonthly:number = 0;
  
   
 
@@ -115,16 +118,13 @@ export class MortgageResultComponent {
 
   calculateMonthlyTaxes():number{
     let monthlyTaxes:number = 0;
-    monthlyTaxes = this.propertyDetails.data.source.raw.tax_amount / 12;
+    monthlyTaxes = ((Number(this.AverageRates.data.mortgage_data.property_tax)) * this.DisplayResult.list_price) / 12;
     return monthlyTaxes;
   }
 
-
-
-
   calculateCashFlow():number{
     // let monthlyCosts = this.monthlyMortgagePayment + this.closing + this.insuranceCost + this.vacancyRate;
-    let monthlyCosts = this.calculateMonthlyMortgagePaymnet() + (this.insuranceCost + this.monthlyVacancyCost + this.managementFee + this.maintenanceCosts);
+    let monthlyCosts = this.calculateMonthlyMortgagePaymnet() + (this.insuranceCost + this.monthlyVacancyCost + this.managementFee + this.maintenanceCosts + this.monthlyTaxes);
     let cashFlow = this.Rent - monthlyCosts;
     console.log(cashFlow);
     console.log(`${this.Rent} - ${monthlyCosts}`);

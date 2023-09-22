@@ -3,6 +3,9 @@
 <div>
     <table>
         <tr>
+            <td><p>Will you need a loan? &nbsp; <input type="checkbox" [(ngModel)]="newMortgage.loan" /></p></td>
+        </tr>
+        <tr>
    <td><p>Percent Down Payment</p></td>
     <td><input type="number" placeholder="Percent down payment" [(ngModel)]="newMortgage.downPayment" name="downPayment"/></td>
 </tr>
@@ -15,19 +18,21 @@
     <td><input type="number" placeholder="Interest Rate" [(ngModel)]="newMortgage.interestRate" name="interestRate" /></td>
 </tr>
 <tr>
-    <td><p>Will you need a loan? &nbsp; <input type="checkbox" [(ngModel)]="newMortgage.loan" /></p></td>
-</tr>
-<tr>
-<td><p>Vacancy Rate</p>
+<td>
+        <p>Vacancy Rate <span title="The rate at which the property will be vacant. Typically 4%-8%">&#9432; </span></p>
+      
     <td><input type="number" placeholder="Vacancy Rate percent" [(ngModel)]="vacancyRate" name="vacancyRate" /></td>
 </tr>
 <tr>
-<td><p>Management Fee Percent:</p>
-    <td><input type="number" placeholder="Management Fee Percent" [(ngModel)]="managementFee" name="managementFee" /></td>
-</tr>
-
+   
+        <td><p>Management Fee Percent:  <span title="The fee a company charges to manage and maintain the rental property. Typically its 10%">&#9432;</span></p></td>
+    <td>
+      <input type="number" placeholder="Management Fee Percent" [(ngModel)]="managementFee" name="managementFee" />
+    </td>
+  </tr>
 <tr>
-    <td><p>Closing Cost Percent:</p></td>
+    
+    <td><p>Closing Cost Percent: <span title="As a buyer, what are your closing costs? They are typically about 2%">&#9432;</span></p></td>
     <td><input type="number" placeholder = "closing cost percent" [(ngModel)]="newMortgage.closingCost" name="closingCost" /></td>
 </tr>
 <tr>
@@ -43,8 +48,34 @@
     <td><input type="text" placeholder = "zip code" [(ngModel)]="newMortgage.zipCode" name="zipCode" /></td>
     </tr>
     <tr>
-        
    <td> <button type="submit" (click)="submitMortgage()">See results!</button> </td>
     </tr>
 </table>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
