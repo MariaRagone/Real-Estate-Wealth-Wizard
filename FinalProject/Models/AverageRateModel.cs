@@ -8,7 +8,7 @@
 
         public class AverageRateData
         {
-            public int average_rent_price { get; set; }
+            public int? average_rent_price { get; set; }
             public Mortgage_Data mortgage_data { get; set; }
             public int average_recent_sold_price { get; set; }
             public int reference_price { get; set; }

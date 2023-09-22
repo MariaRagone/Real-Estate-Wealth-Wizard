@@ -22,9 +22,9 @@ export class MapComponent {
     if (this.favoritePinResult!=null){
       this.GetCoordinates();
     }
-    if (this.listPinResult!=null){
-      this.GetStartCoordinates();
-    }
+    // if (this.listPinResult!=null){
+    //   this.GetStartCoordinates();
+    // }
 
     
     this.setupMap();
@@ -85,11 +85,11 @@ export class MapComponent {
       this.Lon = Number(this.favoritePinResult.data.location.address.coordinate.lon);
     }
 
-    if (this.listPinResult != null) {
-      this.listPinResult = this.listPins;
-      this.Lat = Number(this.listPinResult.data.home_search.results[0].location.address.coordinate?.lat);
-      this.Lon = Number(this.listPinResult.data.home_search.results[0].location.address.coordinate?.lon);
-    }
+    // if (this.listPinResult != null) {
+    //   this.listPinResult = this.listPins;
+    //   this.Lat = Number(this.listPinResult.data.home_search.results[0].location.address.coordinate?.lat);
+    //   this.Lon = Number(this.listPinResult.data.home_search.results[0].location.address.coordinate?.lon);
+    // }
     
     this.center = {
       lat: this.Lat,

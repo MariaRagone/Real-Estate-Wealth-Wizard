@@ -5,18 +5,18 @@
         <tr>
             <td><p>Will you need a loan? &nbsp; <input type="checkbox" [(ngModel)]="newMortgage.loan" /></p></td>
         </tr>
-        <tr>
-   <td><p>Percent Down Payment</p></td>
-    <td><input type="number" placeholder="Percent down payment" [(ngModel)]="newMortgage.downPayment" name="downPayment"/></td>
-</tr>
-<tr>
-    <td><p>Loan Term</p></td>
-    <td><input type="number" placeholder="Loan Term" [(ngModel)]="newMortgage.loanTerm" name="loanTerm" /></td>
-</tr>
-<tr>
-    <td><p>Interest Rate</p>
-    <td><input type="number" placeholder="Interest Rate" [(ngModel)]="newMortgage.interestRate" name="interestRate" /></td>
-</tr>
+        <tr *ngIf="newMortgage.loan">
+            <td><p>Percent Down Payment</p></td>
+            <td><input type="number" placeholder="Percent down payment" [(ngModel)]="newMortgage.downPayment" name="downPayment" /></td>
+          </tr>
+          <tr *ngIf="newMortgage.loan">
+            <td><p>Loan Term</p></td>
+            <td><input type="number" placeholder="Loan Term" [(ngModel)]="newMortgage.loanTerm" name="loanTerm" /></td>
+          </tr>
+          <tr *ngIf="newMortgage.loan">
+            <td><p>Interest Rate</p></td>
+            <td><input type="number" placeholder="Interest Rate" [(ngModel)]="newMortgage.interestRate" name="interestRate" /></td>
+          </tr>
 <tr>
 <td>
         <p>Vacancy Rate <span title="The rate at which the property will be vacant. Typically 4%-8%">&#9432; </span></p>

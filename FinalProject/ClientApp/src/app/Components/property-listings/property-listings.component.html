@@ -1,35 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-</head>
-<body>
-    
-</body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body></body>
 </html>
-<app-mortgage-form (MortgageCreated)="NewMortgage($event)" (VacancyRate)="VacancyRate($event)" (NumBeds)="NumBeds($event)" (ManagementFee)="ManagementFee($event)"></app-mortgage-form>
+<app-mortgage-form
+  (MortgageCreated)="NewMortgage($event)"
+  (VacancyRate)="VacancyRate($event)"
+  (NumBeds)="NumBeds($event)"
+  (ManagementFee)="ManagementFee($event)"
+></app-mortgage-form>
 <div *ngIf="displaySearchResult && PropertyListResult.data != null">
-<div *ngFor="let p of PropertyListResult.data.home_search.results">
-   
-    <img style="width: 300px;" *ngIf="p.primary_photo?.href != null" src="{{p.primary_photo?.href}}"/>
-    <br>
+  <div *ngFor="let p of PropertyListResult.data.home_search.results">
+    <img
+      style="width: 300px"
+      *ngIf="p.primary_photo?.href != null"
+      src="{{ p.primary_photo?.href }}"
+    />
+    <br />
     <button id="heart" (click)="AddFavorites(user.id, p.property_id)">
-        <i class="fas fa-heart">
-        </i></button>
-        <td><button (click)="RemoveFavorite(user.id, p.property_id)">Delete</button> </td>
-    <p *ngIf="p.primary_photo?.href == null"><img src = "https://en.pimg.jp/072/139/682/1/72139682.jpg"></p>
-    <p>Price: {{p.list_price}}</p>
-    <p>Address: {{p.location.address.line}}, {{p.location.address.city}}, {{p.location.address.postal_code}} {{p.location.address.state_code}}</p>
-    <p>#Beds: {{p.description.beds}}</p>
-    <P># Baths: {{p.description.baths}}</P>
-    <p>Square Feet: {{p.description.sqft}}</p>
+      <i class="fas fa-heart"> </i>
+    </button>
+    <td>
+      <button (click)="RemoveFavorite(user.id, p.property_id)">Delete</button>
+    </td>
+    <p *ngIf="p.primary_photo?.href == null">
+      <img src="https://en.pimg.jp/072/139/682/1/72139682.jpg" />
+    </p>
+    <p>Price: {{ p.list_price }}</p>
+    <p>
+      Address: {{ p.location.address.line }}, {{ p.location.address.city }},
+      {{ p.location.address.postal_code }} {{ p.location.address.state_code }}
+    </p>
+    <p>#Beds: {{ p.description.beds }}</p>
+    <P># Baths: {{ p.description.baths }}</P>
+    <p>Square Feet: {{ p.description.sqft }}</p>
     <!-- <p>Median Rental Rate: {{PropertyListResult.data.geo.geo_statistics.housing_market.median_rent_price}}</p> -->
-            <app-mortgage-result [DisplayResult]="p" [User]="appUser" [Rent]="averageRent" [vacancyRate]="vacancyRate" [managementFee]="managementFee" [AverageRates]="averageRates" ></app-mortgage-result> 
+    <app-mortgage-result
+      [DisplayResult]="p"
+      [User]="appUser"
+      [Rent]="averageRent"
+      [vacancyRate]="vacancyRate"
+      [managementFee]="managementFee"
+      [AverageRates]="averageRates"
+    ></app-mortgage-result>
+  </div>
 </div>
-</div>
-
+<!-- <div *ngIf="PropertyListResult.data.home_search.results.length != 0">
+  <app-map [listPins]="PropertyListResult"></app-map>
+</div> -->
 <!-- <button id="heart" (click)="AddFavorites("4200",p.property_id)"i class="fas fa-heart"></i>hi </button> -->
