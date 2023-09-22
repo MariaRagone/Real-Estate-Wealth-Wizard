@@ -8,6 +8,7 @@
             (mapMousemove)="move($event)">
            
 <!-- <map-marker *ngFor="let markerPosition of coordinates" [position]="{lat:markerPosition.lat, lng:markerPosition.lon}" [label]="'bob'" (mapClick)="Click()"></map-marker> -->
-<map-marker *ngFor="let markerPosition of GetCoordinates()" [position]="{lat:markerPosition.lat, lng:markerPosition.lon}" (mapClick)="Click()"></map-marker>
-            
+    <div *ngIf="favoritePins[0]!=null">
+<map-marker  *ngFor="let markerPosition of GetCoordinates()" [position]="{lat:markerPosition.lat, lng:markerPosition.lon}" (mapClick)="Click()"></map-marker>
+    </div>    
 </google-map>
