@@ -21,15 +21,25 @@ export class MortgageResultComponent {
   // user:User = {} as User; don't need this
   @Input() Rent:number = {} as number;
   @Input() searchResult:boolean = {} as boolean;
+  @Input() vacancyRate:number = {} as number;
+  @Input() managementFee:number = {} as number;
+  @Input() propertyDetails:PropertyDetails = {} as PropertyDetails;
+  // @Input() maintenanceCosts: number = {} as number;
   constructor() {}
 
   monthlyMortgagePayment:number = 0;
   insuranceCost:number = 0;
-  monthlyIncome:number = 0;
-  vacancyRate:number = 0;
+  // monthlyIncome:number = 0;
+  monthlyVacancyCost:number = 0;
+  monthlyManagementyCost:number = 0;
   numBeds:number = 0;
   closing:number = 0;
   cashFlow:number = 0;
+  maintenanceCosts:number = 0;
+  monthlyTaxes:number = 0;
+ 
+  
+
   // RentListResult: Rent = {} as Rent;
 //closingCostPercent:number = 0;
  
@@ -38,8 +48,11 @@ export class MortgageResultComponent {
     this.closing = this.calculateClosingCost();
     this.monthlyMortgagePayment = this.calculateMonthlyMortgagePaymnet();
     this.insuranceCost = this.calculateInsurance();
-    this.vacancyRate = this.calculateVacancy();
+    this.monthlyVacancyCost = this.calculateVacancy();
     this.cashFlow = this.calculateCashFlow();
+    this.managementFee = this.calculateManagementFee();
+    this.maintenanceCosts = this.calculateMaintenanceCosts();
+    this.monthlyTaxes = this.calculateMonthlyTaxes();
     
     //this.GetRentals(this.User.zipCode, this.numBeds);
   }
@@ -67,7 +80,7 @@ export class MortgageResultComponent {
   }
 
   calculateMonthlyMortgagePaymnet():number{
-      let mortgagePayment: number = 0;
+      let mortgagePayment: number = 0; 
       let monthlyInterestRate: number = this.User.interestRate / 12 / 100; // Convert annual rate to monthly decimal
       let n: number = this.User.loanTerm * 12;
       mortgagePayment = this.loanAmount * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, n)) /
@@ -82,16 +95,36 @@ export class MortgageResultComponent {
     return insuranceCost;
   }
 
-  //we need to calculate monthly income in order for this method to work
   calculateVacancy():number{
-    let vacancy:number = this.monthlyIncome * this.vacancyRate;
+    let vacancyRate:number = this.Rent * this.vacancyRate * .01;
     //vacancy = this.monthlyIncome * this.vacancyRate;
-    return vacancy;
+    return vacancyRate;
   }
+
+  calculateManagementFee():number{
+    let managementFee:number = this.Rent * this.managementFee * .01;
+    //vacancy = this.monthlyIncome * this.vacancyRate;
+    return managementFee;
+  }
+
+  calculateMaintenanceCosts():number{
+    let maintenanceCosts:number = 0;
+    maintenanceCosts = (this.DisplayResult.list_price * 0.005) / 12;
+    return maintenanceCosts;
+  }
+
+  calculateMonthlyTaxes():number{
+    let monthlyTaxes:number = 0;
+    monthlyTaxes = this.propertyDetails.data.source.raw.tax_amount / 12;
+    return monthlyTaxes;
+  }
+
+
+
 
   calculateCashFlow():number{
     // let monthlyCosts = this.monthlyMortgagePayment + this.closing + this.insuranceCost + this.vacancyRate;
-    let monthlyCosts = this.calculateMonthlyMortgagePaymnet() + (this.insuranceCost + this.vacancyRate);
+    let monthlyCosts = this.calculateMonthlyMortgagePaymnet() + (this.insuranceCost + this.monthlyVacancyCost + this.managementFee + this.maintenanceCosts);
     let cashFlow = this.Rent - monthlyCosts;
     console.log(cashFlow);
     console.log(`${this.Rent} - ${monthlyCosts}`);

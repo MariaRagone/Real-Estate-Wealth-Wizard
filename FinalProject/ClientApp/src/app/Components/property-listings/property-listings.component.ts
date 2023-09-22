@@ -29,6 +29,7 @@ export class PropertyListingsComponent {
   rent_prices:number[] = [];
   averageRent:number = 0;
   displaySearchResult: boolean = false; 
+  managementFee = 0;
   //appUser: User = {} as User;
 
   constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService,private authService: SocialAuthService, private _mortgageFormService: MortgageFormService,  private _rentService:RentService) {}
@@ -140,6 +141,10 @@ RemoveFavorite(googleId: string, propertyId:string):void{
 
 VacancyRate(vacancyRate:number){
   this.vacancyRate = vacancyRate;
+}
+
+ManagementFee(managementFee:number){
+  this.managementFee = managementFee;
 }
 
 NumBeds(numBeds:number){

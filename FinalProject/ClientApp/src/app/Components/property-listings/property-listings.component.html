@@ -11,7 +11,7 @@
     
 </body>
 </html>
-<app-mortgage-form (MortgageCreated)="NewMortgage($event)" (VacancyRate)="VacancyRate($event)" (NumBeds)="NumBeds($event)"></app-mortgage-form>
+<app-mortgage-form (MortgageCreated)="NewMortgage($event)" (VacancyRate)="VacancyRate($event)" (NumBeds)="NumBeds($event)" (ManagementFee)="ManagementFee($event)"></app-mortgage-form>
 <div *ngIf="displaySearchResult && PropertyListResult.data != null">
 <div *ngFor="let p of PropertyListResult.data.home_search.results">
    
@@ -28,7 +28,7 @@
     <P># Baths: {{p.description.baths}}</P>
     <p>Square Feet: {{p.description.sqft}}</p>
     <!-- <p>Median Rental Rate: {{PropertyListResult.data.geo.geo_statistics.housing_market.median_rent_price}}</p> -->
-            <app-mortgage-result [DisplayResult]="p" [User]="appUser" [Rent]="averageRent"></app-mortgage-result>
+            <app-mortgage-result [DisplayResult]="p" [User]="appUser" [Rent]="averageRent" [vacancyRate]="vacancyRate" [managementFee]="managementFee"></app-mortgage-result> 
 </div>
 </div>
 

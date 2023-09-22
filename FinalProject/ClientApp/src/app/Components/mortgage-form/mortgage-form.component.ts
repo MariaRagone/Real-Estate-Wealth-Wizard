@@ -17,6 +17,8 @@ export class MortgageFormComponent {
   numBeds:number = 0;
   @Output() VacancyRate = new EventEmitter<number>();
   @Output() NumBeds = new EventEmitter<number>();
+  managementFee:number = 0;
+  @Output() ManagementFee = new EventEmitter<number>();
 
   // showAmortization: boolean = true;
   // hoaFees: number = 0;
@@ -56,6 +58,8 @@ export class MortgageFormComponent {
     this.newMortgage={} as User;
     this.VacancyRate.emit(this.vacancyRate);
     this.vacancyRate = 0;
+    this.ManagementFee.emit(this.managementFee);
+    this.managementFee = 0;
  
   }
 }
