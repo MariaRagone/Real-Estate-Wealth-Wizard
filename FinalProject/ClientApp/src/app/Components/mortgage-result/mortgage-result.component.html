@@ -1,10 +1,12 @@
-<!-- <h1>{{this.Rent}}</h1>
+<h1>{{this.Rent | currency}}</h1>
 
 
 <p>Loan Amount {{loanAmount | currency}}</p>
 <p>Closing Cost {{calculateClosingCost() | currency}}</p>
 <p>Monthly Mortgage Payment {{monthlyMortgagePayment | currency}}</p>
-<p>Monthly Insurace Cost {{insuranceCost | currency}}</p> -->
+<p>Monthly Insurace Cost {{insuranceCost | currency}}</p>
+<p>Monthly Vacancy Cost: {{monthlyVacancyCost | currency}}</p>
+<p>Monthly MaintenanceCost: {{maintenanceCost | currency}}</p>
 
 <p style="color: green;" *ngIf="cashFlow > 0">Positive Cashflow!</p>
 <p style="color: red" *ngIf="cashFlow <= 0">Negative Cashflow</p>
