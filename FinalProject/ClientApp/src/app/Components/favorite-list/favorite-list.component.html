@@ -13,4 +13,9 @@
     <p>Square Feet: {{ p.data.description.sqft }}</p>
         <!-- <td><button (click)="RemoveFavorite(user.id, p.property_id)">Delete</button> </td>
     <p><app-mortgage-result [DisplayResult]="p.list_price" [downPament]="appUser.downPayment" ></app-mortgage-result></p> -->
+    
+</div>
+
+<div *ngIf="favoriteProperties.length != 0">
+<app-map [favoritePins]="favoriteProperties"></app-map>
 </div>

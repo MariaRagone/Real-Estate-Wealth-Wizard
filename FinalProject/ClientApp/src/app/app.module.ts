@@ -21,6 +21,7 @@ import {
 } from '@abacritt/angularx-social-login';
 import { MortgageResultComponent } from './Components/mortgage-result/mortgage-result.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { MapComponent } from './Components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     UserComponent,
     FavoriteListComponent,
     MortgageResultComponent,
+    MapComponent,
     
   ],
   imports: [
