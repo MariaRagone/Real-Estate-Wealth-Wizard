@@ -46,6 +46,8 @@ ngOnInit(): void {
         this.PropertyDetailsResult = response;
         this.setupMap();
         this.GetUser();
+        // this.selectedPropertyId=response.data.property_id;
+        // this.currentGoogleId=this.user.id;
       });
   });
 }
@@ -59,11 +61,11 @@ GetUser(): void {
   });
 }
 
-  AddFavorites(): void {
+  AddFavorites(googleId:string,propertId:string): void {
     let favorite: Favorite = {} as Favorite;
     // this._eventService.AddFavorite();
-    favorite.googleId = this.currentGoogleId;
-    favorite.propertyId = this.selectedPropertyId;
+    favorite.googleId = googleId;
+    favorite.propertyId = propertId;
     this._favoriteService
       .AddFavorite(favorite)
       .subscribe((response: Favorite) => {
@@ -72,15 +74,15 @@ GetUser(): void {
       });
   }
 
-  // DeleteFavorite(googleId: string, propertyId: string): void {
-  //   //feedback for user
-  //   let target: number = this.favoriteProperties.findIndex((f) => f.data.property_id == propertyId);
-  //   this.favoriteProperties.splice(target, 1);
+  DeleteFavorite(googleId: string, propertyId: string): void {
+    //feedback for user
+    // let target: number = this.favoriteProperties.findIndex((f) => f.data.property_id == propertyId);
+    // this.favoriteProperties.splice(target, 1);
 
-  //   this._favoriteService.RemoveFavorite(googleId, propertyId).subscribe((response: Favorite) => {
-  //     console.log(response);
-  //   });
-  // }
+    this._favoriteService.RemoveFavorite(googleId, propertyId).subscribe((response: Favorite) => {
+      console.log(response);
+    });
+  }
 
 
 ////////////

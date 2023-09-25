@@ -1,3 +1,8 @@
+
+<button id="heart" (click)="AddFavorites(user.id,PropertyDetailsResult.data.property_id)"><i class="fas fa-heart"> </i>like</button>
+<td>
+    <button (click)="DeleteFavorite(user.id, PropertyDetailsResult.data.property_id)">Delete</button>
+    </td>
 <p><img style="width: 800px;" *ngIf="PropertyDetailsResult.data.photos[0] != null" src="{{ PropertyDetailsResult.data.photos[0].href }}"/></p>
 <p><strong>Price:</strong> {{ PropertyDetailsResult.data.list_price | currency }}</p>
 <p><strong>Address:</strong> {{ PropertyDetailsResult.data.location.address.line }}, {{ PropertyDetailsResult.data.location.address.city }}, {{ PropertyDetailsResult.data.location.address.postal_code }} {{ PropertyDetailsResult.data.location.address.state_code }}</p>
