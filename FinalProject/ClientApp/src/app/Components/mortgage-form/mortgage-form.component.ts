@@ -54,6 +54,35 @@ export class MortgageFormComponent {
     // }
     // this.newMortgage.zipCode = "";
     // console.log(this.newMortgage);
+    if(this.newMortgage.downPayment == null){
+      this.newMortgage.downPayment = 0;
+    }
+
+    if(this.newMortgage.loanTerm == null){
+      this.newMortgage.loanTerm = 0;
+    }
+
+    if(this.newMortgage.interestRate == null ){
+      this.newMortgage.interestRate = 0;
+    }
+    if(this.vacancyRate == null){
+      this.vacancyRate = 0;
+    }
+    if(this.managementFee == null){
+      this.managementFee = 0;
+    }
+    if(this.newMortgage.closingCost == null){
+      this.newMortgage.closingCost = 0;
+    }
+    if(this.numBeds == null){
+      this.numBeds = 0;
+    }
+    if (this.newMortgage.maxPrice == null) {
+      this.newMortgage.maxPrice = 0;
+    }
+    if (this.newMortgage.zipCode == null) {
+      this.newMortgage.zipCode = "0";
+    }
     this.MortgageCreated.emit(this.newMortgage);
     this.newMortgage={} as User;
     this.VacancyRate.emit(this.vacancyRate);
