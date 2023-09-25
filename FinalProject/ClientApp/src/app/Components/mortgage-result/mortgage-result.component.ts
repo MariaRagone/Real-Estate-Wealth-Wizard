@@ -88,7 +88,9 @@ export class MortgageResultComponent {
       let n: number = this.User.loanTerm * 12;
       mortgagePayment = this.loanAmount * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, n)) /
                        (Math.pow(1 + monthlyInterestRate, n) - 1);
-      
+      if (mortgagePayment == null){
+        mortgagePayment = 0;
+      }
       return mortgagePayment;
   }
 

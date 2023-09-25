@@ -13,7 +13,7 @@ namespace FinalProject.Models
             //setup
             string apiKey = Secret.apiKey;
             string Host = Secret.Host;
-            string url = $"https://us-real-estate.p.rapidapi.com/v2/for-rent-by-zipcode?zipcode={postal_code}&limit=10&offset=0&sort=lowest_price&beds_min={beds}";
+            string url = $"https://us-real-estate.p.rapidapi.com/v2/for-rent-by-zipcode?zipcode={postal_code}&limit=10&offset=0&sort=lowest_price&beds_min={beds}&property_type=townhome,single_family,condo";
 
             //request
             HttpWebRequest request = WebRequest.CreateHttp(url);
