@@ -28,9 +28,16 @@ namespace FinalProject.Models
             //Adjust
             //Convert to C#
             //Install Newtonsoft.json
-            
-            RentModel result = JsonConvert.DeserializeObject<RentModel>(json);
+            try
+            {
+                RentModel result = JsonConvert.DeserializeObject<RentModel>(json);
             return result;
+            } 
+            catch (Exception e )
+            {
+                return new RentModel();
+            }       
         }
     }
 }
+

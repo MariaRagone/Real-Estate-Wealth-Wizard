@@ -34,6 +34,7 @@ export class PropertyListingsComponent {
   displaySearchResult: boolean = false;
   managementFee = 0;
   averageRates: AverageRateModel = {} as AverageRateModel;
+  status: string = "";
   //appUser: User = {} as User;
 
   ///map
@@ -84,11 +85,30 @@ export class PropertyListingsComponent {
     });
     this.WaitAMinute = true;
   }
+  
   //temporary method - fix later!
   callAPIs(ZipCode: string, Beds: number, PriceMax: number, MinBeds: number): void {
+    this.status = "loading";
+    if (ZipCode == "" || ZipCode == null) {
+      ZipCode = "0";
+    }
+    if (Beds == null){
+      Beds = 0;
+    }
+    if (PriceMax == null){
+      PriceMax = 999999999;
+    }
+    if (MinBeds == null){
+      MinBeds = 0;
+    }
+
     this._rentService.GetRentByPostal(ZipCode, Beds).subscribe((response: Rent) => {
+      if (response.data == null){
+        this.status = "Could not find any matches. Please try adjusting your search parameters.";
+        return;
+      }
       console.log(response);
-      console.log("Rentals work");
+      // console.log("Rentals work");
       this.RentListResult = response;
       response.data.home_search.results.forEach(p => {
         if (p.list_price != null) {
@@ -103,8 +123,14 @@ export class PropertyListingsComponent {
         this.PropertyListResult = response
         console.log('hi coords')
         console.log(this.PropertyCoordinates)
+        this.status = "";
+      },(err) => {
+        console.log("Could not find any matches");
       });
 
+    },(err) => {
+      console.log("Could not find any matches");
+      this.status = "Could not find any matches. Please try adjusting your search parameters.";
     });
 
   }
