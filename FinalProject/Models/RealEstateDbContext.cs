@@ -57,7 +57,10 @@ public partial class RealEstateDbContext : DbContext
                 .HasColumnName("lastName");
             entity.Property(e => e.Loan).HasColumnName("loan");
             entity.Property(e => e.LoanTerm).HasColumnName("loanTerm");
+            entity.Property(e => e.ManagementFee).HasColumnName("managementFee");
             entity.Property(e => e.MaxPrice).HasColumnName("maxPrice");
+            entity.Property(e => e.NumberOfBedrooms).HasColumnName("numberOfBedrooms");
+            entity.Property(e => e.VacancyRate).HasColumnName("vacancyRate");
             entity.Property(e => e.ZipCode)
                 .HasMaxLength(255)
                 .HasColumnName("zipCode");

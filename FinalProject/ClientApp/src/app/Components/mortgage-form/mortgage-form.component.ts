@@ -1,8 +1,10 @@
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MortgageCalculatorModel } from 'src/app/Models/mortgage-calculator';
 import { User } from 'src/app/Models/user';
 import { MortgageFormService } from 'src/app/Services/mortgage-form.service';
 import { PropertiesService } from 'src/app/Services/properties.service';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-mortgage-form',
@@ -11,6 +13,7 @@ import { PropertiesService } from 'src/app/Services/properties.service';
 })
 export class MortgageFormComponent {
   MortgageCalcResult: MortgageCalculatorModel = {} as MortgageCalculatorModel;
+  userListResult:User = {} as User;
   propertyId: string = '';
   @Output() MortgageCreated = new EventEmitter<User>();
   vacancyRate:number = 0;
@@ -19,6 +22,7 @@ export class MortgageFormComponent {
   @Output() NumBeds = new EventEmitter<number>();
   managementFee:number = 0;
   @Output() ManagementFee = new EventEmitter<number>();
+  user: SocialUser = {} as SocialUser;
 
   // showAmortization: boolean = true;
   // hoaFees: number = 0;
@@ -33,7 +37,9 @@ export class MortgageFormComponent {
 
   constructor(
     private _mortgageCalculatorService: MortgageFormService,
-    private _propertiesService: PropertiesService
+    private _propertiesService: PropertiesService,
+    private _userService:UserService,
+    private _authService: SocialAuthService
   ) {}
 
   
@@ -89,7 +95,19 @@ export class MortgageFormComponent {
     this.vacancyRate = 0;
     this.ManagementFee.emit(this.managementFee);
     this.managementFee = 0;
- 
+
+  }
+
+  addUser(userParams:User):void{
+    this._authService.authState.subscribe((user: SocialUser) => {
+      this.user = user});
+    let userInputs:User = userParams;
+    // this._eventService.AddFavorite();
+    userInputs.googleId = this.user.id;
+    this._userService.addUser(userInputs).subscribe((response:User) =>{
+      console.log(response)
+      this.userListResult = response;
+    });
   }
 
   //mortgate created output passes to New Mortgate to trigger event (mortgate created)

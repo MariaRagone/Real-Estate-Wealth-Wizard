@@ -26,4 +26,10 @@ public partial class User
     public double? ClosingCost { get; set; }
 
     public double? MaxPrice { get; set; }
+
+    public double? VacancyRate { get; set; }
+
+    public double? NumberOfBedrooms { get; set; }
+
+    public double? ManagementFee { get; set; }
 }

@@ -40,12 +40,12 @@ export class MortgageResultComponent {
   maintenanceCosts:number = 0;
   monthlyTaxes:number = 0;
   hoaFeesMonthly:number = 0;
- 
+
   
 
   // RentListResult: Rent = {} as Rent;
 //closingCostPercent:number = 0;
- 
+
   ngOnInit():void {
     this.loanAmount = this.calculateLoanAmount();
     this.closing = this.calculateClosingCost();
@@ -140,7 +140,7 @@ export class MortgageResultComponent {
     return cashFlow;
   }
 
- }
+}
   
 
 
