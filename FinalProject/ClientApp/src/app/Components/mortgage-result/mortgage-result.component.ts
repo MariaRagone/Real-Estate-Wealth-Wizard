@@ -72,7 +72,14 @@ export class MortgageResultComponent {
     let result:number = 0;
     result = this.DisplayResult.list_price * (this.User.downPayment * .01);
     let amount:number = this.DisplayResult.list_price - result;
-    return amount;
+    console.log(`List price: ${this.DisplayResult.list_price}`)
+    //no loan logic
+    if(amount == this.DisplayResult.list_price){
+      return 0;
+    }
+    else{
+      return amount;
+    }
   }
 
   calculateClosingCost():number{
@@ -88,7 +95,7 @@ export class MortgageResultComponent {
       let n: number = this.User.loanTerm * 12;
       mortgagePayment = this.loanAmount * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, n)) /
                        (Math.pow(1 + monthlyInterestRate, n) - 1);
-      if (mortgagePayment == null){
+      if (isNaN(mortgagePayment)){
         mortgagePayment = 0;
       }
       return mortgagePayment;
