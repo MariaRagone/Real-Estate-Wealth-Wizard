@@ -21,7 +21,7 @@ namespace FinalProject.Controllers
         //    return _dbContext.Users.FirstOrDefault(u => u.Id == id);
         //}
 
-        [HttpPost("users")]
+        [HttpPost("")]
         public User AddUser([FromBody] User u)
         {
             _dbContext.Users.Add(u);

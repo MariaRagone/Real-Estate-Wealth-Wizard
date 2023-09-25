@@ -89,6 +89,7 @@ export class MortgageFormComponent {
     if (this.newMortgage.zipCode == null) {
       this.newMortgage.zipCode = "0";
     }
+    this.addUser(this.newMortgage);
     this.MortgageCreated.emit(this.newMortgage);
     this.newMortgage={} as User;
     this.VacancyRate.emit(this.vacancyRate);
