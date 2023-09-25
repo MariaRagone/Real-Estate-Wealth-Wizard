@@ -21,6 +21,7 @@
   (NumBeds)="NumBeds($event)"
   (ManagementFee)="ManagementFee($event)"
 ></app-mortgage-form>
+<p>{{status}}</p>
 <!-- Structural directives. ng if is used to display the options that match the users inputs and ng for loops through and displays all that match.  -->
 <div *ngIf="displaySearchResult && PropertyListResult.data != null">
   <div *ngFor="let p of PropertyListResult.data.home_search.results">

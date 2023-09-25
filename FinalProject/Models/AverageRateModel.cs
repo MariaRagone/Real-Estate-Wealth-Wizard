@@ -2,7 +2,7 @@
 {
     public class AverageRateModel
     {
-            public int status { get; set; }
+            public int? status { get; set; }
             public AverageRateData data { get; set; }
         }
 
@@ -10,10 +10,10 @@
         {
             public int? average_rent_price { get; set; }
             public Mortgage_Data mortgage_data { get; set; }
-            public int average_recent_sold_price { get; set; }
-            public int reference_price { get; set; }
-            public int average_sale_price { get; set; }
-            public int for_sale_count { get; set; }
+            public int? average_recent_sold_price { get; set; }
+            public int? reference_price { get; set; }
+            public int? average_sale_price { get; set; }
+            public int? for_sale_count { get; set; }
         }
 
         public class Mortgage_Data
@@ -47,7 +47,7 @@
             public string loan_id { get; set; }
             public string display_name { get; set; }
             public bool is_fixed { get; set; }
-            public int term { get; set; }
+            public int? term { get; set; }
             public bool is_va_loan { get; set; }
         }
 

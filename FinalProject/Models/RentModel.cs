@@ -3,7 +3,7 @@
 
     public class RentModel
     {
-        public int status { get; set; }
+        public int? status { get; set; }
         public RentData data { get; set; }
     }
 
@@ -15,8 +15,10 @@
 
     public class RentHome_Search
     {
-        public int total { get; set; }
-        public int count { get; set; }
+        public int? total { get; set; }
+        public int? count { get; set; }
+        //public RentResult [] results { get; set; }
+
         public List<RentResult> results { get; set; }
     }
 

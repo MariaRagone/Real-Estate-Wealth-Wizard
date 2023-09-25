@@ -3,7 +3,7 @@
 
     public class PropertiesByPostalModel
     {
-        public int status { get; set; }
+        public int? status { get; set; }
         public PostalData data { get; set; }
     }
 
@@ -15,8 +15,8 @@
 
     public class Home_Search
     {
-        public int total { get; set; }
-        public int count { get; set; }
+        public int? total { get; set; }
+        public int? count { get; set; }
         public Result[] results { get; set; }
     }
 
@@ -34,7 +34,7 @@
         public Branding[] branding { get; set; }
         public Photo[] photos { get; set; }
         public object coming_soon_date { get; set; }
-        public int list_price { get; set; }
+        public int? list_price { get; set; }
         public bool matterport { get; set; }
         public string property_id { get; set; }
         public PostalFlags flags { get; set; }
@@ -116,7 +116,7 @@
         public int? baths_half { get; set; }
         public int? lot_sqft { get; set; }
         public int? sqft { get; set; }
-        public float? baths { get; set; }/// tim made a chang from int to float?
+        public float? baths { get; set; }/// tim made a chang from int? to float?
         public string sub_type { get; set; }
         public object baths_1qtr { get; set; }
         public int? garage { get; set; }
@@ -216,7 +216,7 @@
     public class Postal_Housing_Market
     {
         public By_Prop_Type[] by_prop_type { get; set; }
-        public int median_listing_price { get; set; }
+        public int? median_listing_price { get; set; }
     }
 
     public class By_Prop_Type
@@ -227,7 +227,7 @@
 
     public class Attributes
     {
-        public int median_listing_price { get; set; }
+        public int? median_listing_price { get; set; }
     }
 
     public class Recommended_Cities
@@ -252,7 +252,7 @@
     public class Housing_Market1
     {
         public By_Prop_Type1[] by_prop_type { get; set; }
-        public int median_listing_price { get; set; }
+        public int? median_listing_price { get; set; }
     }
 
     public class By_Prop_Type1
@@ -263,7 +263,7 @@
 
     public class Attributes1
     {
-        public int median_listing_price { get; set; }
+        public int? median_listing_price { get; set; }
     }
 
     public class Recommended_Counties
@@ -288,7 +288,7 @@
     public class Housing_Market2
     {
         public By_Prop_Type2[] by_prop_type { get; set; }
-        public int median_listing_price { get; set; }
+        public int? median_listing_price { get; set; }
     }
 
     public class By_Prop_Type2
@@ -299,7 +299,7 @@
 
     public class Attributes2
     {
-        public int median_listing_price { get; set; }
+        public int? median_listing_price { get; set; }
     }
 
     public class Geo_Statistics3
@@ -310,11 +310,11 @@
     public class Housing_Market3
     {
         public Month_To_Month month_to_month { get; set; }
-        public int median_days_on_market { get; set; }
-        public int median_sold_price { get; set; }
-        public int median_price_per_sqft { get; set; }
-        public int median_listing_price { get; set; }
-        public int listing_count { get; set; }
+        public int? median_days_on_market { get; set; }
+        public int? median_sold_price { get; set; }
+        public int? median_price_per_sqft { get; set; }
+        public int? median_listing_price { get; set; }
+        public int? listing_count { get; set; }
         public By_Prop_Type3[] by_prop_type { get; set; }
         public object median_rent_price { get; set; }
     }
@@ -335,11 +335,11 @@
 
     public class Attributes3
     {
-        public int median_sold_price { get; set; }
-        public int median_listing_price { get; set; }
-        public int median_days_on_market { get; set; }
-        public int median_lot_size { get; set; }
-        public int median_price_per_sqft { get; set; }
+        public int? median_sold_price { get; set; }
+        public int? median_listing_price { get; set; }
+        public int? median_days_on_market { get; set; }
+        public int? median_lot_size { get; set; }
+        public int? median_price_per_sqft { get; set; }
     }
 
     public class Recommended_Neighborhoods
