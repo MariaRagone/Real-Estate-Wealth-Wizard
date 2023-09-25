@@ -72,6 +72,15 @@ GetUser(): void {
       });
   }
 
+  // DeleteFavorite(googleId: string, propertyId: string): void {
+  //   //feedback for user
+  //   let target: number = this.favoriteProperties.findIndex((f) => f.data.property_id == propertyId);
+  //   this.favoriteProperties.splice(target, 1);
+
+  //   this._favoriteService.RemoveFavorite(googleId, propertyId).subscribe((response: Favorite) => {
+  //     console.log(response);
+  //   });
+  // }
 
 
 ////////////

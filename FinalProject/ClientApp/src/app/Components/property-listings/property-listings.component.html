@@ -25,11 +25,13 @@
 <!-- Structural directives. ng if is used to display the options that match the users inputs and ng for loops through and displays all that match.  -->
 <div *ngIf="displaySearchResult && PropertyListResult.data != null">
   <div *ngFor="let p of PropertyListResult.data.home_search.results">
+    <a [routerLink]="['/property-details', p.property_id]">
     <img
       style="width: 300px"
       *ngIf="p.primary_photo?.href != null"
       src="{{ p.primary_photo?.href }}"
     />
+    </a>
     <br />
     <button id="heart" (click)="AddFavorites(user.id, p.property_id)">
       <i class="fas fa-heart"> </i>
@@ -62,6 +64,9 @@
     <!-- Event triggers api calls, which are used to display search results, calculate average rates.  -->
   </div>
 </div>
+
+<br>
+<br>
 
   <app-map [listPins]="PropertyCoordinates"></app-map>
 
