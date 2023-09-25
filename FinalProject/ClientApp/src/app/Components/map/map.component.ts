@@ -10,11 +10,11 @@ import { PropertyDetails } from 'src/app/Models/property-details';
 export class MapComponent {
 
   @Input() favoritePins: PropertyDetails[] = [];
-  @Input() listPins: PropertiesByPostal = {} as PropertiesByPostal;
+  @Input() listPins: Coordinate[] = [];
   favoritePinResult: PropertyDetails = {} as PropertyDetails;
   listPinResult:PropertiesByPostal = {} as PropertiesByPostal;
-  Lat: number = 0;
-  Lon: number = 0;
+  Lat: number = 43.0125;
+  Lon: number = -83.6875;
   coordinates: Coordinate[] = [];
 
 
@@ -50,23 +50,23 @@ export class MapComponent {
     return cords;
   }
   /////
-  GetStartCoordinates(): Coordinate[] {
+  // GetStartCoordinates(): Coordinate[] {
     // console.log('Get Coordinates')
     // console.log(this.favoritePins);
-    let cords: Coordinate[] = [];
-    this.listPins.data.home_search.results.forEach((p) => {
-      if (p.location.address.coordinate != null) {
-        let lat = (Number(p.location.address.coordinate.lat));
-        let lon = (Number(p.location.address.coordinate.lon));
-        let coord: Coordinate = {} as Coordinate;
-        coord.lat = lat;
-        coord.lon = lon;
-        cords.push(coord);
-      }
-    })
-    // console.log(this.coordinates)
-    return cords;
-  }
+  //   let cords: Coordinate[] = [];
+  //   this.listPins.data.home_search.results.forEach((p) => {
+  //     if (p.location.address.coordinate != null) {
+  //       let lat = (Number(p.location.address.coordinate.lat));
+  //       let lon = (Number(p.location.address.coordinate.lon));
+  //       let coord: Coordinate = {} as Coordinate;
+  //       coord.lat = lat;
+  //       coord.lon = lon;
+  //       cords.push(coord);
+  //     }
+  //   })
+  //   // console.log(this.coordinates)
+  //   return cords;
+  // }
 
 
   Click() {
@@ -78,22 +78,34 @@ export class MapComponent {
   center: google.maps.LatLngLiteral = {} as google.maps.LatLngLiteral;
   zoom = 7;
   
-  setupMap(): void {
+
+  //this method needs some work
+  GetCenter():Coordinate{
+    let bob:Coordinate={} as Coordinate;
+    
     if (this.favoritePinResult != null) {
-      this.favoritePinResult = this.favoritePins[0];
-      this.Lat = Number(this.favoritePinResult.data.location.address.coordinate.lat);
+     
+      this.Lat =  Number(this.favoritePinResult.data.location.address.coordinate.lat);
       this.Lon = Number(this.favoritePinResult.data.location.address.coordinate.lon);
     }
+    if (this.favoritePins != null)
+      this.Lat = Number(this.favoritePins[0].data.location.address.coordinate.lat)
+      this.Lon = Number(this.favoritePins[0].data.location.address.coordinate.lon)
+    if (this.listPins != null) {
+      
+      this.Lat = Number(this.listPins[0].lat);
+      this.Lon = Number(this.listPins[0].lon);
+    }
+    bob.lat=43.0125;
+    bob.lon=-83.6875;
+    return bob;
+  }
 
-    // if (this.listPinResult != null) {
-    //   this.listPinResult = this.listPins;
-    //   this.Lat = Number(this.listPinResult.data.home_search.results[0].location.address.coordinate?.lat);
-    //   this.Lon = Number(this.listPinResult.data.home_search.results[0].location.address.coordinate?.lon);
-    // }
-    
+
+  setupMap(): void {
     this.center = {
-      lat: this.Lat,
-      lng: this.Lon
+      lat: 43.0125,//this.GetCenter().lat,
+      lng: -83.6875//this.GetCenter().lon
     };
   }
 

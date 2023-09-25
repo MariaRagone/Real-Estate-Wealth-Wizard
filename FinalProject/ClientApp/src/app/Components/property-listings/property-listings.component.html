@@ -53,7 +53,35 @@
     ></app-mortgage-result>
   </div>
 </div>
-<!-- <div *ngIf="PropertyListResult.data.home_search.results.length != 0">
-  <app-map [listPins]="PropertyListResult"></app-map>
-</div> -->
+
+  <app-map [listPins]="PropertyCoordinates"></app-map>
+
 <!-- <button id="heart" (click)="AddFavorites("4200",p.property_id)"i class="fas fa-heart"></i>hi </button> -->
+
+<!-- None object oriented map -->
+
+
+<!-- <h1>{{WaitAMinute}}</h1> -->
+<!-- <google-map height="500px"
+            width="900px"
+            [center]="center"
+            [zoom]="zoom"
+            (mapClick)="moveMap($event)"
+            (mapMousemove)="move($event)"> -->
+           
+<!-- <map-marker *ngFor="let markerPosition of coordinates" [position]="{lat:markerPosition.lat, lng:markerPosition.lon}" [label]="'bob'" (mapClick)="Click()"></map-marker> -->
+
+
+<!-- 
+  <P>hi</P>
+<map-marker  *ngFor="let markerPosition of PropertyCoordinates" [position]="{lat:markerPosition.lat, lng:markerPosition.lon}" (mapClick)="Click()"></map-marker>
+  -->
+    <!-- <div *ngIf="listPins.data.home_search.results.length!=0">
+        <map-marker  *ngFor="let markerPosition of GetStartCoordinates()" [position]="{lat:markerPosition.lat, lng:markerPosition.lon}" (mapClick)="Click()"></map-marker>
+    </div>  -->
+<!-- </google-map> -->
+
+
+
+
+

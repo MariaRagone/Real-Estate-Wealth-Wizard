@@ -116,7 +116,7 @@
         public int? baths_half { get; set; }
         public int? lot_sqft { get; set; }
         public int? sqft { get; set; }
-        public int baths { get; set; }
+        public float? baths { get; set; }/// tim made a chang from int to float?
         public string sub_type { get; set; }
         public object baths_1qtr { get; set; }
         public int? garage { get; set; }
