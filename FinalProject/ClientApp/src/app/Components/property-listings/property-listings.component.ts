@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { Favorite } from 'src/app/Models/favorite';
 import {
   Coordinate,
@@ -84,8 +84,7 @@ export class PropertyListingsComponent {
   async GetRentals(ZipCode: string, Beds: number): Promise<void> {
     this.WaitAMinute = false;
     await this._rentService
-      .GetRentByPostal(ZipCode, Beds)
-      .subscribe((response: Rent) => {
+      .GetRentByPostal(ZipCode, Beds).subscribe((response: Rent) => {
         console.log(response);
         console.log('Rentals work');
         this.RentListResult = response;
@@ -178,11 +177,7 @@ export class PropertyListingsComponent {
         this.FavoriteListResult.push(response);
       });
   }
-  async GetProperties(
-    ZipCode: string,
-    PriceMax: number,
-    MinBeds: number
-  ): Promise<void> {
+  async GetProperties(ZipCode: string, PriceMax: number, MinBeds: number): Promise<void> {
     await this._propertiesService
       .GetAllByPostalCode(ZipCode, PriceMax, MinBeds)
       .subscribe((response: PropertiesByPostal) => {
