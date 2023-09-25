@@ -8,11 +8,13 @@ import { Observable } from 'rxjs';
 })
 export class PropertyDetailsService {
 
-  constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl: string) { } 
+  // API/s called here (see proxy.config)
 
   /// Details
   GetPropertyDetails(propertyId:string):Observable<PropertyDetails>
   {
     return this.http.get<PropertyDetails>(`${this.baseUrl}api/PropertyDetails/${propertyId}`);
   }
+  //calls ApI via httpget Method
 }

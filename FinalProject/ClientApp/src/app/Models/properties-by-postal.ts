@@ -338,3 +338,6 @@ export interface VirtualTour {
   type: null;
   href: string;
 }
+
+
+//parse from JSON happens here

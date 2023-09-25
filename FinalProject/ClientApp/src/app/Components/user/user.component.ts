@@ -12,7 +12,7 @@ export class UserComponent {
   constructor(
     private _userService: UserService,
     private authService: SocialAuthService
-  ) {}
+  ) {} //dependency injection
   newUser: User = {} as User; //variable that connects your inputs
   user: SocialUser = {} as SocialUser;
   loggedIn: boolean = false;

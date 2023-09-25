@@ -62,4 +62,7 @@ export class MortgageFormComponent {
     this.managementFee = 0;
  
   }
+
+  //mortgate created output passes to New Mortgate to trigger event (mortgate created)
+  //Form to submit mortgate, to mortgate created to new mortgage. 
 }

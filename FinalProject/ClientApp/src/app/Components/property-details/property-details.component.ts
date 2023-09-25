@@ -13,7 +13,7 @@ import { PropertyDetailsService } from 'src/app/Services/property-details.servic
   styleUrls: ['./property-details.component.css'],
 })
 export class PropertyDetailsComponent {
-  PropertyDetailsResult: PropertyDetails = {} as PropertyDetails;
+  PropertyDetailsResult: PropertyDetails = {} as PropertyDetails;  //From Class to typescript 
   propertyId: string = '';
   FavoriteListResult: Favorite[] = [];
   currentGoogleId: string = 'test dummy';
