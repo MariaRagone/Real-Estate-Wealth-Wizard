@@ -53,33 +53,16 @@ export class FavoriteListComponent {
     });
   }
 
-  RemoveFavorite(googleId: string, propertyId: string): void {
-    let favorite: Favorite = {} as Favorite;
-    // this._eventService.AddFavorite();
-    favorite.googleId = googleId;
-    favorite.propertyId = propertyId;
-    this._favoriteService
-      .RemoveFavorite(googleId, propertyId)
-      .subscribe((response: Favorite) => {
-        console.log(response);
-        this.FavoriteListResult.push(response);
-      });
+  
+
+  DeleteFavorite(googleId: string, propertyId: string): void {
+    //feedback for user
+    let target: number = this.favoriteProperties.findIndex((f) => f.data.property_id == propertyId);
+    this.favoriteProperties.splice(target, 1);
+
+    this._favoriteService.RemoveFavorite(googleId, propertyId).subscribe((response: Favorite) => {
+      console.log(response);
+    });
   }
 
-  //  DisplayEvents(): void {
-  //   this._favoriteService.GetEvents().subscribe((response:Event[]) => {
-  //     console.log(response);
-  //     this.EventListResult = response;
-  //   });
-  // }
-
-  // DeleteFavorite(id:number):void{
-  //   //feedback for user
-  //   let target:number = this.FavoriteListResult.findIndex(e => e.id ==id);
-  //   this.FavoriteListResult.splice(target,1);
-
-  //   this._favoriteService.RemoveFavorite(id).subscribe((response:Favorite) => {
-  //     console.log(response);
-  //   });
-  // }
 }

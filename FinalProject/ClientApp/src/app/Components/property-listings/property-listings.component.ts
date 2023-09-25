@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Favorite } from 'src/app/Models/favorite';
-import { Coordinate, PropertiesByPostal } from 'src/app/Models/properties-by-postal';
+import {
+  Coordinate,
+  PropertiesByPostal,
+} from 'src/app/Models/properties-by-postal';
 import { PropertyDetails } from 'src/app/Models/property-details';
 import { FavoriteService } from 'src/app/Services/favorite.service';
 import { PropertiesService } from 'src/app/Services/properties.service';
@@ -13,7 +16,6 @@ import { AverageRateService } from 'src/app/Services/average-rate.service';
 import { Observable } from 'rxjs';
 import { AverageRate, AverageRateModel } from 'src/app/Models/average-rate';
 
-
 @Component({
   selector: 'app-property-listings',
   templateUrl: './property-listings.component.html',
@@ -21,7 +23,7 @@ import { AverageRate, AverageRateModel } from 'src/app/Models/average-rate';
 })
 export class PropertyListingsComponent {
   PropertyListResult: PropertiesByPostal = {} as PropertiesByPostal;
-  postal_code: string = "";
+  postal_code: string = '';
   user: SocialUser = {} as SocialUser;
   loggedIn: boolean = false;
   FavoriteListResult: Favorite[] = [];
@@ -40,15 +42,21 @@ export class PropertyListingsComponent {
   WaitAMinute: boolean = false;
   PropertyCoordinates: Coordinate[] = [];
 
-  constructor(private _propertiesService: PropertiesService, private _favoriteService: FavoriteService, private authService: SocialAuthService, private _mortgageFormService: MortgageFormService, private _rentService: RentService, private _averageRateService: AverageRateService) { }
-
+  constructor(
+    private _propertiesService: PropertiesService,
+    private _favoriteService: FavoriteService,
+    private authService: SocialAuthService,
+    private _mortgageFormService: MortgageFormService,
+    private _rentService: RentService,
+    private _averageRateService: AverageRateService
+  ) {}
 
   //Run the method location based on the IP Run the method location based on the IP address
   ngOnInit(): void {
     // this.setupMap();
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      this.loggedIn = (user != null);
+      this.loggedIn = user != null;
     });
     // this.GetProperties("48420");
   }
@@ -62,51 +70,64 @@ export class PropertyListingsComponent {
     // this.GetProperties(this.appUser.zipCode, this.appUser.maxPrice, this.numBeds);
 
     //temporary method - fix later!
-    this.callAPIs(this.appUser.zipCode, this.numBeds, this.appUser.maxPrice, this.numBeds);
+    this.callAPIs(
+      this.appUser.zipCode,
+      this.numBeds,
+      this.appUser.maxPrice,
+      this.numBeds
+    );
     this.GetAverageRates(this.appUser.zipCode);
     this.displaySearchResult = true;
   }
 
-
   async GetRentals(ZipCode: string, Beds: number): Promise<void> {
     this.WaitAMinute = false;
-    await this._rentService.GetRentByPostal(ZipCode, Beds).subscribe((response: Rent) => {
-      console.log(response);
-      console.log("Rentals work");
-      this.RentListResult = response;
-      response.data.home_search.results.forEach(p => {
-        if (p.list_price != null) {
-          this.rent_prices.push(p.list_price);
-        }
-      })
-      this.calculateRentIncome(this.rent_prices);
-      this.rent_prices = [];
-    });
+    await this._rentService
+      .GetRentByPostal(ZipCode, Beds)
+      .subscribe((response: Rent) => {
+        console.log(response);
+        console.log('Rentals work');
+        this.RentListResult = response;
+        response.data.home_search.results.forEach((p) => {
+          if (p.list_price != null) {
+            this.rent_prices.push(p.list_price);
+          }
+        });
+        this.calculateRentIncome(this.rent_prices);
+        this.rent_prices = [];
+      });
     this.WaitAMinute = true;
   }
   //temporary method - fix later!
-  callAPIs(ZipCode: string, Beds: number, PriceMax: number, MinBeds: number): void {
-    this._rentService.GetRentByPostal(ZipCode, Beds).subscribe((response: Rent) => {
-      console.log(response);
-      console.log("Rentals work");
-      this.RentListResult = response;
-      response.data.home_search.results.forEach(p => {
-        if (p.list_price != null) {
-          this.rent_prices.push(p.list_price);
-        }
-      })
-      this.calculateRentIncome(this.rent_prices);
-      this.rent_prices = [];
-      this._propertiesService.GetAllByPostalCode(ZipCode, PriceMax, MinBeds).subscribe((response: PropertiesByPostal) => {
+  callAPIs(
+    ZipCode: string,
+    Beds: number,
+    PriceMax: number,
+    MinBeds: number
+  ): void {
+    this._rentService
+      .GetRentByPostal(ZipCode, Beds)
+      .subscribe((response: Rent) => {
         console.log(response);
-        this.PropertyCoordinates = this.GePropertyCoordinatess(response);
-        this.PropertyListResult = response
-        console.log('hi coords')
-        console.log(this.PropertyCoordinates)
+        console.log('Rentals work');
+        this.RentListResult = response;
+        response.data.home_search.results.forEach((p) => {
+          if (p.list_price != null) {
+            this.rent_prices.push(p.list_price);
+          }
+        });
+        this.calculateRentIncome(this.rent_prices);
+        this.rent_prices = [];
+        this._propertiesService
+          .GetAllByPostalCode(ZipCode, PriceMax, MinBeds)
+          .subscribe((response: PropertiesByPostal) => {
+            console.log(response);
+            this.PropertyCoordinates = this.GePropertyCoordinatess(response);
+            this.PropertyListResult = response;
+            console.log('hi coords');
+            console.log(this.PropertyCoordinates);
+          });
       });
-
-    });
-
   }
   calculateRentIncome(list_price: number[]): void {
     // Initialize a variable to keep track of the sum of rent prices.
@@ -124,27 +145,34 @@ export class PropertyListingsComponent {
     } else {
       // Handle the case where the array is empty to avoid division by zero.
       this.averageRent = 0;
-    };
-
+    }
   }
   AddFavorites(googleId: string, propertyId: string): void {
     let favorite: Favorite = {} as Favorite;
     // this._eventService.AddFavorite();
     favorite.googleId = googleId;
     favorite.propertyId = propertyId;
-    this._favoriteService.AddFavorite(favorite).subscribe((response: Favorite) => {
-      // console.log(response)
-      this.FavoriteListResult.push(response);
-    });
+    this._favoriteService
+      .AddFavorite(favorite)
+      .subscribe((response: Favorite) => {
+        // console.log(response)
+        this.FavoriteListResult.push(response);
+      });
   }
-  async GetProperties(ZipCode: string, PriceMax: number, MinBeds: number): Promise<void> {
-    await this._propertiesService.GetAllByPostalCode(ZipCode, PriceMax, MinBeds).subscribe((response: PropertiesByPostal) => {
-      console.log(response);
-      this.PropertyCoordinates = this.GePropertyCoordinatess(response);
-      this.PropertyListResult = response
-      console.log('hi coords')
-      console.log(this.PropertyCoordinates)
-    });
+  async GetProperties(
+    ZipCode: string,
+    PriceMax: number,
+    MinBeds: number
+  ): Promise<void> {
+    await this._propertiesService
+      .GetAllByPostalCode(ZipCode, PriceMax, MinBeds)
+      .subscribe((response: PropertiesByPostal) => {
+        console.log(response);
+        this.PropertyCoordinates = this.GePropertyCoordinatess(response);
+        this.PropertyListResult = response;
+        console.log('hi coords');
+        console.log(this.PropertyCoordinates);
+      });
   }
 
   RemoveFavorite(googleId: string, propertyId: string): void {
@@ -152,10 +180,12 @@ export class PropertyListingsComponent {
     // this._eventService.AddFavorite();
     favorite.googleId = googleId;
     favorite.propertyId = propertyId;
-    this._favoriteService.RemoveFavorite(googleId, propertyId).subscribe((response: Favorite) => {
-      // console.log(response)
-      this.FavoriteListResult.push(response);
-    });
+    this._favoriteService
+      .RemoveFavorite(googleId, propertyId)
+      .subscribe((response: Favorite) => {
+        // console.log(response)
+        this.FavoriteListResult.push(response);
+      });
   }
 
   VacancyRate(vacancyRate: number) {
@@ -171,13 +201,13 @@ export class PropertyListingsComponent {
   }
 
   GetAverageRates(postal_code: string) {
-    this._averageRateService.GetAverageRatesByPostal(postal_code).subscribe((response) => {
-      console.log(response);
-      this.averageRates = response;
-    })
+    this._averageRateService
+      .GetAverageRatesByPostal(postal_code)
+      .subscribe((response) => {
+        console.log(response);
+        this.averageRates = response;
+      });
   }
-
-
 
   // calculateLoanAmount(list_price:number, downPayment:number):number{
   //   let result:number = 0;
@@ -195,9 +225,6 @@ export class PropertyListingsComponent {
   //   });
   // }
 
-
-
-
   // Inserting map
 
   //we still need this method
@@ -207,12 +234,14 @@ export class PropertyListingsComponent {
     //
     const results = Properties.data.home_search.results;
 
-
     for (let i = 0; i < Properties.data.home_search.results.length; i++) {
       const p = Properties.data.home_search.results[i];
       const coord = { lat: 55, lon: 55, propertyDetails: p.property_id }; // Default coordinates
-      
-      if (p.location.address.coordinate?.lat != null && p.location.address.coordinate?.lon != null) {
+
+      if (
+        p.location.address.coordinate?.lat != null &&
+        p.location.address.coordinate?.lon != null
+      ) {
         coord.lat = Number(p.location.address.coordinate.lat);
         coord.lon = Number(p.location.address.coordinate.lon);
       }
@@ -222,7 +251,6 @@ export class PropertyListingsComponent {
 
     return coords;
   }
-
 
   // coordinatesTest: Coordinate[] = [
   //   { lat: 43.0125, lon: -83.6875 }, // Flint, Michigan
@@ -238,11 +266,9 @@ export class PropertyListingsComponent {
   // Lon: number = 0;
   // listPinResult: PropertiesByPostal = {} as PropertiesByPostal;
 
-
   // Click() {
   //   console.log("mapClicked")
   // }
-
 
   // display: any;
   // center: google.maps.LatLngLiteral = {} as google.maps.LatLngLiteral;
@@ -270,14 +296,7 @@ export class PropertyListingsComponent {
   move()
   --------------------------------------------
   --------------------------------------------*/
-//   move(event: google.maps.MapMouseEvent) {
-//     if (event.latLng != null) this.display = event.latLng.toJSON();
-//   }
+  //   move(event: google.maps.MapMouseEvent) {
+  //     if (event.latLng != null) this.display = event.latLng.toJSON();
+  //   }
 }
-
-
-
-
-
-
-
