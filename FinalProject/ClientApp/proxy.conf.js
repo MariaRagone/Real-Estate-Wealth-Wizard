@@ -13,6 +13,7 @@ const PROXY_CONFIG = [
       "/api/Favorite",
       "/api/Rent",
       "/api/AverageRate"
+      //calls APIs from constructor in C# to visual code service. 
 
    ],
     target: target,

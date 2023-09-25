@@ -11,12 +11,17 @@
   </head>
   <body></body>
 </html>
+
+<!-- mortgage created output passes to New Mortgate to trigger event (mortgate created) -->
+<!-- mortgage created is used for searching.  -->
+<!-- parent component -->
 <app-mortgage-form
   (MortgageCreated)="NewMortgage($event)"
   (VacancyRate)="VacancyRate($event)"
   (NumBeds)="NumBeds($event)"
   (ManagementFee)="ManagementFee($event)"
 ></app-mortgage-form>
+<!-- Structural directives. ng if is used to display the options that match the users inputs and ng for loops through and displays all that match.  -->
 <div *ngIf="displaySearchResult && PropertyListResult.data != null">
   <div *ngFor="let p of PropertyListResult.data.home_search.results">
     <img
@@ -33,7 +38,9 @@
     </td>
     <p *ngIf="p.primary_photo?.href == null">
       <img src="https://en.pimg.jp/072/139/682/1/72139682.jpg" />
-    </p>
+    </p> 
+     
+    <!-- Interface values are pulled from API -->
     <p>Price: {{ p.list_price }}</p>
     <p>
       Address: {{ p.location.address.line }}, {{ p.location.address.city }},
@@ -51,6 +58,7 @@
       [managementFee]="managementFee"
       [AverageRates]="averageRates"
     ></app-mortgage-result>
+    <!-- Event triggers api calls, which are used to display search results, calculate average rates.  -->
   </div>
 </div>
 
@@ -85,3 +93,4 @@
 
 
 
+<!-- Both the Mortgate Form and Mortgage Result components make up these pages.  -->

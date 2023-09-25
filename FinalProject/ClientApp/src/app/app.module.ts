@@ -44,13 +44,17 @@ import { MapComponent } from './Components/map/map.component';
     HttpClientModule,
     SocialLoginModule,
     FormsModule,
-    GoogleMapsModule,
+    GoogleMapsModule, 
+    // Angular routing setup. 
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      // to home component
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'favorite-list', component: FavoriteListComponent},
+      //to favorites list
       { path: 'property-details/:propertyId', component: PropertyDetailsComponent}
+      //to property details. Connected by property id, which connects to favorite list component. 
     ])
   ],
     providers: [

@@ -18,3 +18,5 @@ export class PropertiesService {
     return this.http.get<PropertiesByPostal>(`${this.baseUrl}api/PropertiesByPostal/${postal_code}?price_Max=${price_Max}&min_Beds=${min_beds}`); //postal_code???
   }
 }
+
+// Passes api from model into service via HTTPGet Method. Service uses interface from visual code (properties-by-postal.ts)
