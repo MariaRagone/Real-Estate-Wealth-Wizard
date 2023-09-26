@@ -37,6 +37,7 @@ export class PropertyListingsComponent {
   managementFee = 0;
   averageRates: AverageRateModel = {} as AverageRateModel;
   status: string = "";
+  loading: boolean = false;
   //appUser: User = {} as User;
 
   ///map
@@ -101,7 +102,8 @@ export class PropertyListingsComponent {
   
   //temporary method - fix later!
   callAPIs(ZipCode: string, Beds: number, PriceMax: number, MinBeds: number): void {
-    this.status = "loading";
+    // this.status = "loading";
+    // this.loading = true;
     if (ZipCode == "" || ZipCode == null) {
       ZipCode = "0";
     }
@@ -144,6 +146,7 @@ export class PropertyListingsComponent {
     },(err) => {
       console.log("Could not find any matches");
       this.status = "Could not find any matches. Please try adjusting your search parameters.";
+      // this.loading = false;
     });
 
   }
