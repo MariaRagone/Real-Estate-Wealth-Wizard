@@ -1,6 +1,7 @@
 export interface Coordinate {
     lat:number;
     lon:number;
-    propertyDetails:string;
+    propertyDetails?:string;
+    photo?:string;
     
 }

@@ -1,7 +1,6 @@
 import { Component, Type } from '@angular/core';
 import { Favorite } from 'src/app/Models/favorite';
 import {
-  Coordinate,
   PropertiesByPostal,
 } from 'src/app/Models/properties-by-postal';
 import { PropertyDetails } from 'src/app/Models/property-details';
@@ -15,7 +14,7 @@ import { Rent } from 'src/app/Models/rent';
 import { AverageRateService } from 'src/app/Services/average-rate.service';
 import { Observable } from 'rxjs';
 import { AverageRate, AverageRateModel } from 'src/app/Models/average-rate';
-
+import { Coordinate } from 'src/app/Models/coordinate';
 @Component({
   selector: 'app-property-listings',
   templateUrl: './property-listings.component.html',
