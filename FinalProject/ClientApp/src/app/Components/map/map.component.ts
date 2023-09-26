@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Coordinate, PropertiesByPostal } from 'src/app/Models/properties-by-postal';
 import { PropertyDetails } from 'src/app/Models/property-details';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -16,6 +17,7 @@ export class MapComponent {
   Lat: number = 43.0125;
   Lon: number = -83.6875;
   coordinates: Coordinate[] = [];
+  constructor(private router: Router) { };
 
 
   ngOnInit(): void {
@@ -41,12 +43,16 @@ export class MapComponent {
         let lat = (Number(p.data.location.address.coordinate.lat));
         let lon = (Number(p.data.location.address.coordinate.lon));
         let coord: Coordinate = {} as Coordinate;
+        coord.propertyDetails=p.data.property_id;
         coord.lat = lat;
         coord.lon = lon;
         cords.push(coord);
       }
+      console.log(`Coordinates = ${cords}`);
+      console.log(cords)
     })
     // console.log(this.coordinates)
+    
     return cords;
   }
   /////
@@ -69,10 +75,11 @@ export class MapComponent {
   // }
 
 
-  Click() {
-    console.log("mapClicked")
+  Click(PropertyId:string) {
+    this.router.navigate(['/property-details', PropertyId]);
+    
   }
-
+  
 
   display: any;
   center: google.maps.LatLngLiteral = {} as google.maps.LatLngLiteral;

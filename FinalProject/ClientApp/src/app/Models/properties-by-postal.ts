@@ -257,6 +257,7 @@ export interface Address {
 }
 
 export interface Coordinate {
+propertyDetails: string;
   lon: number;
   lat: number;
 }
