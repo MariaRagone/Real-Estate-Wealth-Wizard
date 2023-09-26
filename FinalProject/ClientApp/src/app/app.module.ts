@@ -52,6 +52,7 @@ import { MapComponent } from './Components/map/map.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'favorite-list', component: FavoriteListComponent},
+      { path: 'property-list', component: PropertyListingsComponent},
       //to favorites list
       { path: 'property-details/:propertyId', component: PropertyDetailsComponent}
       //to property details. Connected by property id, which connects to favorite list component. 

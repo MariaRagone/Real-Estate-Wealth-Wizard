@@ -1,4 +1,55 @@
-<app-property-listings></app-property-listings>
-<!-- <app-property-details></app-property-details> -->
-<!-- <app-mortgage-form></app-mortgage-form> -->
-<!-- <app-user></app-user> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real Estate Wealth Wizard</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+
+  </head>
+  <body>
+      <a [routerLink]="['/property-list']">
+          
+          <!-- CSS styles for this page are in style.css -->
+          <img class="hero" src="/assets/UnlockRealEstateRiches.gif" />
+        </a>
+        
+        <p class="feature">
+            The best way to source properties for sale and analyze their potential
+            profitability by considering current rental rates. 
+        </p>
+        <div class="home-container" style="padding-top: 150px;">
+<div class="home-card">
+    <div class="home-card img">
+        <img src="/assets/mapMarker.jpg" />
+    </div>
+    Source investment properties 
+</div>
+<div class="home-card">
+    <div class="home-card img">
+        <img src="/assets/house.jpg" />
+    </div>
+    Immediately see potential cash flow
+</div>
+<div class="home-card" style="padding-bottom: 50px;">
+    <div class="home-card img">
+        <img src="/assets/wand.jpg" />
+    </div>
+Unlock real estate riches</div>
+</div>
+<div class="home-container" style="padding-bottom: 300px; padding-top: 0;">
+    
+    <button class="home-button" type="submit" [routerLink]="['/property-list']">Find a Property!</button> 
+</div>
+
+
+
+    <!-- <app-property-listings></app-property-listings> -->
+    <!-- <app-property-details></app-property-details> -->
+    <!-- <app-mortgage-form></app-mortgage-form> -->
+    <!-- <app-user></app-user> -->
+  </body>
+</html>

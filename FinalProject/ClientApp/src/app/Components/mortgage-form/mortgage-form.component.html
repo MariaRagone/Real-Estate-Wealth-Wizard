@@ -1,6 +1,6 @@
-<h1>Let's find your best option!</h1>
-<h2>Enter your information to the form below:</h2>
-<div>
+<h1>Let the wizardry begin!</h1>
+<h2>Cast your information into the form below:</h2>
+<!-- <div>
     <table>
         <tr>
             <td><p>Will you need a loan? &nbsp; <input type="checkbox" [(ngModel)]="newMortgage.loan" /></p></td>
@@ -49,13 +49,75 @@
     </tr>
     <tr>
    <td> <button type="submit" (click)="submitMortgage()">See results!</button> </td>
-   <!-- Child component to Property Listing Parrent. -->
+   Child component to Property Listing Parrent.
     </tr>
-</table>
+</table> -->
+
+<!-- TOP LINE -->
+<div class="form-layout">
+    <div class="top-line">
+        <p>Max Price:
+            <select [(ngModel)]="newMortgage.maxPrice" name="maxPrice">
+              <option value="50000">$50,000</option>
+              <option value="100000">$100,000</option>
+              <option value="150000">$150,000</option>
+              <option value="200000">$200,000</option>
+              <option value="250000">$250,000</option>
+              <option value="300000">$300,000</option>
+              <option value="350000">$350,000</option>
+              <option value="400000">$400,000</option>
+              <option value="450000">$450,000</option>
+              <option value="500000">$500,000</option>
+              <option value="550000">$550,000</option>
+              <option value="600000">$600,000</option>
+              <option value="650000">$650,000</option>
+              <option value="700000">$700,000</option>
+              <option value="750000">$750,000</option>
+              <option value="800000">$800,000</option>
+              <option value="850000">$850,000</option>
+              <option value="900000">$900,000</option>
+              <option value="950000">$950,000</option>
+              <option value="1000000">$1.M</option>
+              <option value="1250000">$1.25M</option>
+              <option value="1500000">$1.5M</option>
+              <option value="1750000">$1.75M</option>
+              <option value="2000000">$2M</option>
+              <option value="2250000">$2.25M</option>
+              <option value="2500000">$2.5M</option>
+              <option value="2750000">$2.75M</option>
+              <option value="3000000">$3M</option>
+              <option value="3250000">$3.25M</option>
+            </select></p>
+          <p>Min Bedrooms:
+            <select [(ngModel)]="numBeds" name="numBeds">
+              <option value="0">Studio</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select></p>
+        <input type="text" placeholder = "Zip Code" [(ngModel)]="newMortgage.zipCode" name="zipCode" id="zipCode" />
+    </div>
+
+    <!-- MIDDLE LINE -->
+    <div class="middle-line">
+        <p>Vacancy Rate <span title="The rate at which the property will be vacant. Typically 4%-8%">&#9432; </span>
+    <input type="number" placeholder="%" [(ngModel)]="vacancyRate" name="vacancyRate" /></p>
+        <p>Management Fee:  <span title="The fee a company charges to manage and maintain the rental property. Typically 10%">&#9432;</span>
+    <input type="number" placeholder="Management Fee Percent" [(ngModel)]="managementFee" name="managementFee" />
+    <p>Closing Costs: <span title="As a buyer, what are your closing costs? They are typically about 2%">&#9432;</span>
+    <input type="number" placeholder = "%" [(ngModel)]="newMortgage.closingCost" name="closingCost" /> </p>
 </div>
 
-
-
+<!-- BOTTOM LINE -->
+<div><p>Will you need a loan? &nbsp; <input type="checkbox" class="custom-checkbox" [(ngModel)]="newMortgage.loan" /></p></div>
+<div class="bottom-line">
+    <div *ngIf="newMortgage.loan">Percent Down Payment: <input type="number" placeholder="%" [(ngModel)]="newMortgage.downPayment" name="downPayment" /></div>  
+    <div *ngIf="newMortgage.loan"> Loan Term: <input type="number" placeholder="Years" [(ngModel)]="newMortgage.loanTerm" name="loanTerm" /></div>
+    <div *ngIf="newMortgage.loan">Interest Rate: <input type="number" placeholder="%" [(ngModel)]="newMortgage.interestRate" name="interestRate"></div>
+</div>
+    <button type="submit" (click)="submitMortgage()">See results!</button> 
 
 
 
