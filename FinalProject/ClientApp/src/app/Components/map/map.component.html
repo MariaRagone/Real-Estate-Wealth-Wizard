@@ -7,19 +7,23 @@
   (mapMousemove)="move($event)"
 >
   <!-- <map-marker *ngFor="let markerPosition of coordinates" [position]="{lat:markerPosition.lat, lng:markerPosition.lon}" [label]="'bob'" (mapClick)="Click()"></map-marker> -->
-  <div *ngIf="favoritePins.length != 0">
+  <!-- <div *ngIf="favoritePins.length != 0">
     <map-marker
     #marker="mapMarker"
       *ngFor="let markerPosition of GetCoordinates()"
       [position]="{ lat: markerPosition.lat, lng: markerPosition.lon }"
-      (mapClick)="Click(markerPosition.propertyDetails)"
+      (mapClick)="openInfoWindow(marker)"
     ></map-marker>
-    <map-info-window>Hello Google Maps</map-info-window>
-  </div>
+    <map-info-window>Hello Google Maps list</map-info-window>
+  </div> -->
 
   <map-marker
+  #marker="mapMarker"
     *ngFor="let markerPosition of listPins"
     [position]="{ lat: markerPosition.lat, lng: markerPosition.lon }"
-    (mapClick)="Click(markerPosition.propertyDetails)"
-  ></map-marker>
+    (mapClick)="openInfoWindow(marker,markerPosition?.photo)"
+  >
+  <map-info-window><img src='{{InfoPicture}}'></map-info-window>
+
+</map-marker>
 </google-map>

@@ -1,7 +1,8 @@
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, Input } from '@angular/core';
 import { Favorite } from 'src/app/Models/favorite';
-import { PropertyDetails } from 'src/app/Models/property-details';
+import { Coordinate } from 'src/app/Models/coordinate';
+import {  PropertyDetails } from 'src/app/Models/property-details';
 import { User } from 'src/app/Models/user';
 import { FavoriteService } from 'src/app/Services/favorite.service';
 import { PropertyDetailsService } from 'src/app/Services/property-details.service';
@@ -17,6 +18,7 @@ export class FavoriteListComponent {
   UserListResult: User[] = [];
   favoriteProperties: PropertyDetails[] = [];
   user: SocialUser = {} as SocialUser;
+  PropertyCoordinates: Coordinate[] = [];
 
   constructor(
     private _favoriteService: FavoriteService,
@@ -49,7 +51,9 @@ export class FavoriteListComponent {
         .subscribe((response: PropertyDetails) => {
           this.favoriteProperties.push(response);
           console.log(response);
+          this.PropertyCoordinates = this.GetCoordinates();
         });
+        
     });
   }
 
@@ -65,4 +69,30 @@ export class FavoriteListComponent {
     });
   }
 
+  //we still need this method
+  GetCoordinates(): Coordinate[] {
+    // console.log('Get Coordinates')
+    // console.log(this.favoritePins);
+    let cords: Coordinate[] = [];
+    this.favoriteProperties.forEach((p) => {
+      if (p.data.location.address.coordinate.lat != null) {
+        
+        let lat = (Number(p.data.location.address.coordinate.lat));
+        let lon = (Number(p.data.location.address.coordinate.lon));
+        let coord: Coordinate = {} as Coordinate;
+        coord.propertyDetails=p.data.property_id;
+        coord.photo = p.data.photos[0].href;
+        console.log('photo')
+        console.log(coord.photo)
+        coord.lat = lat;
+        coord.lon = lon;
+        cords.push(coord);
+      }
+      console.log(`Coordinates = ${cords}`);
+      console.log(cords)
+    })
+    // console.log(this.coordinates)
+    
+    return cords;
+  }
 }

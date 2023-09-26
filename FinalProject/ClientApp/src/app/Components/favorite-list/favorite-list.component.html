@@ -19,6 +19,6 @@
     
 </div>
 
-<div *ngIf="favoriteProperties.length != 0">
-<app-map [favoritePins]="favoriteProperties"></app-map>
+<div *ngIf="favoriteProperties.length == FavoriteListResult.length ">
+<app-map [listPins]="PropertyCoordinates"></app-map>
 </div>
