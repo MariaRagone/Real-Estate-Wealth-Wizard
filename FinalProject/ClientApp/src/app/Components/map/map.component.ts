@@ -21,6 +21,7 @@ export class MapComponent {
   Lon: number = -83.6875;
   coordinates: Coordinate[] = [];
   constructor(private router: Router) { };
+ InfoPicture?:string ="";
 
 
   ngOnInit(): void {
@@ -85,7 +86,8 @@ export class MapComponent {
     this.router.navigate(['/property-details', PropertyId]);
     
   }
-  openInfoWindow(marker: MapMarker) {
+  openInfoWindow(marker: MapMarker, pix?:string) {
+    this.InfoPicture=pix;
     this.infoWindow.open(marker);
   }
 
