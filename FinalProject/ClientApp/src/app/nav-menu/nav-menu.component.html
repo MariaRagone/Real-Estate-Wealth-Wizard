@@ -30,6 +30,14 @@
           >
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
+          <li
+          class="nav-item" 
+          [routerLinkActive]="['link-active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a class="nav-link text-dark" [routerLink]="['/property-list']">Property Search</a>
+        </li>
+
           <li class="nav-item" *ngIf="loggedIn" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/favorite-list']"
               >Favorites</a
@@ -42,8 +50,8 @@
               type="icon"
               size="medium"
             ></asl-google-signin-button>
-            <!-- <script src="https://accounts.google.com/gsi/client" async></script>
-    <div id="g_id_onload"
+            <script src="https://accounts.google.com/gsi/client" async></script>
+    <!-- <div id="g_id_onload"
         data-client_id="591233259108-7r5kjrjo59uhpoak4qukqgqb0uvs29q8.apps.googleusercontent.com"
         data-login_uri="https://localhost:44423/property-list"
         data-auto_prompt="false">
