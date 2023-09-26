@@ -24,6 +24,8 @@ export class PropertyDetailsComponent {
   user: SocialUser = {} as SocialUser;
   Lat:number=0;
   Lon:number=0;
+  activeIndex:number = 0;
+
   openInfoWindow(marker: MapMarker) {
     this.infoWindow.open(marker);
   }
@@ -57,7 +59,18 @@ ngOnInit(): void {
   });
 }
 
-
+//adjusts photo carousel
+  adjustIndex(amount:number):void{
+    this.activeIndex += amount;
+    //if index too small
+    if(this.activeIndex <= -1){
+      this.activeIndex = this.PropertyDetailsResult.data.photos.length - 1;
+    }
+    //if index too big
+    if(this.activeIndex >= this.PropertyDetailsResult.data.photos.length){
+      this.activeIndex = 0;
+    }
+  }
 
 GetUser(): void {
   this._authService.authState.subscribe((user: SocialUser) => {
@@ -88,7 +101,7 @@ GetUser(): void {
       console.log(response);
     });
   }
-
+  
 
 ////////////
 Click(){

@@ -1,64 +1,53 @@
-<button
-  id="heart"
-  (click)="AddFavorites(user.id, PropertyDetailsResult.data.property_id)"
->
-  <i class="fas fa-heart"> </i>like
-</button>
-<td>
-  <button
-    (click)="DeleteFavorite(user.id, PropertyDetailsResult.data.property_id)"
-  >
-    Delete
-  </button>
-</td>
-<p>
-  <img
+<button id="heart"(click)="AddFavorites(user.id, PropertyDetailsResult.data.property_id)"><i class="fas fa-heart"> </i>like</button>
+  <button (click)="DeleteFavorite(user.id, PropertyDetailsResult.data.property_id)">Delete</button>
+
+<!-- image carousel -->
+<div class="carousel-container">
+
+    <div  class="carousel slide">
+        <div class="carousel-inner">
+            <div *ngFor="let p of PropertyDetailsResult.data.photos, let i = index" class="carousel-item" [ngClass]="i == activeIndex ? 'active': ''"> 
+                <img  *ngIf="p.href != null" src="{{ p?.href }}" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button (click)="adjustIndex(-1)" class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button (click)="adjustIndex(1)" class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+  <!-- <img
     style="width: 800px"
     *ngIf="PropertyDetailsResult.data.photos[0] != null"
     src="{{ PropertyDetailsResult.data.photos[0].href }}"
-  />
-</p>
+  /> -->
+ <div style="  font-family: 'Nunito', sans-serif; font-size:x-large; font-weight: 800;"> {{ PropertyDetailsResult.data.list_price | currency }} </div>   
 <p>
-  <strong>Price:</strong> {{ PropertyDetailsResult.data.list_price | currency }}
-</p>
-<p>
-  <strong>Address:</strong>
   {{ PropertyDetailsResult.data.location.address.line }},
   {{ PropertyDetailsResult.data.location.address.city }},
   {{ PropertyDetailsResult.data.location.address.postal_code }}
   {{ PropertyDetailsResult.data.location.address.state_code }}
 </p>
-<p>
-  <strong># Beds:</strong> {{ PropertyDetailsResult.data.description.beds }}
-</p>
-<P
-  ><strong># Baths:</strong>
-  {{ PropertyDetailsResult.data.description.baths }}</P
->
-<p>
-  <strong>Square Feet:</strong>
-  {{ PropertyDetailsResult.data.description.sqft }}
-</p>
-<p>
-  <strong>Garage:</strong>
-  {{ PropertyDetailsResult.data.description.garage }} Car
-</p>
-<p>
-  <strong>Year Built:</strong>
-  {{ PropertyDetailsResult.data.description.year_built }}
-</p>
-<p>
-  <strong>Type:</strong> {{ PropertyDetailsResult.data.description.styles }}
-</p>
+<p><strong>{{ PropertyDetailsResult.data.description.beds }} Beds {{ PropertyDetailsResult.data.description.baths }} Baths</strong> </p>
+<p><strong>{{ PropertyDetailsResult.data.description.sqft }} Square Feet </strong></p>
+<p><strong>{{ PropertyDetailsResult.data.description.garage }} Garage Spaces</strong></p>
+<p><strong>{{ PropertyDetailsResult.data.description.year_built }} Year Built</strong></p>
+<p><strong>{{ PropertyDetailsResult.data.description.fireplace }} Fireplace</strong></p>
+
 <!-- Data is flowing from a component's class to its template -->
 
-<div *ngFor="let p of PropertyDetailsResult.data.photos">
+<!-- <div *ngFor="let p of PropertyDetailsResult.data.photos">
   <p><img style="width: 500px" *ngIf="p.href != null" src="{{ p?.href }}" /></p>
-</div>
+</div> -->
 
 <google-map
   height="500px"
-  width="900px"
+  width="100%"
   [center]="center"
   [zoom]="zoom"
   (mapClick)="moveMap($event)"
@@ -67,7 +56,7 @@
   <map-marker
     #marker="mapMarker"
     [position]="{ lat: Lat, lng: Lon }"
-    [label]="'bob'"
+    [label]="''"
     (mapClick)="openInfoWindow(marker)"
   ></map-marker>
   <map-info-window>
