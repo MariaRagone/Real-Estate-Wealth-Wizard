@@ -1,16 +1,25 @@
+<google-map
+  height="500px"
+  width="900px"
+  [center]="center"
+  [zoom]="zoom"
+  (mapClick)="moveMap($event)"
+  (mapMousemove)="move($event)"
+>
+  <!-- <map-marker *ngFor="let markerPosition of coordinates" [position]="{lat:markerPosition.lat, lng:markerPosition.lon}" [label]="'bob'" (mapClick)="Click()"></map-marker> -->
+  <div *ngIf="favoritePins.length != 0">
+    <map-marker
+    #marker="mapMarker"
+      *ngFor="let markerPosition of GetCoordinates()"
+      [position]="{ lat: markerPosition.lat, lng: markerPosition.lon }"
+      (mapClick)="Click(markerPosition.propertyDetails)"
+    ></map-marker>
+    <map-info-window>Hello Google Maps</map-info-window>
+  </div>
 
-<google-map height="500px"
-            width="900px"
-            [center]="center"
-            [zoom]="zoom"
-            (mapClick)="moveMap($event)"
-            (mapMousemove)="move($event)">
-           
-<!-- <map-marker *ngFor="let markerPosition of coordinates" [position]="{lat:markerPosition.lat, lng:markerPosition.lon}" [label]="'bob'" (mapClick)="Click()"></map-marker> -->
-    <div *ngIf="favoritePins.length!=0">
-<map-marker  *ngFor="let markerPosition of GetCoordinates()" [position]="{lat:markerPosition.lat, lng:markerPosition.lon}" (mapClick)="Click()"></map-marker>
-    </div>    
-    
-        <map-marker  *ngFor="let markerPosition of listPins" [position]="{lat:markerPosition.lat, lng:markerPosition.lon}" (mapClick)="Click()"></map-marker>
-    
+  <map-marker
+    *ngFor="let markerPosition of listPins"
+    [position]="{ lat: markerPosition.lat, lng: markerPosition.lon }"
+    (mapClick)="Click(markerPosition.propertyDetails)"
+  ></map-marker>
 </google-map>

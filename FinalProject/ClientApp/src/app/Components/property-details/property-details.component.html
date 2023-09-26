@@ -1,32 +1,88 @@
-
-<button id="heart" (click)="AddFavorites(user.id,PropertyDetailsResult.data.property_id)"><i class="fas fa-heart"> </i>like</button>
+<button
+  id="heart"
+  (click)="AddFavorites(user.id, PropertyDetailsResult.data.property_id)"
+>
+  <i class="fas fa-heart"> </i>like
+</button>
 <td>
-    <button (click)="DeleteFavorite(user.id, PropertyDetailsResult.data.property_id)">Delete</button>
-    </td>
-<p><img style="width: 800px;" *ngIf="PropertyDetailsResult.data.photos[0] != null" src="{{ PropertyDetailsResult.data.photos[0].href }}"/></p>
-<p><strong>Price:</strong> {{ PropertyDetailsResult.data.list_price | currency }}</p>
-<p><strong>Address:</strong> {{ PropertyDetailsResult.data.location.address.line }}, {{ PropertyDetailsResult.data.location.address.city }}, {{ PropertyDetailsResult.data.location.address.postal_code }} {{ PropertyDetailsResult.data.location.address.state_code }}</p>
-<p><strong># Beds:</strong> {{ PropertyDetailsResult.data.description.beds }}</p>
-<P><strong># Baths:</strong> {{ PropertyDetailsResult.data.description.baths }}</P>
-<p><strong>Square Feet:</strong> {{ PropertyDetailsResult.data.description.sqft }}</p>
-<p><strong>Garage:</strong> {{ PropertyDetailsResult.data.description.garage }} Car</p>
-<p><strong>Year Built:</strong> {{ PropertyDetailsResult.data.description.year_built }}</p>
-<p><strong>Type:</strong> {{ PropertyDetailsResult.data.description.styles }}</p>
+  <button
+    (click)="DeleteFavorite(user.id, PropertyDetailsResult.data.property_id)"
+  >
+    Delete
+  </button>
+</td>
+<p>
+  <img
+    style="width: 800px"
+    *ngIf="PropertyDetailsResult.data.photos[0] != null"
+    src="{{ PropertyDetailsResult.data.photos[0].href }}"
+  />
+</p>
+<p>
+  <strong>Price:</strong> {{ PropertyDetailsResult.data.list_price | currency }}
+</p>
+<p>
+  <strong>Address:</strong>
+  {{ PropertyDetailsResult.data.location.address.line }},
+  {{ PropertyDetailsResult.data.location.address.city }},
+  {{ PropertyDetailsResult.data.location.address.postal_code }}
+  {{ PropertyDetailsResult.data.location.address.state_code }}
+</p>
+<p>
+  <strong># Beds:</strong> {{ PropertyDetailsResult.data.description.beds }}
+</p>
+<P
+  ><strong># Baths:</strong>
+  {{ PropertyDetailsResult.data.description.baths }}</P
+>
+<p>
+  <strong>Square Feet:</strong>
+  {{ PropertyDetailsResult.data.description.sqft }}
+</p>
+<p>
+  <strong>Garage:</strong>
+  {{ PropertyDetailsResult.data.description.garage }} Car
+</p>
+<p>
+  <strong>Year Built:</strong>
+  {{ PropertyDetailsResult.data.description.year_built }}
+</p>
+<p>
+  <strong>Type:</strong> {{ PropertyDetailsResult.data.description.styles }}
+</p>
 <!-- Data is flowing from a component's class to its template -->
 
-
 <div *ngFor="let p of PropertyDetailsResult.data.photos">
-    <p><img style="width: 500px;" *ngIf="p.href != null" src="{{ p?.href }}"/></p>
+  <p><img style="width: 500px" *ngIf="p.href != null" src="{{ p?.href }}" /></p>
 </div>
 
-
-
-<google-map height="500px"
-            width="900px"
-            [center]="center"
-            [zoom]="zoom"
-            (mapClick)="moveMap($event)"
-            (mapMousemove)="move($event)">
-<map-marker [position]="{lat:Lat, lng:Lon}" [label]="'bob'" (mapClick)="Click()"></map-marker>
-
+<google-map
+  height="500px"
+  width="900px"
+  [center]="center"
+  [zoom]="zoom"
+  (mapClick)="moveMap($event)"
+  (mapMousemove)="move($event)"
+>
+  <map-marker
+    #marker="mapMarker"
+    [position]="{ lat: Lat, lng: Lon }"
+    [label]="'bob'"
+    (mapClick)="openInfoWindow(marker)"
+  ></map-marker>
+  <map-info-window>
+    <a >
+      <img
+        style="width: 150px"
+        src="{{ PropertyDetailsResult.data.photos[0].href }}"
+      />
+    </a>
+    <p>
+      <strong>Address:</strong>
+      {{ PropertyDetailsResult.data.location.address.line }},
+      {{ PropertyDetailsResult.data.location.address.city }},
+      {{ PropertyDetailsResult.data.location.address.postal_code }}
+      {{ PropertyDetailsResult.data.location.address.state_code }}
+    </p>
+  </map-info-window>
 </google-map>

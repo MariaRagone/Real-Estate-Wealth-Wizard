@@ -10,4 +10,7 @@ export interface User {
     loan: boolean;
     closingCost: number;
     maxPrice: number;
+    numberOfBedrooms: number;
+    vacancyRate: number;
+    managementFee: number;
 }

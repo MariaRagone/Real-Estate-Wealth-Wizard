@@ -1,5 +1,6 @@
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { ActivatedRoute } from '@angular/router';
 import { Favorite } from 'src/app/Models/favorite';
 import { PropertyDetails } from 'src/app/Models/property-details';
@@ -13,6 +14,8 @@ import { PropertyDetailsService } from 'src/app/Services/property-details.servic
   styleUrls: ['./property-details.component.css'],
 })
 export class PropertyDetailsComponent {
+  @ViewChild(MapInfoWindow)
+  infoWindow!: MapInfoWindow;
   PropertyDetailsResult: PropertyDetails = {} as PropertyDetails;  //From Class to typescript 
   propertyId: string = '';
   FavoriteListResult: Favorite[] = [];
@@ -21,7 +24,9 @@ export class PropertyDetailsComponent {
   user: SocialUser = {} as SocialUser;
   Lat:number=0;
   Lon:number=0;
-
+  openInfoWindow(marker: MapMarker) {
+    this.infoWindow.open(marker);
+  }
   constructor(
     private _propertyDetailsService: PropertyDetailsService,
     private _favoriteService: FavoriteService,

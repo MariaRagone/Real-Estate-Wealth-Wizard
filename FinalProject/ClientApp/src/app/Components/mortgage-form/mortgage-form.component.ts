@@ -1,8 +1,10 @@
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MortgageCalculatorModel } from 'src/app/Models/mortgage-calculator';
 import { User } from 'src/app/Models/user';
 import { MortgageFormService } from 'src/app/Services/mortgage-form.service';
 import { PropertiesService } from 'src/app/Services/properties.service';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-mortgage-form',
@@ -11,6 +13,7 @@ import { PropertiesService } from 'src/app/Services/properties.service';
 })
 export class MortgageFormComponent {
   MortgageCalcResult: MortgageCalculatorModel = {} as MortgageCalculatorModel;
+  userListResult:User = {} as User;
   propertyId: string = '';
   @Output() MortgageCreated = new EventEmitter<User>();
   vacancyRate:number = 0;
@@ -19,31 +22,29 @@ export class MortgageFormComponent {
   @Output() NumBeds = new EventEmitter<number>();
   managementFee:number = 0;
   @Output() ManagementFee = new EventEmitter<number>();
+  user: SocialUser = {} as SocialUser;
+  userInformation: User = {} as User;
 
-  // showAmortization: boolean = true;
-  // hoaFees: number = 0;
-  // percentTaxRate: number = 0.511;
-  // yearTerm: number = 30;
-  // percentRate: number = 3.08;
-  // downPayment: number = 239800;
-  // monthlyHomeInsurance: number = 416;
-  // price: number = 1300000;
+ 
   newMortgage: User = {} as User;
   
 
   constructor(
     private _mortgageCalculatorService: MortgageFormService,
-    private _propertiesService: PropertiesService
+    private _propertiesService: PropertiesService,
+    private _userService:UserService,
+    private _authService: SocialAuthService
   ) {}
 
   
 
-  // ngOnInit():void{
-  //   this._mortgageCalculatorService.GetMortgageDetails(this.showAmortization, this.hoaFees, this.percentTaxRate, this.yearTerm, this.percentRate, this.downPayment, this.monthlyHomeInsurance, this.price).subscribe((response:MortgageCalculatorModel)=> {
-  //     console.log(response);
-  //     this.MortgageCalcResult = response;
-  // })
-  //}
+  ngOnInit():void{
+    this._authService.authState.subscribe((user: SocialUser) => {
+      this.user = user 
+    this.getUserInformation();
+    });
+  }
+  
 
   submitMortgage(): void {
     // this.newMortgage.downPayment = 0;
@@ -83,13 +84,28 @@ export class MortgageFormComponent {
     if (this.newMortgage.zipCode == null) {
       this.newMortgage.zipCode = "0";
     }
+    this.addUser();
     this.MortgageCreated.emit(this.newMortgage);
-    this.newMortgage={} as User;
+   // this.newMortgage={} as User;
     this.VacancyRate.emit(this.vacancyRate);
-    this.vacancyRate = 0;
+   // this.vacancyRate = 0;
     this.ManagementFee.emit(this.managementFee);
-    this.managementFee = 0;
- 
+   // this.managementFee = 0;
+
+  }
+
+  addUser():void{
+    this._userService.updateUser(this.newMortgage).subscribe((response:User) =>{
+      console.log(response)
+      this.userListResult = response;
+    });
+  }
+
+  getUserInformation() {
+    this._userService.getByGoogleId(this.user.id).subscribe((response: User) => {
+      console.log(response);
+      this.newMortgage = response;
+    })
   }
 
   //mortgate created output passes to New Mortgate to trigger event (mortgate created)
