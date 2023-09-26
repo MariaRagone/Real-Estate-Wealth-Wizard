@@ -23,15 +23,9 @@ export class MortgageFormComponent {
   managementFee:number = 0;
   @Output() ManagementFee = new EventEmitter<number>();
   user: SocialUser = {} as SocialUser;
+  userInformation: User = {} as User;
 
-  // showAmortization: boolean = true;
-  // hoaFees: number = 0;
-  // percentTaxRate: number = 0.511;
-  // yearTerm: number = 30;
-  // percentRate: number = 3.08;
-  // downPayment: number = 239800;
-  // monthlyHomeInsurance: number = 416;
-  // price: number = 1300000;
+ 
   newMortgage: User = {} as User;
   
 
@@ -44,12 +38,13 @@ export class MortgageFormComponent {
 
   
 
-  // ngOnInit():void{
-  //   this._mortgageCalculatorService.GetMortgageDetails(this.showAmortization, this.hoaFees, this.percentTaxRate, this.yearTerm, this.percentRate, this.downPayment, this.monthlyHomeInsurance, this.price).subscribe((response:MortgageCalculatorModel)=> {
-  //     console.log(response);
-  //     this.MortgageCalcResult = response;
-  // })
-  //}
+  ngOnInit():void{
+    this._authService.authState.subscribe((user: SocialUser) => {
+      this.user = user 
+    this.getUserInformation();
+    });
+  }
+  
 
   submitMortgage(): void {
     // this.newMortgage.downPayment = 0;
@@ -89,26 +84,28 @@ export class MortgageFormComponent {
     if (this.newMortgage.zipCode == null) {
       this.newMortgage.zipCode = "0";
     }
-    this.addUser(this.newMortgage);
+    this.addUser();
     this.MortgageCreated.emit(this.newMortgage);
-    this.newMortgage={} as User;
+   // this.newMortgage={} as User;
     this.VacancyRate.emit(this.vacancyRate);
-    this.vacancyRate = 0;
+   // this.vacancyRate = 0;
     this.ManagementFee.emit(this.managementFee);
-    this.managementFee = 0;
+   // this.managementFee = 0;
 
   }
 
-  addUser(userParams:User):void{
-    this._authService.authState.subscribe((user: SocialUser) => {
-      this.user = user});
-    let userInputs:User = userParams;
-    // this._eventService.AddFavorite();
-    userInputs.googleId = this.user.id;
-    this._userService.addUser(userInputs).subscribe((response:User) =>{
+  addUser():void{
+    this._userService.updateUser(this.newMortgage).subscribe((response:User) =>{
       console.log(response)
       this.userListResult = response;
     });
+  }
+
+  getUserInformation() {
+    this._userService.getByGoogleId(this.user.id).subscribe((response: User) => {
+      console.log(response);
+      this.newMortgage = response;
+    })
   }
 
   //mortgate created output passes to New Mortgate to trigger event (mortgate created)

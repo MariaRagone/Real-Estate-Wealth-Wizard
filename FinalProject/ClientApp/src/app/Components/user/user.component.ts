@@ -1,6 +1,7 @@
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component } from '@angular/core';
 import { User } from 'src/app/Models/user';
+import { MortgageFormService } from 'src/app/Services/mortgage-form.service';
 import { UserService } from 'src/app/Services/user.service';
 
 @Component({
@@ -11,17 +12,21 @@ import { UserService } from 'src/app/Services/user.service';
 export class UserComponent {
   constructor(
     private _userService: UserService,
-    private authService: SocialAuthService
+    private authService: SocialAuthService,
+    //private _mortgageService: MortgageFormService
   ) {} //dependency injection
   newUser: User = {} as User; //variable that connects your inputs
   user: SocialUser = {} as SocialUser;
   loggedIn: boolean = false;
   id: number = 1;
+  userInformation: User = {} as User;
+  
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = user != null;
       this.getUser();
+      this.getUserInformation();
     });
   }
 
@@ -38,5 +43,12 @@ export class UserComponent {
       console.log(response);
       this.getUser(); //recall the method so that the user list refreshes
     });
+  }
+
+  getUserInformation() {
+    this._userService.getUserById(Number(this.user.id)).subscribe((response: User) => {
+      console.log(response);
+      this.userInformation = response;
+    })
   }
 }
