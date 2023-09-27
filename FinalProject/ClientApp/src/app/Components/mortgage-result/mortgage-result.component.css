@@ -1,0 +1,13 @@
+.cashFlow {
+    background-color: #249714;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.negCashFlow {
+    background-color: #922121;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+}

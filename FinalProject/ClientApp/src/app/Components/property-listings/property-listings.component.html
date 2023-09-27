@@ -49,14 +49,9 @@
     </p> 
      
     <!-- Interface values are pulled from API -->
-    <p>Price: {{ p.list_price }}</p>
-    <p>
-      Address: {{ p.location.address.line }}, {{ p.location.address.city }},
-      {{ p.location.address.postal_code }} {{ p.location.address.state_code }}
-    </p>
-    <p>#Beds: {{ p.description.beds }}</p>
-    <P># Baths: {{ p.description.baths }}</P>
-    <p>Square Feet: {{ p.description.sqft }}</p>
+    <h3>{{ p.list_price | currency }}</h3>
+    <p><strong>{{ p.description.beds }} Beds &nbsp; {{ p.description.baths }} Baths &nbsp; {{ p.description.sqft }} Square Feet</strong> </p>
+    <br>
     
     <!-- <p>Median Rental Rate: {{PropertyListResult.data.geo.geo_statistics.housing_market.median_rent_price}}</p> -->
     <app-mortgage-result
