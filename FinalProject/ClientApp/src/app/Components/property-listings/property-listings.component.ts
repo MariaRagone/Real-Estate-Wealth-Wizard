@@ -137,6 +137,11 @@ export class PropertyListingsComponent {
         this.loading = false;
 
         console.log(response);
+        if (response == null){
+          this.status = "Could not find any matches. Please try adjusting your search parameters.";
+          return;
+        }
+  
         this.PropertyCoordinates = this.GePropertyCoordinatess(response);
         this.PropertyListResult = response
         console.log('hi coords')

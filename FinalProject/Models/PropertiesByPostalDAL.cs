@@ -30,8 +30,15 @@ namespace FinalProject.Models
             //Adjust
             //Convert to C#
             //Install Newtonsoft.json
+            try
+            {
             PropertiesByPostalModel result = JsonConvert.DeserializeObject<PropertiesByPostalModel>(json);
             return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

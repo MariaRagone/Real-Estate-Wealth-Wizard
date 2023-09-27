@@ -33,6 +33,7 @@ export class FavoriteListComponent {
   vacancyRate: number = this._transfererng.vacancyRate;
   managementFee: any = this._transfererng.managementFee;
   averageRates: AverageRateModel = this._transfererng.averageRates;
+  displayLastCriteria: boolean = false;
 
   ConvertDetailsToResult(input: PropertyDetails): Result {
     let result: Result = {} as Result
@@ -59,7 +60,9 @@ export class FavoriteListComponent {
     return this._transfererng.averageRates;
   }
 
-
+toggleDisplay():void{
+  this.displayLastCriteria = !this.displayLastCriteria; 
+}
   NewMortgage(newUser: User) {
     this._transfererng.NewMortgage(newUser);
     // this.UpDatePropertyListingsVariables();

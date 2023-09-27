@@ -1,6 +1,19 @@
 <h1>Favorites</h1>
-<br />
+<br/>
+<h3>Hey {{UserResult.firstName}}</h3>
 <h5>All calculations are based on your last search.</h5>
+<!-- <button onclick="toggleDisplay()">View Last Criteria</button> -->
+
+<!-- <div *ngIf="displayLastCriteria"> -->
+<p>
+Down Payment: {{UserResult.downPayment}}
+Loan Term: {{UserResult.loanTerm}}
+Interest Rate: {{UserResult.interestRate}}
+Closing Costs: {{UserResult.closingCost}}
+Vacancy Rate: {{UserResult.vacancyRate}}
+Management Fees: {{UserResult.managementFee}}
+</p>
+<!-- </div> -->
 <div class="page-container">
   <div class="content-container">
     <div *ngFor="let p of favoriteProperties" class="property-card">

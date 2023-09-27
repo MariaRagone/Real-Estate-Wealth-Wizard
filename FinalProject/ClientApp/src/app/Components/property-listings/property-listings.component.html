@@ -13,7 +13,7 @@
     <!-- mortgage created output passes to New Mortgate to trigger event (mortgate created) -->
     <!-- mortgage created is used for searching.  -->
     <!-- parent component -->
-    <div style="margin-bottom: 50px">
+    <div>
       <app-mortgage-form
         (MortgageCreated)="NewMortgage($event)"
         (NumBeds)="NumBeds($event)"
@@ -24,7 +24,7 @@
       <div *ngIf="loading" class="loading">
         <img src="/assets/loadingLogo.gif" alt="Loading..." />
       </div>
-      <!-- <p>{{status}}</p> -->
+      <p>{{status}}</p>
 
       <div class="page-container">
         <div class="content-container">
@@ -79,8 +79,8 @@
                   [DisplayResult]="p"
                   [User]="appUser"
                   [Rent]="averageRent"
-                  [vacancyRate]="vacancyRate"
-                  [managementFee]="managementFee"
+                  [vacancyRate]="appUser.vacancyRate"
+                  [managementFee]="appUser.managementFee"
                   [AverageRates]="averageRates"
                 ></app-mortgage-result>
               </div>
