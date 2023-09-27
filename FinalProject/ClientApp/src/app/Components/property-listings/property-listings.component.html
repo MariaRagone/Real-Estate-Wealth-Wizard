@@ -17,10 +17,12 @@
 <!-- parent component -->
 <app-mortgage-form
   (MortgageCreated)="NewMortgage($event)"
-  (VacancyRate)="VacancyRate($event)"
+
   (NumBeds)="NumBeds($event)"
   (ManagementFee)="ManagementFee($event)"
+  (VacancyRate)="VacancyRate($event)"
 ></app-mortgage-form>
+
 <div *ngIf= "loading" class="loading">
   <img src="/assets/loadingLogo.gif" alt="Loading...">
 </div>

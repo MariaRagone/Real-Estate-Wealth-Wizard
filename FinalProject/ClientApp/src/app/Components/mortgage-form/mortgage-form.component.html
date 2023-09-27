@@ -90,7 +90,7 @@
               <option value="3250000">$3.25M</option>
             </select></p>
           <p>Min Bedrooms:
-            <select [(ngModel)]="numBeds" name="numBeds">
+            <select [(ngModel)]="newMortgage.numberOfBedrooms" name="numBeds">
               <option value="0">Studio</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -105,9 +105,9 @@
     <!-- MIDDLE LINE -->
     <div class="middle-line">
         <p>Vacancy Rate <span title="The rate at which the property will be vacant. Typically 4%-8%">&#9432; </span>
-    <input type="number" placeholder="%" [(ngModel)]="vacancyRate" name="vacancyRate" /></p>
+    <input type="number" placeholder="%" [(ngModel)]="newMortgage.vacancyRate" name="vacancyRate" /></p>
         <p>Management Fee:  <span title="The fee a company charges to manage and maintain the rental property. Typically 10%">&#9432;</span>
-    <input type="number" placeholder="Management Fee Percent" [(ngModel)]="managementFee" name="managementFee" />
+    <input type="number" placeholder="Management Fee Percent" [(ngModel)]="newMortgage.managementFee" name="managementFee" />
     <p>Closing Costs: <span title="As a buyer, what are your closing costs? They are typically about 2%">&#9432;</span>
     <input type="number" placeholder = "%" [(ngModel)]="newMortgage.closingCost" name="closingCost" /> </p>
 </div>

@@ -30,5 +30,10 @@ export class UserService {
   getByGoogleId(googleId:string): Observable<User>{
     return this.http.get<User>(`${this.baseUrl}api/User/googleId/${googleId}`)
   }
+
+  // getAllUserFavorites(googleId:string): Observable<User>{
+  //   return this.http.get<User>(`${this.baseUrl}api/User`)
+
+  // }
 }
 

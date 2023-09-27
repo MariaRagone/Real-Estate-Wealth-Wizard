@@ -9,6 +9,9 @@ import { PropertyDetailsService } from 'src/app/Services/property-details.servic
 import { AverageRateModel } from 'src/app/Models/average-rate';
 import { Result } from 'src/app/Models/properties-by-postal';
 import { TransferngService } from 'src/app/Services/transferng.service';
+import { UserService } from 'src/app/Services/user.service';
+import { RentService } from 'src/app/Services/rent.service';
+import { RentProperty } from 'src/app/Models/rent-property';
 
 @Component({
   selector: 'app-favorite-list',
@@ -83,17 +86,21 @@ export class FavoriteListComponent {
 
   @Input() DisplayFavorite: User = {} as User;
   FavoriteListResult: Favorite[] = [];
-  UserListResult: User[] = [];
+  UserResult: User = {} as User;
   favoriteProperties: PropertyDetails[] = [];
   user: SocialUser = {} as SocialUser;
   PropertyCoordinates: CoordinateModel[] = [];
   favorited: boolean = false;
+  rentPropertyList: RentProperty[] = [];
 
   constructor(
     private _favoriteService: FavoriteService,
     private _propertyDetailsService: PropertyDetailsService,
     private _authService: SocialAuthService,
-    private _transfererng: TransferngService //This is for mortgageform and result
+    //This is for mortgageform and result
+    private _transfererng: TransferngService, 
+    private _userService: UserService,
+    private _rentService: RentService
   ) {}
 
   ngOnInit(): void {
@@ -101,6 +108,7 @@ export class FavoriteListComponent {
       this.user = user;
       // this.loggedIn = this.user != null;
       this.DisplayFavorites(this.user.id);
+      this.getUserSearches();
     });
   }
 
@@ -120,7 +128,8 @@ export class FavoriteListComponent {
         .GetPropertyDetails(f.propertyId)
         .subscribe((response: PropertyDetails) => {
           this.favoriteProperties.push(response);
-          console.log(response);
+          this.getRentByProperty(response);
+          // console.log(response);
           this.PropertyCoordinates = this.GetCoordinates();
         });
         
@@ -136,7 +145,7 @@ export class FavoriteListComponent {
     this.favoriteProperties.splice(target, 1);
 
     this._favoriteService.RemoveFavorite(googleId, propertyId).subscribe((response: Favorite) => {
-      console.log(response);
+      // console.log(response);
     });
   }
 
@@ -160,11 +169,76 @@ export class FavoriteListComponent {
         coord.lon = lon;
         cords.push(coord);
       }
-      console.log(`Coordinates = ${cords}`);
-      console.log(cords)
+      // console.log(`Coordinates = ${cords}`);
+      // console.log(cords)
     })
     // console.log(this.coordinates)
     
     return cords;
   }
+
+  getUserSearches():void{
+    this._userService.getByGoogleId(this.user.id).subscribe((response) => {
+      // console.log(response);
+      this.UserResult = response;
+    })
+  }
+
+  async getRentByProperty(p:PropertyDetails):Promise<void>{
+    let beds = 0;
+    if(p.data.description.beds != null){
+      beds = p.data.description.beds;
+    }
+    else if(p.data.description.beds_min != null){
+      beds = p.data.description.beds_min;
+    }
+    else if(p.data.description.beds_max != null){
+      beds = p.data.description.beds_max;
+    }
+    // else{
+    //   beds = 1;
+    // }
+    //let rent_price:number[] = [];
+    await this._rentService.GetRentByPostal(p.data.location.address.postal_code, beds).subscribe((response) => {
+      console.log(response);
+      let rent_price:number[] = [];
+      response.data.home_search.results.forEach((p) => {
+        if (p.list_price != null) {
+          rent_price.push(p.list_price);
+        }
+      });
+      let result:RentProperty = {
+        rent:   this.calculateRentIncome(rent_price),
+        propertyId: p.data.property_id
+      }
+    this.rentPropertyList.push(result);
+    });
+    //return this.calculateRentIncome(rent_price);
+  }
+
+    //also in property-listings component
+    calculateRentIncome(list_price: number[]): number {
+      // Initialize a variable to keep track of the sum of rent prices.
+      let sum = 0;
+      let averageRent = 0;
+      // Loop through the array of rent prices and add each rent price to the sum.
+      for (const price of list_price) {
+        sum += price;
+      }
+      // Calculate the average rent price by dividing the sum by the number of rentals.
+      if (list_price.length > 0) {
+        averageRent = sum / list_price.length;
+        // console.log(averageRent);
+        return averageRent;
+      } else {
+        // Handle the case where the array is empty to avoid division by zero.
+        return 0;
+      }
+
+    }
+
+    getRentFromList(pId:string):number{
+      return Number(this.rentPropertyList.find(p => pId == p.propertyId)?.rent);
+    }
+
 }
