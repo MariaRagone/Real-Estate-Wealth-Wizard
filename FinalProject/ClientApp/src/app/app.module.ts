@@ -22,6 +22,7 @@ import {
 import { MortgageResultComponent } from './Components/mortgage-result/mortgage-result.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapComponent } from './Components/map/map.component';
+import { HeartComponent } from './Components/heart/heart.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MapComponent } from './Components/map/map.component';
     FavoriteListComponent,
     MortgageResultComponent,
     MapComponent,
+    HeartComponent,
     
   ],
   imports: [

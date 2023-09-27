@@ -38,7 +38,7 @@ export class PropertyListingsComponent {
   averageRates: AverageRateModel = {} as AverageRateModel;
   status: string = "";
   loading: boolean = false;
-  favorited: boolean = false;
+  // favorited: boolean = false;
   //appUser: User = {} as User;
 
   ///map
@@ -185,15 +185,15 @@ export class PropertyListingsComponent {
       });
   }
 
-  ToggleFavorite(googleId: string, propertyId: string, favorited: boolean) {
-    if (favorited) {
-      this.RemoveFavorite(googleId, propertyId);
-    } 
-    else {
-      this.AddFavorites(googleId, propertyId);
-    }
-    this.favorited = !favorited;
-  }
+  // ToggleFavorite(googleId: string, propertyId: string, favorited: boolean) {
+  //   if (favorited) {
+  //     this.RemoveFavorite(googleId, propertyId);
+  //   } 
+  //   else {
+  //     this.AddFavorites(googleId, propertyId);
+  //   }
+  //   this.favorited = !favorited;
+  // }
 
   AddFavorites(googleId: string, propertyId: string): void {
     let favorite: Favorite = {} as Favorite;
