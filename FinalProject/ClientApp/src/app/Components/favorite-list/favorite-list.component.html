@@ -1,6 +1,11 @@
 <h1>Favorites</h1>
 <br>
-
+<app-mortgage-form
+  (MortgageCreated)="NewMortgage($event)"
+  (VacancyRate)="VacancyRate($event)"
+  (NumBeds)="NumBeds($event)"
+  (ManagementFee)="ManagementFee($event)"
+></app-mortgage-form>
 <div *ngFor="let p of favoriteProperties">
     <td>
     <button (click)="DeleteFavorite(user.id, p.data.property_id)">Delete</button>
@@ -16,8 +21,14 @@
     <P># Baths: {{ p.data.description.baths }}</P>
     <p>Square Feet: {{ p.data.description.sqft }}</p>
     <br>
-        <!-- <td><button (click)="RemoveFavorite(user.id, p.property_id)">Delete</button> </td>
-    <p><app-mortgage-result [DisplayResult]="p.list_price" [downPament]="appUser.downPayment" ></app-mortgage-result></p> -->
+    <app-mortgage-result
+    [DisplayResult]="ConvertDetailsToResult(p)"
+    [User]="appUser()"
+    [Rent]="averageRent"
+    [vacancyRate]="vacancyRate"
+    [managementFee]="managementFee"
+    [AverageRates]="averageRates"
+    ></app-mortgage-result>
     
 </div>
 

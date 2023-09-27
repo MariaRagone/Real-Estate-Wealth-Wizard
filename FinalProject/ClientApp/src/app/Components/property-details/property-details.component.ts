@@ -2,18 +2,94 @@ import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, ViewChild } from '@angular/core';
 import { MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { ActivatedRoute } from '@angular/router';
+import { AverageRateModel } from 'src/app/Models/average-rate';
 import { Favorite } from 'src/app/Models/favorite';
+import { Result } from 'src/app/Models/properties-by-postal';
 import { PropertyDetails } from 'src/app/Models/property-details';
 import { FavoriteService } from 'src/app/Services/favorite.service';
 import { PropertiesService } from 'src/app/Services/properties.service';
 import { PropertyDetailsService } from 'src/app/Services/property-details.service';
-
+import { TransferngService } from 'src/app/Services/transferng.service';
+import { User } from 'src/app/Models/user';
 @Component({
   selector: 'app-property-details',
   templateUrl: './property-details.component.html',
   styleUrls: ['./property-details.component.css'],
 })
 export class PropertyDetailsComponent {
+
+  //This is the beginning of mortgage form and result code
+  // o:Result= {} as Result;
+  // appUser: User = this._transfererng.appUser;
+  averageRent: number = this._transfererng.averageRent;
+  vacancyRate: number = this._transfererng.vacancyRate;
+  managementFee: any = this._transfererng.managementFee;
+  averageRates: AverageRateModel = this._transfererng.averageRates;
+  
+  ConvertDetailsToResult(input:PropertyDetails):Result{
+    let result:Result= {}as Result
+    result.list_price=input.data.list_price;
+    
+
+    return result
+  }
+  appUser():User{
+    this.UpDatePropertyListingsVariables();
+    ;
+    return this._transfererng.appUser;
+  }
+  _averageRent():Number{
+    return this._transfererng.averageRent;
+  }
+  _vacancyRate():Number{
+    return this._transfererng.vacancyRate;
+  }
+  _managementFee():Number{
+    return this._transfererng.managementFee;
+  }
+  _averageRates():AverageRateModel{
+    return this._transfererng.averageRates;
+  }
+
+
+  NewMortgage(newUser: User){
+    this._transfererng.NewMortgage(newUser);
+    // this.UpDatePropertyListingsVariables();
+  }
+  VacancyRate(vacancyRate: number){
+    this._transfererng.VacancyRate(vacancyRate);
+    // this.UpDatePropertyListingsVariables();
+  }
+  NumBeds(numBeds: number){
+    this._transfererng.VacancyRate(numBeds);
+    // this.UpDatePropertyListingsVariables();
+  }
+  ManagementFee(managementFee: number){
+    this._transfererng.ManagementFee(managementFee);
+    // this.UpDatePropertyListingsVariables();
+  }
+
+  UpDatePropertyListingsVariables():void{
+  //   this.appUser = this._transfererng.appUser;
+    this.averageRent = this._transfererng.averageRent;
+    this.vacancyRate = this._transfererng.vacancyRate;
+    this.managementFee = this._transfererng.averageRates;
+    this.averageRates = this._transfererng.averageRates; 
+  }
+  ///
+  //This is end of mortgage form and result code
+
+
+
+
+
+
+
+
+
+
+
+
   @ViewChild(MapInfoWindow)
   infoWindow!: MapInfoWindow;
   PropertyDetailsResult: PropertyDetails = {} as PropertyDetails;  //From Class to typescript 
@@ -33,7 +109,8 @@ export class PropertyDetailsComponent {
     private _propertyDetailsService: PropertyDetailsService,
     private _favoriteService: FavoriteService,
     private _authService: SocialAuthService,
-    private route: ActivatedRoute // Inject ActivatedRoute
+    private route: ActivatedRoute, // Inject ActivatedRoute
+    private _transfererng: TransferngService //This is for mortgageform and result
   ) {}
 
 

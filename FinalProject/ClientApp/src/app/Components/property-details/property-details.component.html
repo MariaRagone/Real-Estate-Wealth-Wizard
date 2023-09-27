@@ -1,3 +1,11 @@
+<app-mortgage-form
+  (MortgageCreated)="NewMortgage($event)"
+  (VacancyRate)="VacancyRate($event)"
+  (NumBeds)="NumBeds($event)"
+  (ManagementFee)="ManagementFee($event)"
+></app-mortgage-form>
+
+
 <button id="heart"(click)="AddFavorites(user.id, PropertyDetailsResult.data.property_id)"><i class="fas fa-heart"> </i>Like</button> &nbsp;
   <button (click)="DeleteFavorite(user.id, PropertyDetailsResult.data.property_id)">Delete</button>
 
@@ -35,7 +43,14 @@
 </p>
 <p><strong>{{ PropertyDetailsResult.data.description.beds }} Beds &nbsp; {{ PropertyDetailsResult.data.description.baths }} Baths &nbsp; {{ PropertyDetailsResult.data.description.sqft }} Square Feet</strong> </p>
 <p *ngIf="PropertyDetailsResult.data.description.garage > 0"><strong>{{ PropertyDetailsResult.data.description.garage }} Garage Spaces &nbsp;  Year Built: {{ PropertyDetailsResult.data.description.year_built }}</strong></p>
-
+<app-mortgage-result
+[DisplayResult]="ConvertDetailsToResult(PropertyDetailsResult)"
+[User]="appUser()"
+[Rent]="averageRent"
+[vacancyRate]="vacancyRate"
+[managementFee]="managementFee"
+[AverageRates]="averageRates"
+></app-mortgage-result>
 <!-- <app-mortgage-result
 [DisplayResult]="p"
 [User]="appUser"

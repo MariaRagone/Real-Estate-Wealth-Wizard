@@ -1,27 +1,32 @@
-import { Component, Type } from '@angular/core';
-import { Favorite } from 'src/app/Models/favorite';
-import {
-  PropertiesByPostal,
-} from 'src/app/Models/properties-by-postal';
-import { PropertyDetails } from 'src/app/Models/property-details';
-import { FavoriteService } from 'src/app/Services/favorite.service';
-import { PropertiesService } from 'src/app/Services/properties.service';
+import { Injectable } from '@angular/core';
+import { PropertyListingsComponent } from '../Components/property-listings/property-listings.component';
+import { PropertiesByPostal, Result } from '../Models/properties-by-postal';
+import { User } from '../Models/user';
+import { AverageRateModel } from '../Models/average-rate';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
-import { MortgageFormService } from 'src/app/Services/mortgage-form.service';
-import { User } from 'src/app/Models/user';
-import { RentService } from 'src/app/Services/rent.service';
-import { Rent } from 'src/app/Models/rent';
-import { AverageRateService } from 'src/app/Services/average-rate.service';
-import { Observable } from 'rxjs';
-import { AverageRate, AverageRateModel } from 'src/app/Models/average-rate';
-import { CoordinateModel } from 'src/app/Models/coordinate';
+import { Favorite } from '../Models/favorite';
+import { Rent } from '../Models/rent';
+import { RentService } from './rent.service';
+import { PropertiesService } from './properties.service';
+import { FavoriteService } from './favorite.service';
+import { CoordinateModel } from '../Models/coordinate';
+import { AverageRateService } from './average-rate.service';
 
-@Component({
-  selector: 'app-property-listings',
-  templateUrl: './property-listings.component.html',
-  styleUrls: ['./property-listings.component.css'],
+
+
+
+@Injectable({
+  providedIn: 'root'
 })
-export class PropertyListingsComponent {
+export class TransferngService {
+  //prm
+
+  // appUser: User = this.propertyList.appUser;
+  // averageRent: number = this.propertyList.averageRent;
+  // vacancyRate: number = this.propertyList.vacancyRate;
+  // managementFee: any = this.propertyList.averageRates;
+  // averageRates: AverageRateModel = this.propertyList.averageRates;
+
   PropertyListResult: PropertiesByPostal = {} as PropertiesByPostal;
   postal_code: string = '';
   user: SocialUser = {} as SocialUser;
@@ -38,33 +43,27 @@ export class PropertyListingsComponent {
   averageRates: AverageRateModel = {} as AverageRateModel;
   status: string = "";
   loading: boolean = false;
-  //appUser: User = {} as User;
-
-  ///map
-  WaitAMinute: boolean = false;
   PropertyCoordinates: CoordinateModel[] = [];
- 
+  // public propertyList: PropertyListingsComponent,
   constructor(
-    private _propertiesService: PropertiesService,
-    private _favoriteService: FavoriteService,
-    private authService: SocialAuthService,
-    private _mortgageFormService: MortgageFormService,
-    private _rentService: RentService,
-    private _averageRateService: AverageRateService
-  ) {}
-
-  //Run the method location based on the IP Run the method location based on the IP address
-  ngOnInit(): void {
     
-    // this.setupMap();
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = user != null;
-    });
-   
-  }
+    public _rentService: RentService,
+    public _propertiesService: PropertiesService,
+    public _favoriteService: FavoriteService,
+    public _averageRateService: AverageRateService,
+    public authService: SocialAuthService,
+    ) { }
 
-  //this method runs when form is submitted
+    //need to do oninnit
+    GongOnInit(): void{
+      this.authService.authState.subscribe((user) => {
+        this.user = user;
+        this.loggedIn = user != null;
+      });
+    }
+
+
+
   NewMortgage(newUser: User) {
     this.appUser = newUser;
     // console.log(newUser.zipCode);
@@ -84,7 +83,7 @@ export class PropertyListingsComponent {
   }
 
   async GetRentals(ZipCode: string, Beds: number): Promise<void> {
-    this.WaitAMinute = false;
+
     await this._rentService
       .GetRentByPostal(ZipCode, Beds).subscribe((response: Rent) => {
         console.log(response);
@@ -98,9 +97,9 @@ export class PropertyListingsComponent {
         this.calculateRentIncome(this.rent_prices);
         this.rent_prices = [];
       });
-    this.WaitAMinute = true;
+
   }
-  
+
   //temporary method - fix later!
   callAPIs(ZipCode: string, Beds: number, PriceMax: number, MinBeds: number): void {
     // this.status = "loading";
@@ -108,18 +107,18 @@ export class PropertyListingsComponent {
     if (ZipCode == "" || ZipCode == null) {
       ZipCode = "0";
     }
-    if (Beds == null){
+    if (Beds == null) {
       Beds = 0;
     }
-    if (PriceMax == null){
+    if (PriceMax == null) {
       PriceMax = 999999999;
     }
-    if (MinBeds == null){
+    if (MinBeds == null) {
       MinBeds = 0;
     }
 
     this._rentService.GetRentByPostal(ZipCode, Beds).subscribe((response: Rent) => {
-      if (response.data == null){
+      if (response.data == null) {
         this.status = "Could not find any matches. Please try adjusting your search parameters.";
         return;
       }
@@ -142,11 +141,11 @@ export class PropertyListingsComponent {
         console.log('hi coords')
         console.log(this.PropertyCoordinates)
         this.status = "";
-      },(err) => {
+      }, (err) => {
         console.log("Could not find any matches");
       });
 
-    },(err) => {
+    }, (err) => {
       console.log("Could not find any matches");
       this.status = "Could not find any matches. Please try adjusting your search parameters.";
     });
@@ -227,26 +226,6 @@ export class PropertyListingsComponent {
         this.averageRates = response;
       });
   }
-
-  // calculateLoanAmount(list_price:number, downPayment:number):number{
-  //   let result:number = 0;
-  //   result = list_price - downPayment;
-  //   return result;
-  // }
-
-  // RemoveFavorite(id: number): void {
-  //   //feedback for user
-  //   let target: number = this.FavoriteListResult.findIndex((e) => e.id == id);
-  //   this.FavoriteListResult.splice(target, 1);
-
-  //   this._favoriteService.DeleteFavorite(id).subscribe((response: Favorite) => {
-  //     console.log(response);
-  //   });
-  // }
-
-  // Inserting map
-
-  //we still need this method
   GePropertyCoordinatess(Properties: PropertiesByPostal): CoordinateModel[] {
     let coords: CoordinateModel[] = [];
     let coord: CoordinateModel = {} as CoordinateModel;
@@ -286,6 +265,8 @@ export class PropertyListingsComponent {
 
     return coords;
   }
+
+
 
 
 }
