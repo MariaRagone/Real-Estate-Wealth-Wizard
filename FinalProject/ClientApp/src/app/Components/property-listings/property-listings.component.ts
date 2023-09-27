@@ -75,9 +75,9 @@ export class PropertyListingsComponent {
     //temporary method - fix later!
     this.callAPIs(
       this.appUser.zipCode,
-      this.numBeds,
+      this.appUser.numberOfBedrooms,
       this.appUser.maxPrice,
-      this.numBeds
+      this.appUser.numberOfBedrooms
     );
     this.GetAverageRates(this.appUser.zipCode);
     this.displaySearchResult = true;

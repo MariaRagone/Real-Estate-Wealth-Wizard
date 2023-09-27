@@ -14,7 +14,8 @@ namespace FinalProject.Controllers
         [HttpGet("{postal_code}")]
         public RentModel GetRentByPostal(string postal_code, int beds)
         {
-            return RentDAL.GetForRentByPostal(postal_code, beds);
+            RentModel result = RentDAL.GetForRentByPostal(postal_code.Trim(), beds);
+            return result;
         }
     }
 }
