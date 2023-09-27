@@ -1,4 +1,4 @@
-<h1>{{this.Rent | currency}}</h1>
+ <!-- <h1>{{this.Rent | currency}}</h1> -->
 
 
 <p>Loan Amount {{loanAmount | currency}}</p>
@@ -14,4 +14,23 @@
 <p class="cashFlow" *ngIf="cashFlow > 0">Positive Cashflow: {{cashFlow | currency}}</p>
 <p class="negCashFlow" *ngIf="cashFlow <= 0">Negative Cashflow: {{cashFlow | currency}}</p>
 
+ 
+ <!-- <div *ngIf="ready"> -->
+ <!-- <h1>{{this.Rent | currency}}</h1>
 
+
+ <p>Loan Amount {{calculateLoanAmount() | currency}}</p>
+ <p>Closing Cost {{calculateClosingCost() | currency}}</p>
+ <p>Monthly Mortgage Payment {{calculateMonthlyMortgagePaymnet() | currency}}</p>
+ <p>Monthly Insurace Cost {{calculateInsurance() | currency}}</p>
+ <p>Monthly Vacancy Cost: {{calculateVacancy() | currency}}</p>
+ <p>Monthly Management Fee: {{calculateManagementFee() | currency}}</p>
+ <p>Estimated Monthly Maintenance Costs: {{calculateMaintenanceCosts() | currency}}</p>
+ <p>Estimated Monthly Taxes: {{calculateMonthlyTaxes() | currency}}</p>
+ 
+ 
+ <p class="cashFlow" *ngIf="calculateCashFlow() > 0">Positive Cashflow: {{cashFlow | currency}}</p>
+ <p class="negCashFlow" *ngIf="calculateCashFlow() <= 0">Negative Cashflow: {{cashFlow | currency}}</p> -->
+<!-- </div> -->
+ 
+ 

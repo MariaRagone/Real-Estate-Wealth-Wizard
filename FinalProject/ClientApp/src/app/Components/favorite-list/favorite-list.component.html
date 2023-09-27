@@ -22,20 +22,16 @@
     <p><strong>{{ p.data.description.beds }} Beds &nbsp; {{ p.data.description.baths }} Baths &nbsp; {{ p.data.description.sqft }} Square Feet</strong> </p>
     <br>
     <app-mortgage-result
+    *ngIf="isPrepared(p.data.property_id)"
     [DisplayResult]="ConvertDetailsToResult(p)"
     [User]="UserResult"
     [vacancyRate]="UserResult.vacancyRate"
     [managementFee]="UserResult.managementFee"
     [Rent]="getRentFromList(p.data.property_id)"
+    [AverageRates]="getAverageRateFromList(p.data.property_id)"
     ></app-mortgage-result>
-<<<<<<< HEAD
-  <!-- [AverageRates]="UserResult.averageRates" -->
-
-    
-=======
     </div>
 </div>
->>>>>>> 638b2c36d78c929d9d394927d0580d5af4263657
 </div>
 
 

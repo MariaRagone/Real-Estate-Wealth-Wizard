@@ -12,6 +12,9 @@ import { TransferngService } from 'src/app/Services/transferng.service';
 import { UserService } from 'src/app/Services/user.service';
 import { RentService } from 'src/app/Services/rent.service';
 import { RentProperty } from 'src/app/Models/rent-property';
+import { Rent } from 'src/app/Models/rent';
+import { AverageRateZipcode } from 'src/app/Models/average-rate-zipcode';
+import { AverageRateService } from 'src/app/Services/average-rate.service';
 
 @Component({
   selector: 'app-favorite-list',
@@ -30,56 +33,56 @@ export class FavoriteListComponent {
   vacancyRate: number = this._transfererng.vacancyRate;
   managementFee: any = this._transfererng.managementFee;
   averageRates: AverageRateModel = this._transfererng.averageRates;
-  
-  ConvertDetailsToResult(input:PropertyDetails):Result{
-    let result:Result= {}as Result
-    result.list_price=input.data.list_price;
-    
+
+  ConvertDetailsToResult(input: PropertyDetails): Result {
+    let result: Result = {} as Result
+    result.list_price = input.data.list_price;
+
 
     return result
   }
-  appUser():User{
+  appUser(): User {
     this.UpDatePropertyListingsVariables();
     ;
     return this._transfererng.appUser;
   }
-  _averageRent():Number{
+  _averageRent(): Number {
     return this._transfererng.averageRent;
   }
-  _vacancyRate():Number{
+  _vacancyRate(): Number {
     return this._transfererng.vacancyRate;
   }
-  _managementFee():Number{
+  _managementFee(): Number {
     return this._transfererng.managementFee;
   }
-  _averageRates():AverageRateModel{
+  _averageRates(): AverageRateModel {
     return this._transfererng.averageRates;
   }
 
 
-  NewMortgage(newUser: User){
+  NewMortgage(newUser: User) {
     this._transfererng.NewMortgage(newUser);
     // this.UpDatePropertyListingsVariables();
   }
-  VacancyRate(vacancyRate: number){
+  VacancyRate(vacancyRate: number) {
     this._transfererng.VacancyRate(vacancyRate);
     // this.UpDatePropertyListingsVariables();
   }
-  NumBeds(numBeds: number){
+  NumBeds(numBeds: number) {
     this._transfererng.VacancyRate(numBeds);
     // this.UpDatePropertyListingsVariables();
   }
-  ManagementFee(managementFee: number){
+  ManagementFee(managementFee: number) {
     this._transfererng.ManagementFee(managementFee);
     // this.UpDatePropertyListingsVariables();
   }
 
-  UpDatePropertyListingsVariables():void{
-  //   this.appUser = this._transfererng.appUser;
+  UpDatePropertyListingsVariables(): void {
+    //   this.appUser = this._transfererng.appUser;
     this.averageRent = this._transfererng.averageRent;
     this.vacancyRate = this._transfererng.vacancyRate;
     this.managementFee = this._transfererng.averageRates;
-    this.averageRates = this._transfererng.averageRates; 
+    this.averageRates = this._transfererng.averageRates;
   }
   ///
   //This is end of mortgage form and result code
@@ -92,16 +95,18 @@ export class FavoriteListComponent {
   PropertyCoordinates: CoordinateModel[] = [];
   favorited: boolean = false;
   rentPropertyList: RentProperty[] = [];
+  averageRateList: AverageRateZipcode[] = [];
 
   constructor(
     private _favoriteService: FavoriteService,
     private _propertyDetailsService: PropertyDetailsService,
     private _authService: SocialAuthService,
     //This is for mortgageform and result
-    private _transfererng: TransferngService, 
+    private _transfererng: TransferngService,
     private _userService: UserService,
-    private _rentService: RentService
-  ) {}
+    private _rentService: RentService,
+    private _averageRateService: AverageRateService
+  ) { }
 
   ngOnInit(): void {
     this._authService.authState.subscribe((user: SocialUser) => {
@@ -132,11 +137,11 @@ export class FavoriteListComponent {
           // console.log(response);
           this.PropertyCoordinates = this.GetCoordinates();
         });
-        
+
     });
   }
 
-  
+
 
   DeleteFavorite(googleId: string, propertyId: string): void {
     this.favorited = false;
@@ -156,15 +161,15 @@ export class FavoriteListComponent {
     let cords: CoordinateModel[] = [];
     this.favoriteProperties.forEach((p) => {
       if (p.data.location.address.coordinate.lat != null) {
-        
+
         let lat = (Number(p.data.location.address.coordinate.lat));
         let lon = (Number(p.data.location.address.coordinate.lon));
         let coord: CoordinateModel = {} as CoordinateModel;
-        coord.propertyDetails=p.data.property_id;
+        coord.propertyDetails = p.data.property_id;
         coord.photo = p.data.photos[0].href;
-        coord.price=p.data.list_price;
-        coord.city=p.data.location.address.city;
-        coord.line=p.data.location.address.line;
+        coord.price = p.data.list_price;
+        coord.city = p.data.location.address.city;
+        coord.line = p.data.location.address.line;
         coord.lat = lat;
         coord.lon = lon;
         cords.push(coord);
@@ -173,72 +178,104 @@ export class FavoriteListComponent {
       // console.log(cords)
     })
     // console.log(this.coordinates)
-    
+
     return cords;
   }
 
-  getUserSearches():void{
+  getUserSearches(): void {
     this._userService.getByGoogleId(this.user.id).subscribe((response) => {
       // console.log(response);
       this.UserResult = response;
     })
   }
 
-  async getRentByProperty(p:PropertyDetails):Promise<void>{
+  async getRentByProperty(p: PropertyDetails): Promise<void> {
     let beds = 0;
-    if(p.data.description.beds != null){
+    if (p.data.description.beds != null) {
       beds = p.data.description.beds;
     }
-    else if(p.data.description.beds_min != null){
+    else if (p.data.description.beds_min != null) {
       beds = p.data.description.beds_min;
     }
-    else if(p.data.description.beds_max != null){
+    else if (p.data.description.beds_max != null) {
       beds = p.data.description.beds_max;
     }
-    // else{
-    //   beds = 1;
-    // }
+    else{
+      beds = 1;
+    }
     //let rent_price:number[] = [];
-    await this._rentService.GetRentByPostal(p.data.location.address.postal_code, beds).subscribe((response) => {
+    await this.delay(1000)
+    await this._rentService.GetRentByPostal(p.data.location.address.postal_code, beds).subscribe((response: Rent) => {
       console.log(response);
-      let rent_price:number[] = [];
+      let rent_price: number[] = [];
       response.data.home_search.results.forEach((p) => {
         if (p.list_price != null) {
           rent_price.push(p.list_price);
         }
+
       });
-      let result:RentProperty = {
-        rent:   this.calculateRentIncome(rent_price),
+      let result: RentProperty = {
+        rent: this.calculateRentIncome(rent_price),
         propertyId: p.data.property_id
       }
-    this.rentPropertyList.push(result);
+      this.rentPropertyList.push(result);
     });
     //return this.calculateRentIncome(rent_price);
+    await this.delay(1000)
+    this.GetAverageRates(p.data.location.address.postal_code, p.data.property_id);
+  }
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  //also in property-listings component
+  calculateRentIncome(list_price: number[]): number {
+    // Initialize a variable to keep track of the sum of rent prices.
+    let sum = 0;
+    let averageRent = 0;
+    // Loop through the array of rent prices and add each rent price to the sum.
+    for (const price of list_price) {
+      sum += price;
+    }
+    // Calculate the average rent price by dividing the sum by the number of rentals.
+    if (list_price.length > 0) {
+      averageRent = sum / list_price.length;
+      // console.log(averageRent);
+      return averageRent;
+    } else {
+      // Handle the case where the array is empty to avoid division by zero.
+      return 0;
+    }
+
   }
 
-    //also in property-listings component
-    calculateRentIncome(list_price: number[]): number {
-      // Initialize a variable to keep track of the sum of rent prices.
-      let sum = 0;
-      let averageRent = 0;
-      // Loop through the array of rent prices and add each rent price to the sum.
-      for (const price of list_price) {
-        sum += price;
-      }
-      // Calculate the average rent price by dividing the sum by the number of rentals.
-      if (list_price.length > 0) {
-        averageRent = sum / list_price.length;
-        // console.log(averageRent);
-        return averageRent;
-      } else {
-        // Handle the case where the array is empty to avoid division by zero.
-        return 0;
-      }
+  GetAverageRates(postal_code: string, pID:string) {
+    this._averageRateService
+      .GetAverageRatesByPostal(postal_code)
+      .subscribe((response) => {
+        console.log(response);
+        let result: AverageRateZipcode = {
+          propertyId: pID,
+          rate: response
+        };
+        this.averageRateList.push(result);
+      });
+  }
 
+  getRentFromList(pId: string): number {
+    return Number(this.rentPropertyList.find(p => pId == p.propertyId)?.rent);
+  }
+  getAverageRateFromList(pId: string): AverageRateModel {
+    return this.averageRateList.find(p => pId == p.propertyId)?.rate as AverageRateModel;
+  }
+
+  isPrepared(pId:string){
+    let x:number = this.rentPropertyList.findIndex(p => pId == p.propertyId);
+    let y:number = this.averageRateList.findIndex(p => pId == p.propertyId);
+    if(x != -1 && y != -1){
+      return true;
     }
-
-    getRentFromList(pId:string):number{
-      return Number(this.rentPropertyList.find(p => pId == p.propertyId)?.rent);
+    else{
+      return false;
     }
-
+  }
 }
