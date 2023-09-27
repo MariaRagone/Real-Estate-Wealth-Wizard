@@ -1,7 +1,9 @@
-export interface Coordinate {
+export interface CoordinateModel {
     lat:number;
     lon:number;
-    propertyDetails?:string;
+    propertyDetails:string;
     photo?:string;
-    
+    price?:number;
+    line?:string;
+    city?:string;
 }

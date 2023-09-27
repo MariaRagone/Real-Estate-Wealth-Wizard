@@ -1,7 +1,7 @@
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, Input } from '@angular/core';
 import { Favorite } from 'src/app/Models/favorite';
-import { Coordinate } from 'src/app/Models/coordinate';
+import { CoordinateModel } from 'src/app/Models/coordinate';
 import {  PropertyDetails } from 'src/app/Models/property-details';
 import { User } from 'src/app/Models/user';
 import { FavoriteService } from 'src/app/Services/favorite.service';
@@ -18,7 +18,7 @@ export class FavoriteListComponent {
   UserListResult: User[] = [];
   favoriteProperties: PropertyDetails[] = [];
   user: SocialUser = {} as SocialUser;
-  PropertyCoordinates: Coordinate[] = [];
+  PropertyCoordinates: CoordinateModel[] = [];
 
   constructor(
     private _favoriteService: FavoriteService,
@@ -70,20 +70,21 @@ export class FavoriteListComponent {
   }
 
   //we still need this method
-  GetCoordinates(): Coordinate[] {
+  GetCoordinates(): CoordinateModel[] {
     // console.log('Get Coordinates')
     // console.log(this.favoritePins);
-    let cords: Coordinate[] = [];
+    let cords: CoordinateModel[] = [];
     this.favoriteProperties.forEach((p) => {
       if (p.data.location.address.coordinate.lat != null) {
         
         let lat = (Number(p.data.location.address.coordinate.lat));
         let lon = (Number(p.data.location.address.coordinate.lon));
-        let coord: Coordinate = {} as Coordinate;
+        let coord: CoordinateModel = {} as CoordinateModel;
         coord.propertyDetails=p.data.property_id;
         coord.photo = p.data.photos[0].href;
-        console.log('photo')
-        console.log(coord.photo)
+        coord.price=p.data.list_price;
+        coord.city=p.data.location.address.city;
+        coord.line=p.data.location.address.line;
         coord.lat = lat;
         coord.lon = lon;
         cords.push(coord);

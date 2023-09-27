@@ -3,7 +3,7 @@ import { PropertiesByPostal } from 'src/app/Models/properties-by-postal';
 import { PropertyDetails } from 'src/app/Models/property-details';
 import { Router } from '@angular/router';
 import { MapInfoWindow, MapMarker } from '@angular/google-maps';
-import { Coordinate } from 'src/app/Models/coordinate';
+import { CoordinateModel } from 'src/app/Models/coordinate';
 
 @Component({
   selector: 'app-map',
@@ -14,27 +14,23 @@ export class MapComponent {
   @ViewChild(MapInfoWindow)
   infoWindow!: MapInfoWindow;
   @Input() favoritePins: PropertyDetails[] = [];
-  @Input() listPins: Coordinate[] = [];
+  @Input() listPins: CoordinateModel[] = [];
   favoritePinResult: PropertyDetails = {} as PropertyDetails;
   listPinResult:PropertiesByPostal = {} as PropertiesByPostal;
   Lat: number = 43.0125;
   Lon: number = -83.6875;
-  coordinates: Coordinate[] = [];
+  coordinates: CoordinateModel[] = [];
+  propertyId:string="";
   constructor(private router: Router) { };
  InfoPicture?:string ="";
+ displayCoord: CoordinateModel = {} as CoordinateModel;
 
 
   ngOnInit(): void {
-    this.listPins.forEach((p)=>{
-      console.log(p.photo)
-    })
-    // if (this.favoritePinResult!=null){
-    //   this.GetCoordinates();
-    // }
-    // if (this.listPinResult!=null){
-    //   this.GetStartCoordinates();
-    // }
-
+    // this.listPins.forEach((p)=>{
+    //   console.log(p.photo)
+    // })
+ 
     
     this.setupMap();
   }
@@ -86,8 +82,11 @@ export class MapComponent {
     this.router.navigate(['/property-details', PropertyId]);
     
   }
-  openInfoWindow(marker: MapMarker, pix?:string) {
-    this.InfoPicture=pix;
+  openInfoWindow(marker: MapMarker, coordprop:CoordinateModel) {
+    this.displayCoord=coordprop;
+    // this.propertyId=coordprop.propertyDetails;
+    
+    // this.InfoPicture=coordprop.photo;
     this.infoWindow.open(marker);
   }
 
@@ -97,8 +96,8 @@ export class MapComponent {
   
 
   //this method needs some work
-  GetCenter():Coordinate{
-    let bob:Coordinate={} as Coordinate;
+  GetCenter():CoordinateModel{
+    let bob:CoordinateModel={} as CoordinateModel;
     
     if (this.favoritePinResult != null) {
      

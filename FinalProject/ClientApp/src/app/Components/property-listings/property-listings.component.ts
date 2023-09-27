@@ -14,7 +14,8 @@ import { Rent } from 'src/app/Models/rent';
 import { AverageRateService } from 'src/app/Services/average-rate.service';
 import { Observable } from 'rxjs';
 import { AverageRate, AverageRateModel } from 'src/app/Models/average-rate';
-import { Coordinate } from 'src/app/Models/coordinate';
+import { CoordinateModel } from 'src/app/Models/coordinate';
+
 @Component({
   selector: 'app-property-listings',
   templateUrl: './property-listings.component.html',
@@ -41,8 +42,8 @@ export class PropertyListingsComponent {
 
   ///map
   WaitAMinute: boolean = false;
-  PropertyCoordinates: Coordinate[] = [];
-
+  PropertyCoordinates: CoordinateModel[] = [];
+ 
   constructor(
     private _propertiesService: PropertiesService,
     private _favoriteService: FavoriteService,
@@ -54,6 +55,7 @@ export class PropertyListingsComponent {
 
   //Run the method location based on the IP Run the method location based on the IP address
   ngOnInit(): void {
+    
     // this.setupMap();
     this.authService.authState.subscribe((user) => {
       this.user = user;
@@ -245,15 +247,15 @@ export class PropertyListingsComponent {
   // Inserting map
 
   //we still need this method
-  GePropertyCoordinatess(Properties: PropertiesByPostal): Coordinate[] {
-    let coords: Coordinate[] = [];
-    let coord: Coordinate = {} as Coordinate;
+  GePropertyCoordinatess(Properties: PropertiesByPostal): CoordinateModel[] {
+    let coords: CoordinateModel[] = [];
+    let coord: CoordinateModel = {} as CoordinateModel;
     //
     const results = Properties.data.home_search.results;
 
     for (let i = 0; i < Properties.data.home_search.results.length; i++) {
       const p = Properties.data.home_search.results[i];
-      const coord = { lat: 55, lon: 55, propertyDetails: p.property_id }; // Default coordinates
+      coord = { lat: 55, lon: 55, propertyDetails: p.property_id }; // Default coordinates
 
       if (
         p.location.address.coordinate?.lat != null &&
@@ -261,6 +263,22 @@ export class PropertyListingsComponent {
       ) {
         coord.lat = Number(p.location.address.coordinate.lat);
         coord.lon = Number(p.location.address.coordinate.lon);
+        coord.city=p.location.address.city;
+        coord.line=p.location.address.line;
+        coord.price=p.list_price;
+        let temp:any ='';
+        console.log(p.photos)
+        if(p.photos?.[0]==null){
+          coord.photo='';
+        }
+        else {
+          
+          temp=p.photos[0].href;
+          coord.photo=temp;
+          console.log(temp)
+        }
+        
+       
       }
 
       coords.push(coord);
@@ -269,51 +287,5 @@ export class PropertyListingsComponent {
     return coords;
   }
 
-  // coordinatesTest: Coordinate[] = [
-  //   { lat: 43.0125, lon: -83.6875 }, // Flint, Michigan
-  //   { lat: 42.9752, lon: -83.6924 }, // Burton, Michigan
-  //   { lat: 43.0233, lon: -83.6757 }, // Flint Township, Michigan
-  //   { lat: 43.0165, lon: -83.6779 }, // Mundy Township, Michigan
-  //   { lat: 42.9654, lon: -83.7097 }, // Grand Blanc, Michigan
-  //   { lat: 43.0469, lon: -83.7812 }, // Swartz Creek, Michigan
-  //   { lat: 43.0217, lon: -83.6705 } // Genesee Township, Michigan
-  // ];
 
-  // Lat: number = 0;
-  // Lon: number = 0;
-  // listPinResult: PropertiesByPostal = {} as PropertiesByPostal;
-
-  // Click() {
-  //   console.log("mapClicked")
-  // }
-
-  // display: any;
-  // center: google.maps.LatLngLiteral = {} as google.maps.LatLngLiteral;
-  // zoom = 7;
-
-  // setupMap(): void {
-
-  //   this.center = {
-  //     lat: Number(this.coordinatesTest[0].lat),
-  //     lng: Number(this.coordinatesTest[0].lon)
-  //   };
-  // }
-
-  /*------------------------------------------
-  --------------------------------------------
-  moveMap()
-  --------------------------------------------
-  --------------------------------------------*/
-  // moveMap(event: google.maps.MapMouseEvent) {
-  //   if (event.latLng != null) this.center = (event.latLng.toJSON());
-  // }
-
-  /*------------------------------------------
-  --------------------------------------------
-  move()
-  --------------------------------------------
-  --------------------------------------------*/
-  //   move(event: google.maps.MapMouseEvent) {
-  //     if (event.latLng != null) this.display = event.latLng.toJSON();
-  //   }
 }

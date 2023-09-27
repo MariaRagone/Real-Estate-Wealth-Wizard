@@ -21,9 +21,16 @@
   #marker="mapMarker"
     *ngFor="let markerPosition of listPins"
     [position]="{ lat: markerPosition.lat, lng: markerPosition.lon }"
-    (mapClick)="openInfoWindow(marker,markerPosition?.photo)"
+    (mapClick)="openInfoWindow(marker,markerPosition)"
   >
-  <map-info-window><img src='{{InfoPicture}}'></map-info-window>
+  <map-info-window>
+    <a (click)="Click(displayCoord.propertyDetails)">
+    <img style="width: 300px" src='{{displayCoord.photo}}'>
+  </a>
+  <h2>{{displayCoord.price}}</h2>
+  <p>Street : {{displayCoord.line}}  </p>
+  <p>City : {{displayCoord.city}}</p>
+  </map-info-window>
 
 </map-marker>
 </google-map>
