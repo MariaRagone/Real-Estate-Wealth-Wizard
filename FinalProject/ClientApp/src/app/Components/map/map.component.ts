@@ -92,7 +92,7 @@ export class MapComponent {
 
   display: any;
   center: google.maps.LatLngLiteral = {} as google.maps.LatLngLiteral;
-  zoom = 7;
+  zoom = 9;
   
 
   //this method needs some work
