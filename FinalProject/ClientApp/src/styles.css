@@ -54,7 +54,7 @@ h3 {
 #heart{
   color: #ffbd59;
   position: absolute;
-    top: 10px;
+  top: 10px;
     right: 10px;
     background-color: transparent;
     border: none;
@@ -85,8 +85,7 @@ button {
   background-color: #FFBD59; 
 }
 
-
-.card {
+/* .card {
   width: 80%;
   max-width: 300px;
   margin: 0 auto;
@@ -103,42 +102,78 @@ button {
   max-height: 50%; 
   border: none;
   margin: auto;
-}
+} */
 
 
 /* these are for the property list and the favorites list */
-.property-list {
-  /* flex: 1;
-  margin-right: 20px;
-  flex-direction: row; */
-  /* display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; */
-  width: 100%; /* Adjust as needed */
-  padding: 10px;
-}
-
-.property-list-map {
+.page-container {
   display: flex;
-  max-width: 300px;
-  height: 800px;
-  margin: 50px;
-  margin-left: auto;
-  margin-right: auto; 
+  /* flex-wrap: wrap; */
+  justify-content:space-between;
 }
 
-.property-card-image {
-  position: relative;
-  width: 30%;
-  height: auto;
+
+.content-container { /*controls the way the cards behave in it's list /*
+  display: flex;
+  /* max-width: 100%; */
+  /* flex-direction: column; */
+  flex-wrap: wrap; /*need this to wrap the cards /*
+  flex-direction: row;  /*need this to show the map on the right /*
+  flex-grow: 1;
+  /* justify-content: space-between; */
+  width: 100%;
 }
 
-.property-card p {
+.property-card { /*controls the inside of each card /*
+  /* width: 100%; */
+  max-width: 100%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row; /* column displays the contents vertically, row displays horizontally*/
+  align-items: center;
+  text-align: center;
+  background-color: #fff;
+}
+.left-side{
+  flex-direction: column;
+
+}
+.right-side{
+  flex-direction: column;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.map-container {
+  max-width: 100%; /* Adjust as needed */
+  height: 900px;
+  padding: 10px;
+  position:relative;
+  border-radius: 20px;
+  /* margin-left: auto;
+  margin-right: auto; */
+}
+
+/* .property-card p {
   margin: 5px 0;
   position: relative;
   display: inline-block;
   margin: 10px;
+    font-size: 16px;
+} */
+
+.property-card img {
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0;
+  border-radius: 10px;
 }
+
+
 
 .loading {
   position: fixed;
@@ -156,64 +191,4 @@ button {
 .loading img {
   width: 100px; 
   height: 100px;
-}
-
-.property-card {
-  /* width: 100%; */
-  min-width: 300px;
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  background-color: #fff;
-}
-
-.property-card button {
-  background-color: #ff5733;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 3px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-
-.property-card h3 {
-  font-size: 24px;
-  margin-top: 10px;
-}
-
-.property-card p {
-  font-size: 16px;
-}
-
-.property-card img {
-  max-width: 100%;
-  height: auto;
-  margin: 10px 0;
-}
-
-.page-container {
-  display: flex;
-  /* flex-wrap: wrap; */
-  justify-content:space-between;
-}
-
-.map-container {
-  max-width: 100%; /* Adjust as needed */
-  padding: 10px;
-  /* margin-left: auto;
-  margin-right: auto; */
-}
-.content-container {
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  /* justify-content: space-between; */
-  width: 100%;
 }
