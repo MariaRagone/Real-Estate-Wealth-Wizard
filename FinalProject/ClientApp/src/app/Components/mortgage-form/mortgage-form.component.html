@@ -55,9 +55,10 @@
 
 <!-- TOP LINE -->
 <div class="form-layout">
+    <div class="form-align">
     <div class="top-line">
         <p>Max Price:
-            <select [(ngModel)]="newMortgage.maxPrice" name="maxPrice">
+            <select style="width: 110px;" [(ngModel)]="newMortgage.maxPrice" name="maxPrice">
               <option value="50000">$50,000</option>
               <option value="100000">$100,000</option>
               <option value="150000">$150,000</option>
@@ -97,7 +98,8 @@
               <option value="4">4</option>
               <option value="5">5</option>
             </select></p>
-        <input type="text" placeholder = "Zip Code" [(ngModel)]="newMortgage.zipCode" name="zipCode" id="zipCode" />
+            <p>Zip Code:
+        <input type="text" placeholder = "Zip Code" [(ngModel)]="newMortgage.zipCode" name="zipCode" id="zipCode" /> </p>
     </div>
 
     <!-- MIDDLE LINE -->
@@ -109,16 +111,18 @@
     <p>Closing Costs: <span title="As a buyer, what are your closing costs? They are typically about 2%">&#9432;</span>
     <input type="number" placeholder = "%" [(ngModel)]="newMortgage.closingCost" name="closingCost" /> </p>
 </div>
-
+<br>
 <!-- BOTTOM LINE -->
-<div><p>Will you need a loan? &nbsp; <input type="checkbox" class="custom-checkbox" [(ngModel)]="newMortgage.loan" /></p></div>
+<div class="form-align"><p>Will you need a loan? &nbsp; <input type="checkbox" class="custom-checkbox" [(ngModel)]="newMortgage.loan" /></p></div>
+<br>
 <div class="bottom-line">
     <div *ngIf="newMortgage.loan">Percent Down Payment: <input type="number" placeholder="%" [(ngModel)]="newMortgage.downPayment" name="downPayment" /></div>  
     <div *ngIf="newMortgage.loan"> Loan Term: <input type="number" placeholder="Years" [(ngModel)]="newMortgage.loanTerm" name="loanTerm" /></div>
     <div *ngIf="newMortgage.loan">Interest Rate: <input type="number" placeholder="%" [(ngModel)]="newMortgage.interestRate" name="interestRate"></div>
 </div>
+<br>
     <button type="submit" (click)="submitMortgage()">See results!</button> 
-
+</div>
 
 
 

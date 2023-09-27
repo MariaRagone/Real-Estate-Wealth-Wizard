@@ -28,11 +28,13 @@ margin-bottom: 150px;
   font-size: xx-large;
   padding: 50px;
 }
+
 .home-button{
 margin: auto;
 margin-top: 50px;
 margin-bottom: 150px;
 }
+
 button {
   color: white;
   background-color: #ffbd59;
@@ -42,6 +44,7 @@ button {
   padding-right: 15px;
   padding-left: 15px;
 }
+
 .custom-checkbox {
   width: 20px;
   height: 20px;
@@ -96,4 +99,3 @@ button {
   border: none;
   margin: auto;
 }
-

@@ -1,4 +1,4 @@
-<button id="heart"(click)="AddFavorites(user.id, PropertyDetailsResult.data.property_id)"><i class="fas fa-heart"> </i>like</button>
+<button id="heart"(click)="AddFavorites(user.id, PropertyDetailsResult.data.property_id)"><i class="fas fa-heart"> </i>Like</button> &nbsp;
   <button (click)="DeleteFavorite(user.id, PropertyDetailsResult.data.property_id)">Delete</button>
 
 <!-- image carousel -->
@@ -20,7 +20,7 @@
         </button>
     </div>
 </div>
-
+<br>
   <!-- <img
     style="width: 800px"
     *ngIf="PropertyDetailsResult.data.photos[0] != null"
@@ -33,10 +33,9 @@
   {{ PropertyDetailsResult.data.location.address.postal_code }}
   {{ PropertyDetailsResult.data.location.address.state_code }}
 </p>
-<p><strong>{{ PropertyDetailsResult.data.description.beds }} Beds {{ PropertyDetailsResult.data.description.baths }} Baths</strong> </p>
-<p><strong>{{ PropertyDetailsResult.data.description.sqft }} Square Feet </strong></p>
-<p><strong>{{ PropertyDetailsResult.data.description.garage }} Garage Spaces</strong></p>
-<p><strong>{{ PropertyDetailsResult.data.description.year_built }} Year Built</strong></p>
+<p><strong>{{ PropertyDetailsResult.data.description.beds }} Beds &nbsp; {{ PropertyDetailsResult.data.description.baths }} Baths &nbsp; {{ PropertyDetailsResult.data.description.sqft }} Square Feet</strong> </p>
+<p *ngIf="PropertyDetailsResult.data.description.garage > 0"><strong>{{ PropertyDetailsResult.data.description.garage }} Garage Spaces &nbsp;  Year Built: {{ PropertyDetailsResult.data.description.year_built }}</strong></p>
+
 <!-- <app-mortgage-result
 [DisplayResult]="p"
 [User]="appUser"
@@ -50,6 +49,7 @@
 <!-- <div *ngFor="let p of PropertyDetailsResult.data.photos">
   <p><img style="width: 500px" *ngIf="p.href != null" src="{{ p?.href }}" /></p>
 </div> -->
+<br>
 
 <google-map
   height="500px"
@@ -79,5 +79,7 @@
       {{ PropertyDetailsResult.data.location.address.postal_code }}
       {{ PropertyDetailsResult.data.location.address.state_code }}
     </p>
+    <br>
+    <br>
   </map-info-window>
 </google-map>
