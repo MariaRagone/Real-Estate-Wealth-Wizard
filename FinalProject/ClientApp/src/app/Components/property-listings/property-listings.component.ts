@@ -38,6 +38,7 @@ export class PropertyListingsComponent {
   averageRates: AverageRateModel = {} as AverageRateModel;
   status: string = "";
   loading: boolean = false;
+  favorited: boolean = false;
   //appUser: User = {} as User;
 
   ///map
@@ -63,7 +64,6 @@ export class PropertyListingsComponent {
     });
    
   }
-
   //this method runs when form is submitted
   NewMortgage(newUser: User) {
     this.appUser = newUser;
@@ -170,6 +170,29 @@ export class PropertyListingsComponent {
       this.averageRent = 0;
     }
   }
+
+  async GetProperties(ZipCode: string, PriceMax: number, MinBeds: number): Promise<void> {
+    await this._propertiesService
+      .GetAllByPostalCode(ZipCode, PriceMax, MinBeds)
+      .subscribe((response: PropertiesByPostal) => {
+        console.log(response);
+        this.PropertyCoordinates = this.GePropertyCoordinatess(response);
+        this.PropertyListResult = response;
+        console.log('hi coords');
+        console.log(this.PropertyCoordinates);
+      });
+  }
+
+  ToggleFavorite(googleId: string, propertyId: string, favorited: boolean) {
+    if (favorited) {
+      this.RemoveFavorite(googleId, propertyId);
+    } 
+    else {
+      this.AddFavorites(googleId, propertyId);
+    }
+    this.favorited = !favorited;
+  }
+
   AddFavorites(googleId: string, propertyId: string): void {
     let favorite: Favorite = {} as Favorite;
     // this._eventService.AddFavorite();
@@ -180,17 +203,6 @@ export class PropertyListingsComponent {
       .subscribe((response: Favorite) => {
         // console.log(response)
         this.FavoriteListResult.push(response);
-      });
-  }
-  async GetProperties(ZipCode: string, PriceMax: number, MinBeds: number): Promise<void> {
-    await this._propertiesService
-      .GetAllByPostalCode(ZipCode, PriceMax, MinBeds)
-      .subscribe((response: PropertiesByPostal) => {
-        console.log(response);
-        this.PropertyCoordinates = this.GePropertyCoordinatess(response);
-        this.PropertyListResult = response;
-        console.log('hi coords');
-        console.log(this.PropertyCoordinates);
       });
   }
 

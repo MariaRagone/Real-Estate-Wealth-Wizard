@@ -87,6 +87,7 @@ export class FavoriteListComponent {
   favoriteProperties: PropertyDetails[] = [];
   user: SocialUser = {} as SocialUser;
   PropertyCoordinates: CoordinateModel[] = [];
+  favorited: boolean = false;
 
   constructor(
     private _favoriteService: FavoriteService,
@@ -129,6 +130,7 @@ export class FavoriteListComponent {
   
 
   DeleteFavorite(googleId: string, propertyId: string): void {
+    this.favorited = false;
     //feedback for user
     let target: number = this.favoriteProperties.findIndex((f) => f.data.property_id == propertyId);
     this.favoriteProperties.splice(target, 1);

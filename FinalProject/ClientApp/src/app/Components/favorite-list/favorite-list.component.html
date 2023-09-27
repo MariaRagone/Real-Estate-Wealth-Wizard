@@ -7,9 +7,7 @@
   (ManagementFee)="ManagementFee($event)"
 ></app-mortgage-form>
 <div *ngFor="let p of favoriteProperties">
-    <td>
     <button (click)="DeleteFavorite(user.id, p.data.property_id)">Delete</button>
-    </td>
     <a [routerLink]="['/property-details', p.data.property_id]">
     <img style="width: 300px;"*ngIf="p.data.photos[0].href != null" src="{{ p.data.photos[0]?.href }}"/></a>
     <p *ngIf="p.data.photos[0]?.href == null"><img src = "https://en.pimg.jp/072/139/682/1/72139682.jpg"></p>

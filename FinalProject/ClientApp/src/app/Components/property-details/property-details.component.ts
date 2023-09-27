@@ -101,6 +101,7 @@ export class PropertyDetailsComponent {
   Lat:number=0;
   Lon:number=0;
   activeIndex:number = 0;
+  favorited: boolean = false;
 
   openInfoWindow(marker: MapMarker) {
     this.infoWindow.open(marker);
@@ -157,6 +158,7 @@ GetUser(): void {
 }
 
   AddFavorites(googleId:string,propertId:string): void {
+    this.favorited = true;
     let favorite: Favorite = {} as Favorite;
     // this._eventService.AddFavorite();
     favorite.googleId = googleId;
@@ -170,6 +172,7 @@ GetUser(): void {
   }
 
   DeleteFavorite(googleId: string, propertyId: string): void {
+    this.favorited = false;
     //feedback for user
     // let target: number = this.favoriteProperties.findIndex((f) => f.data.property_id == propertyId);
     // this.favoriteProperties.splice(target, 1);

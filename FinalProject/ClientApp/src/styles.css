@@ -1,3 +1,4 @@
+/* these are for the home page */
 .hero {
 margin: auto;
 width: 100%;
@@ -17,23 +18,45 @@ margin-bottom: 150px;
   padding: 50px;
 }
 
-.feature-2{
-  color: #ffbd59;
-  background-color: white;
-  max-width: 50%;
-  align: justify-content;
-  /* font-family: 'Cedarville Cursive', cursive; */
-  font-family: 'Nunito', sans-serif;
-  /* font-family: 'Poppins', sans-serif; */
-  font-size: xx-large;
-  padding: 50px;
-}
-
 .home-button{
 margin: auto;
 margin-top: 50px;
 margin-bottom: 150px;
 }
+.home-container{
+  display: flex;
+  width: 100%;
+  margin: auto;
+  max-height: 100%; 
+}
+
+.home-card
+{
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif; 
+}
+.home-card img {
+  width: 80%;
+  max-height: 100%; 
+  margin: auto;
+}
+
+
+/* these are global styles */
+#heart{
+  color: #ffbd59;
+  position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
 
 button {
   color: white;
@@ -58,28 +81,6 @@ button {
   background-color: #FFBD59; 
 }
 
-.home-container{
-  display: flex;
-  width: 100%;
-  margin: auto;
-  max-height: 100%; 
-}
-
-.home-card
-{
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-  font-family: 'Poppins', sans-serif; 
-}
-.home-card img {
-  width: 80%;
-  max-height: 100%; 
-  margin: auto;
-}
-
 
 .card {
   width: 80%;
@@ -98,4 +99,60 @@ button {
   max-height: 50%; 
   border: none;
   margin: auto;
+}
+
+
+/* these are for the property list and the favorites list */
+.property-list {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.property-list-map {
+  display: flex;
+  max-width: 300px;
+  height: 800px;
+  margin: 50px;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+.property-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.property-card-image {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.property-card p {
+  margin: 5px 0;
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading img {
+  width: 100px; 
+  height: 100px;
 }
