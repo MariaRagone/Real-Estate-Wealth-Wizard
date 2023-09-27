@@ -1,11 +1,11 @@
 <h1>Favorites</h1>
 <br>
-<app-mortgage-form
+<!-- <app-mortgage-form
   (MortgageCreated)="NewMortgage($event)"
   (VacancyRate)="VacancyRate($event)"
   (NumBeds)="NumBeds($event)"
   (ManagementFee)="ManagementFee($event)"
-></app-mortgage-form>
+></app-mortgage-form> -->
 <div *ngFor="let p of favoriteProperties">
     <button (click)="DeleteFavorite(user.id, p.data.property_id)">Delete</button>
     <a [routerLink]="['/property-details', p.data.property_id]">
@@ -21,12 +21,13 @@
     <br>
     <app-mortgage-result
     [DisplayResult]="ConvertDetailsToResult(p)"
-    [User]="appUser()"
-    [Rent]="averageRent"
-    [vacancyRate]="vacancyRate"
-    [managementFee]="managementFee"
-    [AverageRates]="averageRates"
+    [User]="UserResult"
+    [vacancyRate]="UserResult.vacancyRate"
+    [managementFee]="UserResult.managementFee"
+    [Rent]="getRentFromList(p.data.property_id)"
     ></app-mortgage-result>
+  <!-- [AverageRates]="UserResult.averageRates" -->
+
     
 </div>
 

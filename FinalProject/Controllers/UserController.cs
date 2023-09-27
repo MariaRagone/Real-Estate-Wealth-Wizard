@@ -105,6 +105,11 @@ namespace FinalProject.Controllers
             return g;
         }
 
+        //[HttpGet]
+        //public List<User> GetAllUserFavorites(string googleId)
+        //{
+        //    return _dbContext.Users.Where(u => u.GoogleId == googleId).ToList();
+        //}
     }
 }
 

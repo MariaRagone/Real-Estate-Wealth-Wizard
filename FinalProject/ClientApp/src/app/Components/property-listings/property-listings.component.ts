@@ -152,6 +152,8 @@ export class PropertyListingsComponent {
     });
 
   }
+
+  //also in favorite-list component
   calculateRentIncome(list_price: number[]): void {
     // Initialize a variable to keep track of the sum of rent prices.
     let sum = 0;
