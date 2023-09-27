@@ -1,23 +1,25 @@
 <h1>Favorites</h1>
 <br>
+
+<div style="margin-bottom: 50px;">
 <!-- <app-mortgage-form
   (MortgageCreated)="NewMortgage($event)"
   (VacancyRate)="VacancyRate($event)"
   (NumBeds)="NumBeds($event)"
-  (ManagementFee)="ManagementFee($event)"
-></app-mortgage-form> -->
-<div *ngFor="let p of favoriteProperties">
+  (ManagementFee)="ManagementFee($event)">
+</app-mortgage-form> -->
+<div class="page-container">
+
+<div class="property-list">
+    <div class="content-container">
+    <div *ngFor="let p of favoriteProperties" class="property-card">
     <button (click)="DeleteFavorite(user.id, p.data.property_id)">Delete</button>
     <a [routerLink]="['/property-details', p.data.property_id]">
     <img style="width: 300px;"*ngIf="p.data.photos[0].href != null" src="{{ p.data.photos[0]?.href }}"/></a>
     <p *ngIf="p.data.photos[0]?.href == null"><img src = "https://en.pimg.jp/072/139/682/1/72139682.jpg"></p>
     <br>
-    <br>
-    <p>Price: {{ p.data.list_price | currency }}</p>
-    <p>Address: {{ p.data.location.address.line }}, {{ p.data.location.address.city }}, {{ p.data.location.address.postal_code }} {{ p.data.location.address.state_code }}</p>
-    <p>#Beds: {{ p.data.description.beds }}</p>
-    <P># Baths: {{ p.data.description.baths }}</P>
-    <p>Square Feet: {{ p.data.description.sqft }}</p>
+    <h3>{{ p.data.list_price | currency }}</h3>
+    <p><strong>{{ p.data.description.beds }} Beds &nbsp; {{ p.data.description.baths }} Baths &nbsp; {{ p.data.description.sqft }} Square Feet</strong> </p>
     <br>
     <app-mortgage-result
     [DisplayResult]="ConvertDetailsToResult(p)"
@@ -26,11 +28,19 @@
     [managementFee]="UserResult.managementFee"
     [Rent]="getRentFromList(p.data.property_id)"
     ></app-mortgage-result>
+<<<<<<< HEAD
   <!-- [AverageRates]="UserResult.averageRates" -->
 
     
+=======
+    </div>
+</div>
+>>>>>>> 638b2c36d78c929d9d394927d0580d5af4263657
 </div>
 
-<div *ngIf="favoriteProperties.length == FavoriteListResult.length ">
+
+<div *ngIf="favoriteProperties.length == FavoriteListResult.length" class="map-container">
 <app-map [listPins]="PropertyCoordinates"></app-map>
+</div>
+</div>
 </div>

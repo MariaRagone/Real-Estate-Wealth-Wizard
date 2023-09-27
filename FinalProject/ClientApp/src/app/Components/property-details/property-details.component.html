@@ -34,8 +34,8 @@
     *ngIf="PropertyDetailsResult.data.photos[0] != null"
     src="{{ PropertyDetailsResult.data.photos[0].href }}"
   /> -->
- <div style="  font-family: 'Nunito', sans-serif; font-size:x-large; font-weight: 800;"> {{ PropertyDetailsResult.data.list_price | currency }} </div>   
-<p>
+  <h3> {{ PropertyDetailsResult.data.list_price | currency }} </h3>
+  <p>
   {{ PropertyDetailsResult.data.location.address.line }},
   {{ PropertyDetailsResult.data.location.address.city }},
   {{ PropertyDetailsResult.data.location.address.postal_code }}

@@ -11,7 +11,7 @@
 <p>Estimated Monthly Taxes: {{monthlyTaxes | currency}}</p>
 
 
-<p style="color: green;" *ngIf="cashFlow > 0">Positive Cashflow: {{cashFlow | currency}}</p>
-<p style="color: red" *ngIf="cashFlow <= 0">Negative Cashflow: {{cashFlow | currency}}</p>
+<p class="cashFlow" *ngIf="cashFlow > 0">Positive Cashflow: {{cashFlow | currency}}</p>
+<p class="negCashFlow" *ngIf="cashFlow <= 0">Negative Cashflow: {{cashFlow | currency}}</p>
 
 
