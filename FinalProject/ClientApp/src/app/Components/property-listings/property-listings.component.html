@@ -10,6 +10,14 @@
     />
   </head>
   <body>
+    <div *ngIf="!loggedIn">
+        <img style="padding-left: 50px;" src="/assets/log-in.gif" />
+    </div>
+    <!-- <asl-google-signin-button
+    *ngIf="!loggedIn"
+  ></asl-google-signin-button> -->
+    <div *ngIf="loggedIn">
+
     <!-- mortgage created output passes to New Mortgate to trigger event (mortgate created) -->
     <!-- mortgage created is used for searching.  -->
     <!-- parent component -->
@@ -119,5 +127,6 @@
       <!-- </google-map> -->
     </div>
     <!-- Both the Mortgate Form and Mortgage Result components make up these pages.  -->
+    </div>
   </body>
 </html>
