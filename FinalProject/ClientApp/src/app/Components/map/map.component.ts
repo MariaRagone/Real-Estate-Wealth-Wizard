@@ -53,7 +53,7 @@ export class MapComponent {
 
   display: any;
   center: google.maps.LatLngLiteral = {} as google.maps.LatLngLiteral;
-  zoom = 9;
+  zoom = 14;
 
   GetCenter():void{
     this.Lat = this.displayCoord.lat;
