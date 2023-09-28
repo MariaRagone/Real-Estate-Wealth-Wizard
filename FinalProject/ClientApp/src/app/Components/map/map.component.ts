@@ -1,4 +1,4 @@
-import { Component, Input,ViewChild } from '@angular/core';
+import { Component, Input,SimpleChanges,ViewChild } from '@angular/core';
 import { PropertiesByPostal } from 'src/app/Models/properties-by-postal';
 import { PropertyDetails } from 'src/app/Models/property-details';
 import { Router } from '@angular/router';
@@ -34,8 +34,14 @@ export class MapComponent {
     
     this.setupMap();
   }
-
-
+  RestartMape(){
+    this.setupMap();
+    this.GetCenter();
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    this.displayCoord=this.listPins[0]
+    this.RestartMape();
+  }
 
   // GetCoordinates(): Coordinate[] {
   //   // console.log('Get Coordinates')
@@ -92,30 +98,14 @@ export class MapComponent {
 
   display: any;
   center: google.maps.LatLngLiteral = {} as google.maps.LatLngLiteral;
-  zoom = 9;
+  zoom = 10;
   
 
   //this method needs some work
-  GetCenter():CoordinateModel{
-    let bob:CoordinateModel={} as CoordinateModel;
-    
-    if (this.favoritePinResult != null) {
-     
-      this.Lat =  Number(this.favoritePinResult.data.location.address.coordinate.lat);
-      this.Lon = Number(this.favoritePinResult.data.location.address.coordinate.lon);
-    }
-    if (this.favoritePins != null)
-      this.Lat = Number(this.favoritePins[0].data.location.address.coordinate.lat)
-      this.Lon = Number(this.favoritePins[0].data.location.address.coordinate.lon)
-    if (this.listPins != null) {
-      
-      this.Lat = Number(this.listPins[0].lat);
-      this.Lon = Number(this.listPins[0].lon);
-    }
-    bob.lat=43.0125;
-    bob.lon=-83.6875;
-    return bob;
-  }
+  GetCenter():void{
+    this.Lat = this.displayCoord.lat;
+    this.Lon = this.displayCoord.lon;
+}
 
 
   setupMap(): void {
