@@ -190,16 +190,6 @@ export class PropertyListingsComponent {
       });
   }
 
-  // ToggleFavorite(googleId: string, propertyId: string, favorited: boolean) {
-  //   if (favorited) {
-  //     this.RemoveFavorite(googleId, propertyId);
-  //   } 
-  //   else {
-  //     this.AddFavorites(googleId, propertyId);
-  //   }
-  //   this.favorited = !favorited;
-  // }
-
   AddFavorites(googleId: string, propertyId: string): void {
     let favorite: Favorite = {} as Favorite;
     // this._eventService.AddFavorite();
@@ -247,25 +237,6 @@ export class PropertyListingsComponent {
       });
   }
 
-  // calculateLoanAmount(list_price:number, downPayment:number):number{
-  //   let result:number = 0;
-  //   result = list_price - downPayment;
-  //   return result;
-  // }
-
-  // RemoveFavorite(id: number): void {
-  //   //feedback for user
-  //   let target: number = this.FavoriteListResult.findIndex((e) => e.id == id);
-  //   this.FavoriteListResult.splice(target, 1);
-
-  //   this._favoriteService.DeleteFavorite(id).subscribe((response: Favorite) => {
-  //     console.log(response);
-  //   });
-  // }
-
-  // Inserting map
-
-  //we still need this method
   GePropertyCoordinatess(Properties: PropertiesByPostal): CoordinateModel[] {
     let coords: CoordinateModel[] = [];
     let coord: CoordinateModel = {} as CoordinateModel;
