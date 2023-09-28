@@ -120,8 +120,8 @@ export class MapComponent {
 
   setupMap(): void {
     this.center = {
-      lat: 43.0125,//this.GetCenter().lat,
-      lng: -83.6875//this.GetCenter().lon
+      lat: this.Lat, //this.GetCenter().lat,
+      lng: this.Lon //this.GetCenter().lon
     };
   }
 

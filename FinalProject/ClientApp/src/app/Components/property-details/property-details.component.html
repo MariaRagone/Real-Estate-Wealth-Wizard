@@ -1,13 +1,8 @@
-<app-mortgage-form
-  (MortgageCreated)="NewMortgage($event)"
-  (VacancyRate)="VacancyRate($event)"
-  (NumBeds)="NumBeds($event)"
-  (ManagementFee)="ManagementFee($event)"
-></app-mortgage-form>
-
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
 <button id="heart"(click)="AddFavorites(user.id, PropertyDetailsResult.data.property_id)"><i class="fas fa-heart"> </i>Like</button> &nbsp;
-  <button (click)="DeleteFavorite(user.id, PropertyDetailsResult.data.property_id)">Delete</button>
+<button (click)="DeleteFavorite(user.id, PropertyDetailsResult.data.property_id)">Delete</button>
 
 <!-- image carousel -->
 <div class="carousel-container">
@@ -41,34 +36,25 @@
   {{ PropertyDetailsResult.data.location.address.postal_code }}
   {{ PropertyDetailsResult.data.location.address.state_code }}
 </p>
-<p><strong>{{ PropertyDetailsResult.data.description.beds }} Beds &nbsp; {{ PropertyDetailsResult.data.description.baths }} Baths &nbsp; {{ PropertyDetailsResult.data.description.sqft }} Square Feet</strong> </p>
+<p><strong>{{ PropertyDetailsResult.data.description.beds }} Beds &nbsp; {{ PropertyDetailsResult.data.description.baths }} Baths &nbsp; {{ PropertyDetailsResult.data.description.sqft }} Sq. Ft.</strong> </p>
 <p *ngIf="PropertyDetailsResult.data.description.garage > 0"><strong>{{ PropertyDetailsResult.data.description.garage }} Garage Spaces &nbsp;  Year Built: {{ PropertyDetailsResult.data.description.year_built }}</strong></p>
-<app-mortgage-result
+<p><strong>Price Per Sq. Ft.: &nbsp; {{ PropertyDetailsResult.data.price_per_sqft | currency }}</strong></p>
+<p>{{ PropertyDetailsResult.data.description.text }}</p>
+<!-- <app-mortgage-result
 [DisplayResult]="ConvertDetailsToResult(PropertyDetailsResult)"
 [User]="appUser()"
 [Rent]="averageRent"
 [vacancyRate]="vacancyRate"
 [managementFee]="managementFee"
 [AverageRates]="averageRates"
-></app-mortgage-result>
-<!-- <app-mortgage-result
-[DisplayResult]="p"
-[User]="appUser"
-[Rent]="averageRent"
-[vacancyRate]="vacancyRate"
-[managementFee]="managementFee"
-[AverageRates]="averageRates"
 ></app-mortgage-result> -->
-<!-- Data is flowing from a component's class to its template -->
-
-<!-- <div *ngFor="let p of PropertyDetailsResult.data.photos">
-  <p><img style="width: 500px" *ngIf="p.href != null" src="{{ p?.href }}" /></p>
-</div> -->
+</div>
 <br>
 
+<div class="col-md-6">
 <google-map
-  height="500px"
-  width="100%"
+  height="900px"
+  width="auto"
   [center]="center"
   [zoom]="zoom"
   (mapClick)="moveMap($event)"
@@ -98,3 +84,6 @@
     <br>
   </map-info-window>
 </google-map>
+</div>
+</div>
+</div>
