@@ -42,6 +42,7 @@
         </p>
       </div>
       <div class="right-side">
+                <!-- [Rent]="calculateRentIncome(p.data.)" -->
         <app-mortgage-result
         *ngIf="isPrepared(p.data.property_id)"
         [DisplayResult]="ConvertDetailsToResult(p)"
