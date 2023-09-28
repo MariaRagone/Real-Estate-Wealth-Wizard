@@ -40,11 +40,12 @@
           <!-- Structural directives. ng if is used to display the options that match the users inputs and ng for loops through and displays all that match.  -->
           <div *ngIf="displaySearchResult && PropertyListResult.data != null">
             <div *ngFor="let p of PropertyListResult.data.home_search.results" class="property-card">
-              <i
+              <!-- <i
               class="heart-icon fas fa-heart"
               (click)="AddFavorites(user.id, p.property_id)"
               id="heart"
-            ></i>
+            ></i> -->
+            <app-heart (click)="AddFavorites(user.id, p.property_id)" [favoriteCheck]="isFavorited(p.property_id)"></app-heart>
 
               <div class="left-side">
                 <p>

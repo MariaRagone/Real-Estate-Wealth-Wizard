@@ -7,7 +7,9 @@ import { User } from 'oidc-client';
   styleUrls: ['./heart.component.css']
 })
 export class HeartComponent {
-  @Input() userId:string = {} as string;
-  @Input() propertyId:string = {} as string;
+  // @Input() userId:string = {} as string;
+  // @Input() propertyId:string = {} as string;
+  @Input() favoriteCheck:Boolean = {} as boolean;
+  @Input() isOnDetails:Boolean = false;
 
 }

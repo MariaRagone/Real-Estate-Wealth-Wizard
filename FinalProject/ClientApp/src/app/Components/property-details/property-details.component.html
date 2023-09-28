@@ -1,50 +1,93 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-          
-          <!-- image carousel -->
-          <div class="carousel-container">
-            
-            <div  class="carousel slide">
-              <div class="carousel-inner" style="border-radius: 10px">
-                <div *ngFor="let p of PropertyDetailsResult.data.photos, let i = index" class="carousel-item" [ngClass]="i == activeIndex ? 'active': ''"> 
-                  <img  *ngIf="p.href != null" src="{{ p?.href }}" class="d-block w-100" alt="...">
-                </div>
-              </div>
-              <button (click)="adjustIndex(-1)" class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button (click)="adjustIndex(1)" class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
+  <div class="row">
+    <div class="col-md-6">
+      <!-- image carousel -->
+      <div class="carousel-container">
+        <div class="carousel slide">
+          <div class="carousel-inner" style="border-radius: 10px">
+            <div
+              *ngFor="let p of PropertyDetailsResult.data.photos; let i = index"
+              class="carousel-item"
+              [ngClass]="i == activeIndex ? 'active' : ''"
+            >
+              <img
+                *ngIf="p.href != null"
+                src="{{ p?.href }}"
+                class="d-block w-100"
+                alt="..."
+              />
             </div>
           </div>
-          <!-- <button id="heart"(click)="AddFavorites(user.id, PropertyDetailsResult.data.property_id)"><i class="fas fa-heart"> </i>Like</button> &nbsp; -->
-          <div style="padding-top: 20px;">
-          <button style="align-items: right;" (click)="AddFavorites(user.id, PropertyDetailsResult.data.property_id)">Add Favorite</button> &nbsp; &nbsp;
-
-          <button (click)="DeleteFavorite(user.id, PropertyDetailsResult.data.property_id)">Remove Favorite</button>
+          <button
+            (click)="adjustIndex(-1)"
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            (click)="adjustIndex(1)"
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
-  <!-- <img
+      </div>
+      <!-- <button id="heart"(click)="AddFavorites(user.id, PropertyDetailsResult.data.property_id)"><i class="fas fa-heart"> </i>Like</button> &nbsp; -->
+      <div id="detailsHeartContainer" style="padding-top: 20px">
+        <!-- <button style="align-items: right;" (click)="AddFavorites(user.id, PropertyDetailsResult.data.property_id)">Add Favorite</button> &nbsp; &nbsp;
+
+          <button (click)="DeleteFavorite(user.id, PropertyDetailsResult.data.property_id)">Remove Favorite</button> -->
+        <app-heart
+          (click)="
+            AddFavorites(user.id, PropertyDetailsResult.data.property_id)
+          "
+          [isOnDetails]="true"
+          [favoriteCheck]="isFavorited(PropertyDetailsResult.data.property_id)"
+        ></app-heart>
+      </div>
+      <!-- <img
     style="width: 800px"
     *ngIf="PropertyDetailsResult.data.photos[0] != null"
     src="{{ PropertyDetailsResult.data.photos[0].href }}"
   /> -->
-  <br>
-  <h3> {{ PropertyDetailsResult.data.list_price | currency }} </h3>
-  <p>
-  {{ PropertyDetailsResult.data.location.address.line }},
-  {{ PropertyDetailsResult.data.location.address.city }},
-  {{ PropertyDetailsResult.data.location.address.postal_code }}
-  {{ PropertyDetailsResult.data.location.address.state_code }}
-</p>
-<p><strong>{{ PropertyDetailsResult.data.description.beds }} Beds &nbsp; {{ PropertyDetailsResult.data.description.baths }} Baths &nbsp; {{ PropertyDetailsResult.data.description.sqft }} Sq. Ft.</strong> </p>
-<p *ngIf="PropertyDetailsResult.data.description.garage > 0"><strong>{{ PropertyDetailsResult.data.description.garage }} Garage Spaces &nbsp;  Year Built: {{ PropertyDetailsResult.data.description.year_built }}</strong></p>
-<p><strong>Price Per Sq. Ft.: &nbsp; {{ PropertyDetailsResult.data.price_per_sqft | currency }}</strong></p>
-<p>{{ PropertyDetailsResult.data.description.text }}</p>
-<!-- <app-mortgage-result
+      <br />
+      <h3>{{ PropertyDetailsResult.data.list_price | currency }}</h3>
+      <p>
+        {{ PropertyDetailsResult.data.location.address.line }},
+        {{ PropertyDetailsResult.data.location.address.city }},
+        {{ PropertyDetailsResult.data.location.address.postal_code }}
+        {{ PropertyDetailsResult.data.location.address.state_code }}
+      </p>
+      <p>
+        <strong
+          >{{ PropertyDetailsResult.data.description.beds }} Beds &nbsp;
+          {{ PropertyDetailsResult.data.description.baths }} Baths &nbsp;
+          {{ PropertyDetailsResult.data.description.sqft }} Sq. Ft.</strong
+        >
+      </p>
+      <p *ngIf="PropertyDetailsResult.data.description.garage > 0">
+        <strong
+          >{{ PropertyDetailsResult.data.description.garage }} Garage Spaces
+          &nbsp; Year Built:
+          {{ PropertyDetailsResult.data.description.year_built }}</strong
+        >
+      </p>
+      <p>
+        <strong
+          >Price Per Sq. Ft.: &nbsp;
+          {{ PropertyDetailsResult.data.price_per_sqft | currency }}</strong
+        >
+      </p>
+      <p>{{ PropertyDetailsResult.data.description.text }}</p>
+      <!-- <app-mortgage-result
 [DisplayResult]="ConvertDetailsToResult(PropertyDetailsResult)"
 [User]="appUser()"
 [Rent]="averageRent"
@@ -52,42 +95,42 @@
 [managementFee]="managementFee"
 [AverageRates]="averageRates"
 ></app-mortgage-result> -->
-</div>
-<br>
+    </div>
+    <br />
 
-<div class="col-md-6">
-<google-map
-  height="900px"
-  width="auto"
-  [center]="center"
-  [zoom]="15"
-  (mapClick)="moveMap($event)"
-  (mapMousemove)="move($event)"
->
-  <map-marker
-    #marker="mapMarker"
-    [position]="{ lat: Lat, lng: Lon }"
-    [label]="''"
-    (mapClick)="openInfoWindow(marker)"
-  ></map-marker>
-  <map-info-window>
-    <a >
-      <img
-        style="width: 150px"
-        src="{{ PropertyDetailsResult.data.photos[0].href }}"
-      />
-    </a>
-    <p>
-      <strong>Address:</strong>
-      {{ PropertyDetailsResult.data.location.address.line }},
-      {{ PropertyDetailsResult.data.location.address.city }},
-      {{ PropertyDetailsResult.data.location.address.postal_code }}
-      {{ PropertyDetailsResult.data.location.address.state_code }}
-    </p>
-    <br>
-    <br>
-  </map-info-window>
-</google-map>
-</div>
-</div>
+    <div class="col-md-6">
+      <google-map
+        height="900px"
+        width="auto"
+        [center]="center"
+        [zoom]="15"
+        (mapClick)="moveMap($event)"
+        (mapMousemove)="move($event)"
+      >
+        <map-marker
+          #marker="mapMarker"
+          [position]="{ lat: Lat, lng: Lon }"
+          [label]="''"
+          (mapClick)="openInfoWindow(marker)"
+        ></map-marker>
+        <map-info-window>
+          <a>
+            <img
+              style="width: 150px"
+              src="{{ PropertyDetailsResult.data.photos[0].href }}"
+            />
+          </a>
+          <p>
+            <strong>Address:</strong>
+            {{ PropertyDetailsResult.data.location.address.line }},
+            {{ PropertyDetailsResult.data.location.address.city }},
+            {{ PropertyDetailsResult.data.location.address.postal_code }}
+            {{ PropertyDetailsResult.data.location.address.state_code }}
+          </p>
+          <br />
+          <br />
+        </map-info-window>
+      </google-map>
+    </div>
+  </div>
 </div>

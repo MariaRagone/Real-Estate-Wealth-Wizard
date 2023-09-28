@@ -61,9 +61,18 @@ export class PropertyListingsComponent {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = user != null;
+      this.getAllUserFavs();
     });
    
   }
+
+getAllUserFavs():void{
+  this._favoriteService.GetFavorites(this.user.id).subscribe((response:Favorite[])=> {
+    console.log(response);
+    this.FavoriteListResult = response;
+  });
+}
+
   //this method runs when form is submitted
   NewMortgage(newUser: User) {
     this.appUser = newUser;
@@ -191,6 +200,13 @@ export class PropertyListingsComponent {
   }
 
   AddFavorites(googleId: string, propertyId: string): void {
+    //if already favorited, then remove
+    if(this.isFavorited(propertyId)){
+      this.RemoveFavorite(googleId, propertyId);
+      return;//gets out of method early
+    }
+
+
     let favorite: Favorite = {} as Favorite;
     // this._eventService.AddFavorite();
     favorite.googleId = googleId;
@@ -212,7 +228,9 @@ export class PropertyListingsComponent {
       .RemoveFavorite(googleId, propertyId)
       .subscribe((response: Favorite) => {
         // console.log(response)
-        this.FavoriteListResult.push(response);
+        // this.FavoriteListResult.push(response);
+        let index:number = this.FavoriteListResult.findIndex(f => f.propertyId == propertyId && f.googleId == googleId);
+        this.FavoriteListResult.splice(index,1);
       });
   }
 
@@ -277,5 +295,14 @@ export class PropertyListingsComponent {
     return coords;
   }
 
-
+  isFavorited(pId:string):boolean{
+    //returns -1 if not found or the index if found
+    let index:number = this.FavoriteListResult.findIndex(f => f.propertyId == pId && f.googleId == this.user.id);
+    if(index >= 0){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 }

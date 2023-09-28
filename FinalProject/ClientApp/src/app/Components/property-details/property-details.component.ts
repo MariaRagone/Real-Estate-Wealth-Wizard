@@ -122,7 +122,7 @@ ngOnInit(): void {
   this.route.params.subscribe((params) => {
     this.propertyId = params['propertyId'];
 
-
+    
 
     this._propertyDetailsService
       .GetPropertyDetails(this.propertyId)
@@ -136,7 +136,12 @@ ngOnInit(): void {
       });
   });
 }
-
+getAllUserFavs():void{
+  this._favoriteService.GetFavorites(this.user.id).subscribe((response:Favorite[])=> {
+    console.log(response);
+    this.FavoriteListResult = response;
+  });
+}
 //adjusts photo carousel
   adjustIndex(amount:number):void{
     this.activeIndex += amount;
@@ -154,10 +159,15 @@ GetUser(): void {
   this._authService.authState.subscribe((user: SocialUser) => {
     this.user = user;
     // this.loggedIn = this.user != null;
+    this.getAllUserFavs();
   });
 }
 
   AddFavorites(googleId:string,propertId:string): void {
+    if(this.isFavorited(propertId)){
+      this.DeleteFavorite(googleId, propertId);
+      return;//gets out of method early
+    }
     this.favorited = true;
     let favorite: Favorite = {} as Favorite;
     // this._eventService.AddFavorite();
@@ -179,9 +189,20 @@ GetUser(): void {
 
     this._favoriteService.RemoveFavorite(googleId, propertyId).subscribe((response: Favorite) => {
       console.log(response);
+      let index:number = this.FavoriteListResult.findIndex(f => f.propertyId == propertyId && f.googleId == googleId);
+        this.FavoriteListResult.splice(index,1);
     });
   }
-  
+  isFavorited(pId:string):boolean{
+    //returns -1 if not found or the index if found
+    let index:number = this.FavoriteListResult.findIndex(f => f.propertyId == pId && f.googleId == this.user.id);
+    if(index >= 0){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 
 ////////////
 Click(){

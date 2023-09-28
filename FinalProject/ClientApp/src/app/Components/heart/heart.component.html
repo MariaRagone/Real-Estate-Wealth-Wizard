@@ -1,1 +1,16 @@
-<p>heart works!</p>
+<!-- properties list -->
+<i *ngIf="favoriteCheck && isOnDetails == false" class="heart-icon fas fa-heart" id="heart"></i>
+<i
+  *ngIf="favoriteCheck == false && isOnDetails == false"
+  class="heart-icon fas fa-heart"
+  id="heartNotLike"
+></i>
+
+
+<!-- properties details -->
+<i *ngIf="favoriteCheck && isOnDetails == true" class="heart-icon fas fa-heart" id="heart"></i>
+<i
+  *ngIf="favoriteCheck == false && isOnDetails == true"
+  class="heart-icon fas fa-heart"
+  id="heartNotLike"
+></i>
