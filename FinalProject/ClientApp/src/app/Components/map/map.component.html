@@ -1,3 +1,4 @@
+<p>{{listPins[0]}}</p>
 <google-map
 height="1100px"
   [center]="center"
@@ -5,17 +6,7 @@ height="1100px"
   (mapClick)="moveMap($event)"
   (mapMousemove)="move($event)"
 >
-  <!-- <map-marker *ngFor="let markerPosition of coordinates" [position]="{lat:markerPosition.lat, lng:markerPosition.lon}" [label]="'bob'" (mapClick)="Click()"></map-marker> -->
-  <!-- <div *ngIf="favoritePins.length != 0">
-    <map-marker
-    #marker="mapMarker"
-      *ngFor="let markerPosition of GetCoordinates()"
-      [position]="{ lat: markerPosition.lat, lng: markerPosition.lon }"
-      (mapClick)="openInfoWindow(marker)"
-    ></map-marker>
-    <map-info-window>Hello Google Maps list</map-info-window>
-  </div> -->
-
+  
   <map-marker
   #marker="mapMarker"
     *ngFor="let markerPosition of listPins"
