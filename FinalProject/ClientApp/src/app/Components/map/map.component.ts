@@ -27,11 +27,7 @@ export class MapComponent {
 
 
   ngOnInit(): void {
-    // this.listPins.forEach((p)=>{
-    //   console.log(p.photo)
-    // })
- 
-    
+    this.RestartMape();
     this.setupMap();
   }
   RestartMape(){
@@ -39,50 +35,12 @@ export class MapComponent {
     this.GetCenter();
   }
   ngOnChanges(changes: SimpleChanges) {
+    this.listPins;
+    console.log('listPins')
+    console.log(this.listPins)
     this.displayCoord=this.listPins[0]
     this.RestartMape();
   }
-
-  // GetCoordinates(): Coordinate[] {
-  //   // console.log('Get Coordinates')
-  //   // console.log(this.favoritePins);
-  //   let cords: Coordinate[] = [];
-  //   this.favoritePins.forEach((p) => {
-  //     if (p.data.location.address.coordinate.lat != null) {
-  //       let lat = (Number(p.data.location.address.coordinate.lat));
-  //       let lon = (Number(p.data.location.address.coordinate.lon));
-  //       let coord: Coordinate = {} as Coordinate;
-  //       coord.propertyDetails=p.data.property_id;
-  //       coord.lat = lat;
-  //       coord.lon = lon;
-  //       cords.push(coord);
-  //     }
-  //     console.log(`Coordinates = ${cords}`);
-  //     console.log(cords)
-  //   })
-    // console.log(this.coordinates)
-    
-  //   return cords;
-  // }
-  /////
-  // GetStartCoordinates(): Coordinate[] {
-    // console.log('Get Coordinates')
-    // console.log(this.favoritePins);
-  //   let cords: Coordinate[] = [];
-  //   this.listPins.data.home_search.results.forEach((p) => {
-  //     if (p.location.address.coordinate != null) {
-  //       let lat = (Number(p.location.address.coordinate.lat));
-  //       let lon = (Number(p.location.address.coordinate.lon));
-  //       let coord: Coordinate = {} as Coordinate;
-  //       coord.lat = lat;
-  //       coord.lon = lon;
-  //       cords.push(coord);
-  //     }
-  //   })
-  //   // console.log(this.coordinates)
-  //   return cords;
-  // }
-
 
   Click(PropertyId:string) {
     this.router.navigate(['/property-details', PropertyId]);
@@ -90,18 +48,13 @@ export class MapComponent {
   }
   openInfoWindow(marker: MapMarker, coordprop:CoordinateModel) {
     this.displayCoord=coordprop;
-    // this.propertyId=coordprop.propertyDetails;
-    
-    // this.InfoPicture=coordprop.photo;
     this.infoWindow.open(marker);
   }
 
   display: any;
   center: google.maps.LatLngLiteral = {} as google.maps.LatLngLiteral;
-  zoom = 10;
-  
+  zoom = 9;
 
-  //this method needs some work
   GetCenter():void{
     this.Lat = this.displayCoord.lat;
     this.Lon = this.displayCoord.lon;
