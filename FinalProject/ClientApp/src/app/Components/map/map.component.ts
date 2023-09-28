@@ -31,8 +31,8 @@ export class MapComponent {
     this.setupMap();
   }
   RestartMape(){
-    this.setupMap();
     this.GetCenter();
+    this.setupMap();
   }
   ngOnChanges(changes: SimpleChanges) {
     this.listPins;
