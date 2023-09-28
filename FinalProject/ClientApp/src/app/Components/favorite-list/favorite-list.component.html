@@ -3,34 +3,24 @@
 <h3>Hey {{UserResult.firstName}}</h3>
 <h5>All calculations are based on your last search.</h5>
 <!-- <button onclick="toggleDisplay()">View Last Criteria</button> -->
-
 <!-- <div *ngIf="displayLastCriteria"> -->
-<p>
-<strong>Down Payment:</strong> {{UserResult.downPayment}} &nbsp;•
-<strong>Loan Term:</strong> {{UserResult.loanTerm}} &nbsp;•
-<strong>Interest Rate:</strong> {{UserResult.interestRate}} &nbsp;•
-<strong>Closing Costs:</strong> {{UserResult.closingCost}} &nbsp;•
-<strong>Vacancy Rate:</strong> {{UserResult.vacancyRate}} &nbsp;•
-<strong>Management Fees:</strong> {{UserResult.managementFee}} &nbsp;
-
-</p>
+    <p>
+        <strong>Down Payment:</strong> {{UserResult.downPayment}} &nbsp;•
+        <strong>Loan Term:</strong> {{UserResult.loanTerm}} &nbsp;•
+        <strong>Interest Rate:</strong> {{UserResult.interestRate}} &nbsp;•
+        <strong>Closing Costs:</strong> {{UserResult.closingCost}} &nbsp;•
+        <strong>Vacancy Rate:</strong> {{UserResult.vacancyRate}} &nbsp;•
+        <strong>Management Fees:</strong> {{UserResult.managementFee}} &nbsp;
+    </p>
 <!-- </div> -->
 <div class="page-container">
   <div class="content-container">
     <div *ngFor="let p of favoriteProperties" class="property-card">
-      <i
-        class="fas fa-heart"
-        (click)="DeleteFavorite(user.id, p.data.property_id)"
-        id="heart"
-      ></i>
-
+      <i class="fas fa-heart" (click)="DeleteFavorite(user.id, p.data.property_id)" id="heart"></i>
       <div class="left-side">
         <p>
           <a [routerLink]="['/property-details', p.data.property_id]">
-            <img
-              *ngIf="p.data.photos[0].href != null"
-              src="{{ p.data.photos[0]?.href }}"
-          /></a>
+            <img *ngIf="p.data.photos[0].href != null" src="{{ p.data.photos[0]?.href }}"/></a>
         </p>
         <p *ngIf="p.data.photos[0]?.href == null">
           <img src="https://en.pimg.jp/072/139/682/1/72139682.jpg" />
@@ -38,11 +28,11 @@
         <h3>{{ p.data.list_price | currency }}</h3>
         <p>
           {{ p.data.location.address.line }},
+        <br>
           {{ p.data.location.address.city }},
-          {{ p.data.location.address.postal_code }}
           {{ p.data.location.address.state_code }}
+          {{ p.data.location.address.postal_code }}
         </p>
-
         <p>
           <strong
             >{{ p.data.description.beds }} Beds &nbsp;
@@ -50,6 +40,8 @@
             {{ p.data.description.sqft }} Square Feet</strong
           >
         </p>
+      </div>
+      <div class="right-side">
         <app-mortgage-result
         *ngIf="isPrepared(p.data.property_id)"
         [DisplayResult]="ConvertDetailsToResult(p)"
@@ -59,16 +51,10 @@
         [Rent]="getRentFromList(p.data.property_id)"
         [AverageRates]="getAverageRateFromList(p.data.property_id)"
         ></app-mortgage-result>
-    
-      </div>
-      <div class="right-side">
       </div>
     </div>
   </div>
-  <div
-    *ngIf="favoriteProperties.length == FavoriteListResult.length"
-    class="map-container"
-  >
+  <div class="map-container" *ngIf="favoriteProperties.length == FavoriteListResult.length">
     <app-map [listPins]="PropertyCoordinates"></app-map>
   </div>
     <!-- <div *ngFor="let p of favoriteProperties" class="property-card">
@@ -82,8 +68,6 @@
     <br>
     </div> -->
 </div>
-
-
 <!-- <div *ngIf="favoriteProperties.length == FavoriteListResult.length" class="map-container">
 <app-map [listPins]="PropertyCoordinates"></app-map> -->
 <!-- </div> -->

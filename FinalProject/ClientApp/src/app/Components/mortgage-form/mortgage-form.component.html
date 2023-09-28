@@ -107,7 +107,7 @@
         <p>Vacancy Rate <span title="The rate at which the property will be vacant. Typically 4%-8%">&#9432; </span>
     <input type="number" placeholder="%" [(ngModel)]="newMortgage.vacancyRate" name="vacancyRate" /></p>
         <p>Management Fee:  <span title="The fee a company charges to manage and maintain the rental property. Typically 10%">&#9432;</span>
-    <input type="number" placeholder="Management Fee Percent" [(ngModel)]="newMortgage.managementFee" name="managementFee" />
+    <input type="number" placeholder="%" [(ngModel)]="newMortgage.managementFee" name="managementFee" />
     <p>Closing Costs: <span title="As a buyer, what are your closing costs? They are typically about 2%">&#9432;</span>
     <input type="number" placeholder = "%" [(ngModel)]="newMortgage.closingCost" name="closingCost" /> </p>
 </div>
@@ -121,7 +121,7 @@
     <div *ngIf="newMortgage.loan">Interest Rate: <input type="number" placeholder="%" [(ngModel)]="newMortgage.interestRate" name="interestRate"></div>
 </div>
 <br>
-    <button type="submit" (click)="submitMortgage()">See results!</button> 
+    <button type="submit" (click)="submitMortgage()">See Results!</button> 
 </div>
 
 

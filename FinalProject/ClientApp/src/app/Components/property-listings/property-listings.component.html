@@ -60,9 +60,11 @@
               <!-- Interface values are pulled from API -->
               <h3>{{ p.list_price | currency }}</h3>
               <p>
-                {{ p.location.address.line }}, {{ p.location.address.city }},
-                {{ p.location.address.postal_code }}
+                {{ p.location.address.line }},
+                <br>
+                {{ p.location.address.city }},
                 {{ p.location.address.state_code }}
+                {{ p.location.address.postal_code }}
               </p>
               <p>
                 <strong
